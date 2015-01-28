@@ -21,7 +21,7 @@ public class OthelloMain {
 			for (int i = 0; i < 60; i++) {
 				System.out.print("\nPlayer " + player + " make your move:");
 				s = br.readLine();
-				board = makeMove(s.toCharArray());
+				board = makeMove(board,s,player);
 				player = player % 2 + 1;
 				printBoard(board);
 			}
@@ -31,10 +31,6 @@ public class OthelloMain {
 		}
 	}
 
-	private static int[][] makeMove(char[] charArray) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	public static void printBoard(int[][] board) {
 		System.out.print("  +");
@@ -71,7 +67,7 @@ public class OthelloMain {
 
 	}
 
-	public static int[][] makeMove(int[][] board, String[] strings, int y) {
+	public static int[][] makeMove(int[][] board, String pos, int y) {
 		return board;
 
 	}

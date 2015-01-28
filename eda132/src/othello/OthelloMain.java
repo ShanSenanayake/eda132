@@ -37,7 +37,10 @@ public class OthelloMain {
 
 
 	public static void printBoard(int[][] board) {
-		System.out.print("  +");
+		for (int i1 = 0; i1 < board.length; i1++) {
+			System.out.print("   " + (i1 + 1));
+		}
+		System.out.print("\n  +");
 		for (int i = 0; i < board.length; i++) {
 			System.out.print("---+");
 		}
@@ -55,6 +58,7 @@ public class OthelloMain {
 				}
 				System.out.print(" " + ch + " |");
 			}
+			System.out.print(" " + c);
 			System.out.print("\n  +");
 			for (int i1 = 0; i1 < board.length; i1++) {
 				System.out.print("---+");
@@ -73,7 +77,7 @@ public class OthelloMain {
 
 	public static int[][] makeMove(int[][] board, String pos, int y) {
 		char[] c = pos.toCharArray();
-		board[(int)(c[0]-'a')][(int)(c[1])] = y;
+		board[(int)(c[0]-'a')][(int)(c[1]-'1')] = y;
 		return board;
 
 	}

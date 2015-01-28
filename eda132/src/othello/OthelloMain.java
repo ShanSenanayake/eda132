@@ -27,7 +27,13 @@ public class OthelloMain {
 				player);
 		try {
 			while (!moves.isEmpty()) {
-				System.out.print("\nPlayer " + player + " make your move:");
+				String theplayer;
+				if (player == LIGHT){
+					theplayer = "O";
+				}else{
+					theplayer = "X";
+				}
+				System.out.print("\nPlayer " + theplayer + " make your move:");
 				boolean isValidMove = false;
 				while (!isValidMove) {
 					s = br.readLine();

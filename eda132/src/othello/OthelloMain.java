@@ -21,13 +21,23 @@ public class OthelloMain {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		System.out.println("Welcome to the classic game of Reversi");
 		printBoard(board);
-		String s;
+		String s = "";
 		int player = 1;
+		HashMap<String, HashSet<Integer[]>> moves = findValidMoves(board,
+				player);
 		try {
-			for (int i = 0; i < 60; i++) {
+			while (!moves.isEmpty()) {
 				System.out.print("\nPlayer " + player + " make your move:");
-				s = br.readLine();
-				board = makeMove(board, s, player);
+				boolean isValidMove = false;
+				while (!isValidMove) {
+					s = br.readLine();
+					if (moves.containsKey(s)) {
+						isValidMove = true;
+					} else {
+						System.out.print("\nInvalid move, choose again: ");
+					}
+				}
+				board = makeMove(board, s, player, moves);
 				player = player % 2 + 1;
 				printBoard(board);
 			}
@@ -35,6 +45,7 @@ public class OthelloMain {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println("Game Over");
 	}
 
 	public static void printBoard(int[][] board) {
@@ -82,14 +93,13 @@ public class OthelloMain {
 
 	}
 
-	public static int[][] makeMove(int[][] board, String pos, int player) {
-		HashMap<String, HashSet<Integer[]>> moves = findValidMoves(board,
-				player);
-		if (moves.containsKey(pos)) {
-			flipTiles(board, moves.get(pos), player);
-			char[] c = pos.toCharArray();
-			board[(int) (c[0] - 'a')][(int) (c[1] - '1')] = player;
-		}
+	public static int[][] makeMove(int[][] board, String pos, int player,
+			HashMap<String, HashSet<Integer[]>> moves) {
+
+		flipTiles(board, moves.get(pos), player);
+		char[] c = pos.toCharArray();
+		board[(int) (c[0] - 'a')][(int) (c[1] - '1')] = player;
+
 		return board;
 
 	}

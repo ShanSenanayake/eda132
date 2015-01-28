@@ -11,6 +11,10 @@ public class OthelloMain {
 
 	public static void main(String args[]) {
 		int[][] board = new int[8][8];
+		board[4][3] = 1;
+		board[4][4] = 2;
+		board[3][3] = 2;
+		board[3][4] = 1;
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		System.out.println("Welcome to the classic game of Reversi");
@@ -68,6 +72,8 @@ public class OthelloMain {
 	}
 
 	public static int[][] makeMove(int[][] board, String pos, int y) {
+		char[] c = pos.toCharArray();
+		board[(int)(c[0]-'a')][(int)(c[1])] = y;
 		return board;
 
 	}

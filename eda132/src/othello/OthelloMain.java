@@ -1,5 +1,9 @@
 package othello;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 
 public class OthelloMain {
 	private static int EMPTY = 0;
@@ -7,13 +11,26 @@ public class OthelloMain {
 	private static int DARK = 2;
 	
 	public static void main(String args[]){
-		int[][] test = new int[8][8];
-		for (int i = 0; i < test.length;i++){
-			for (int j = 0; j < test.length; j++){
-				test[i][j]=(i+j) % 3;
+		int[][] board = new int[8][8];
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		System.out
+				.println("Welcome to the classic game of Reversi");
+		printBoard(board);
+		String s;
+		int player = 1;
+		try {
+			for (int i = 0; i < 60; i++) {
+				System.out.print("\nPlayer " + player + " make your move a-h,0-8:");
+				s = br.readLine();
+				board = makeMove(board, s.split(","),player);
+				player = player % 2 + 1;
+				printBoard(board);
 			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		printBoard(test);
 	}
 	
 	public static void printBoard(int[][] board){
@@ -51,7 +68,7 @@ public class OthelloMain {
 		
 	}
 	
-	public static int[][] makeMove(int[][] board, int x, int y){
+	public static int[][] makeMove(int[][] board, String[] strings, int y){
 		return board;
 		
 	}

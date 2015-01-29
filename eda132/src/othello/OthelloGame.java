@@ -2,6 +2,7 @@ package othello;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Set;
 
 public class OthelloGame {
 	private static final int EMPTY = 0;
@@ -24,6 +25,7 @@ public class OthelloGame {
 	}
 
 	public void print() {
+		Set<String> valids = validMoves.keySet();
 		System.out.print(" ");
 		for (int i1 = 0; i1 < board.length; i1++) {
 			System.out.print("   " + (i1 + 1));
@@ -42,7 +44,11 @@ public class OthelloGame {
 				} else if (board[i][j] == DARK) {
 					ch = D;
 				} else {
-					ch = E;
+					if (valids.contains(posToString(i, j))) {
+						ch = V;
+					} else {
+						ch = E;
+					}
 				}
 				System.out.print(" " + ch + " |");
 			}

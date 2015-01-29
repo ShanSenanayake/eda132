@@ -62,7 +62,7 @@ public class OthelloGame {
 		for (int i1 = 0; i1 < board.length; i1++) {
 			System.out.print("   " + (i1 + 1));
 		}
-
+		System.out.println("\nLeading: " + score());
 	}
 
 	private void findValidMoves() {

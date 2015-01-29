@@ -24,7 +24,6 @@ public class TestMain {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			System.out.println("Leading: " + ob.score());
 		}
 		System.out.println("Game over! Winner: " + ob.score());
 

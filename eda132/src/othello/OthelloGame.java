@@ -2,6 +2,7 @@ package othello;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class OthelloGame {
@@ -22,6 +23,16 @@ public class OthelloGame {
 		board[size / 2][size / 2] = DARK;
 		board[size / 2 - 1][size / 2 - 1] = DARK;
 		board[size / 2 - 1][size / 2] = LIGHT;
+	}
+	
+	private OthelloGame(int[][] board,int player,HashMap<String, HashSet<Integer[]>> validMoves){
+		this.board=board.clone();
+		this.player = player;
+		this.validMoves = (HashMap<String, HashSet<Integer[]>>)validMoves.clone();
+	}
+	
+	public OthelloGame getCopyBoard(){
+		return new OthelloGame(board,player,validMoves);
 	}
 
 	public void print() {

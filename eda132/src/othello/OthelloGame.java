@@ -26,9 +26,26 @@ public class OthelloGame {
 	}
 	
 	private OthelloGame(int[][] board,int player,HashMap<String, HashSet<Integer[]>> validMoves){
-		this.board=board.clone();
+		this.board= new int[board.length][board.length];
+		for (int i = 0; i < board.length; i++){
+			for (int j = 0; j < board.length; j++){
+				this.board[i][j] = board[i][j];
+			}
+		}
 		this.player = player;
-		this.validMoves = (HashMap<String, HashSet<Integer[]>>)validMoves.clone();
+		this.validMoves = new HashMap<String, HashSet<Integer[]>>();
+		for (Map.Entry<String, HashSet<Integer[]>> entry: validMoves.entrySet()){
+			HashSet<Integer[]> set = new HashSet<Integer[]>();
+			for (Integer[] ints :entry.getValue()){
+				Integer[] tmp = new Integer[ints.length];
+				for (int i = 0; i < ints.length;i++){
+					tmp[i]=ints[i];
+				}
+				set.add(tmp);
+			}
+			this.validMoves.put(entry.getKey(), set);
+			
+		}
 	}
 	
 	public OthelloGame getCopyBoard(){
@@ -37,14 +54,8 @@ public class OthelloGame {
 
 	public void print() {
 		Set<String> valids = validMoves.keySet();
-		System.out.print(" ");
-		for (int i1 = 0; i1 < board.length; i1++) {
-			System.out.print("   " + (i1 + 1));
-		}
-		System.out.print("\n  +");
-		for (int i = 0; i < board.length; i++) {
-			System.out.print("---+");
-		}
+		printNbrLine(board.length);
+		printSepLine(board.length);
 		for (int i = 0; i < board.length; i++) {
 			char c = (char) ('a' + i);
 			System.out.print("\n" + c + " |");
@@ -64,17 +75,28 @@ public class OthelloGame {
 				System.out.print(" " + ch + " |");
 			}
 			System.out.print(" " + c);
-			System.out.print("\n  +");
-			for (int i1 = 0; i1 < board.length; i1++) {
-				System.out.print("---+");
-			}
+			printSepLine(board.length);
 		}
-		System.out.print("\n ");
-		for (int i1 = 0; i1 < board.length; i1++) {
-			System.out.print("   " + (i1 + 1));
-		}
+		System.out.println();
+		printNbrLine(board.length);
 		System.out.println("\nLeading: " + score());
 	}
+	
+	private void printSepLine(int length){
+		System.out.print("\n  +");
+		for (int i1 = 0; i1 < length; i1++) {
+			System.out.print("---+");
+		}
+	}
+	
+	private void printNbrLine(int length){
+		System.out.print(" ");
+		for (int i1 = 0; i1 < length; i1++) {
+			System.out.print("   " + (i1 + 1));
+		}
+	}
+	
+
 
 	private void findValidMoves() {
 		validMoves = new HashMap<String, HashSet<Integer[]>>();

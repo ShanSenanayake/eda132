@@ -9,8 +9,8 @@ public class OthelloGame {
 	private static final int EMPTY = 0;
 	private static final int LIGHT = 1;
 	private static final int DARK = -1;
-	private static final char L = 'O';
-	private static final char D = 'X';
+	public static final char L = 'O';
+	public static final char D = 'X';
 	private static final char E = ' ';
 	private static final char V = '#';
 	private int[][] board;
@@ -214,7 +214,7 @@ public class OthelloGame {
 	}
 
 	public String score() {
-		int score = sum();
+		int score = sumScore();
 		if (score < 0) {
 			score = -score;
 			return "Player: " + D + " Score: " + score;
@@ -225,7 +225,7 @@ public class OthelloGame {
 		}
 	}
 
-	private int sum() {
+	public int sumScore() {
 		int sum = 0;
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board.length; j++) {

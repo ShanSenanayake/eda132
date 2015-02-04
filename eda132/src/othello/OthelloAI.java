@@ -6,21 +6,23 @@ import java.util.HashSet;
 public class OthelloAI {
 	private OthelloGame othelloGame;
 	private long timeLimit;
+	private long currentTime;
 
 	public OthelloAI(OthelloGame game, int timeLimitInSeconds) {
 		othelloGame = game;
 		timeLimit = timeLimitInSeconds * 1000;
+		currentTime = 0;
 	}
 
 	public String deduceMove() {
-		long time = System.currentTimeMillis();
+		currentTime = System.currentTimeMillis();
 		System.out.println("Thinking...");
 		HashMap<String, HashSet<Integer[]>> validMoves = othelloGame
 				.getValidMoves();
 		String move = "";
 		int score = Integer.MIN_VALUE;
 		int iterations = 1;
-		while (System.currentTimeMillis() - time < timeLimit) {
+		while (System.currentTimeMillis() - currentTime < timeLimit) {
 			if (!validMoves.isEmpty()) {
 				for (String s : validMoves.keySet()) {
 					OthelloGame copy = othelloGame.getCopyBoard();
@@ -36,7 +38,7 @@ public class OthelloAI {
 			iterations++;
 		}
 		System.out.println("Time it took: "
-				+ (System.currentTimeMillis() - time) / 1000.0);
+				+ (System.currentTimeMillis() - currentTime) / 1000.0);
 		return move;
 	}
 
@@ -48,7 +50,12 @@ public class OthelloAI {
 				OthelloGame copy = game.getCopyBoard();
 				copy.makeMove(s);
 				copy.nextTurn();
-				int temp = recursiveMin(copy, iterations - 1, max);
+				int temp = max;
+				if (System.currentTimeMillis() - currentTime < timeLimit) {
+					temp = recursiveMin(copy, iterations - 1, max);
+				}else{
+					return Integer.MAX_VALUE;
+				}
 				if (temp > prevMin) {
 					return temp;
 				} else if (temp > max)
@@ -68,7 +75,12 @@ public class OthelloAI {
 				OthelloGame copy = game.getCopyBoard();
 				copy.makeMove(s);
 				copy.nextTurn();
-				int temp = recursiveMax(copy, iterations - 1, min);
+				int temp = min;
+				if (System.currentTimeMillis() - currentTime < timeLimit) {
+					temp = recursiveMax(copy, iterations - 1, min);
+				}else{
+					return Integer.MIN_VALUE;
+				}
 				if (temp < prevMax) {
 					return temp;
 				} else if (temp < min) {

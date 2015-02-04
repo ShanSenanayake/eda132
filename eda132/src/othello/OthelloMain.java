@@ -8,7 +8,7 @@ public class OthelloMain {
 
 	public static void main(String[] args) {
 		OthelloGame game = new OthelloGame(8);
-		OthelloAI ai = new OthelloAI(game);
+		OthelloAI ai = new OthelloAI(game,10);
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		System.out.println("Welcome to the classical game of Othello");
 		while (game.nextTurn()) {
@@ -27,7 +27,7 @@ public class OthelloMain {
 					e.printStackTrace();
 				}
 			}else{
-				String move = ai.deduceMove(5);
+				String move = ai.deduceMove();
 				game.makeMove(move);
 			}
 		}

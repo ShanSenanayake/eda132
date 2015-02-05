@@ -23,22 +23,16 @@ public class OthelloAI {
 		int score = Integer.MIN_VALUE;
 		int iterations = 1;
 		while (System.currentTimeMillis() - currentTime < timeLimit) {
-			int localMax = Integer.MIN_VALUE;
-			String localMove = "";
 			if (!validMoves.isEmpty()) {
 				for (String s : validMoves.keySet()) {
 					OthelloGame copy = othelloGame.getCopyBoard();
 					copy.makeMove(s);
 					copy.nextTurn();
 					int temp = recursiveMin(copy, iterations, Integer.MIN_VALUE);
-					if (temp > localMax) {
-						localMax = temp;
-						localMove = s;
+					if (temp > score) {
+						score = temp;
+						move = s;
 					}
-				}
-				if(System.currentTimeMillis() - currentTime < timeLimit){
-					score = localMax;
-					move = localMove;
 				}
 			}
 			iterations++;

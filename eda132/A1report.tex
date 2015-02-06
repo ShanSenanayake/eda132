@@ -14,9 +14,32 @@
 
 
 \section{Introduction}
+In this assignment we had the task to construct a program with a playable Othello game and an AI bot as the opponent. The game is played with ASCII art over the console. The program is written in Java and consists of three classes which are OthelloGame, OthelloAI and OthelloMain. Theses classes will be further explained later in this report. \\
 
 \section{OthelloGame}
-
+This class represents the game board and all the rules for the game. It consists of two constructors, seven public methodes and a couple of private methodes. In addition to this it also contains field and static variables that are used throughout the class to have a more dynamic use of variables.
+\subsection{Fields}
+\begin{description}
+\item[\texttt{public static final char L}] This character represents the 'Light' player outside of the class and board.
+\item[\texttt{public static final char D}] This character represents the 'Dark' player outside of the class and board.
+\item[\texttt{private static final char E}] This character represents an empty space on the board outside of the class and board.
+\item[\texttt{private static final char V}] This character represents a valid move on the board outside of the class and board.
+\item[\texttt{private static final int EMPTY}] This int represents an empty space on the board in the board matrix, this variable has the value 0 to make the heuristic function easier to compute. 
+\item[\texttt{private static final int LIGHT}] This int represents the 'Light' player on the board in the board matrix, this variable has the value 1 to make the heuristic function easier to compute. 
+\item[\texttt{private static final int DARK}] This int represents the 'Dark' player on the board in the board matrix, this variable has the value -1 to make the heuristic function easier to compute. 
+\item[\texttt{private int[][] board}] Represents the board of the game.
+\item[\texttt{private int player}] Represents which player has the current turn.
+\item[\texttt{private int HashMap<String, HashSet<Integer[]>> validMoves}] Represents the valid moves which can be made by the current player, and which tiles will be flipped when that move is made.
+\end{description} 
+\subsection{Constructors}
+OthelloGame has two constructors one public constructur and one private. The public constructor is used to initiate the game. The private constructor is used to create a certain game in a certain state this is used to make a copy of an already existing game.
+\subsection{Methodes}
+This class has a lot of methodes (around 16-17 both private and public methodes), to cut down the unnecessary methodes only the most important parts revolving the AI are included in this report. The other methodes handle prints, making moves and conversions (between print format and such). 
+\begin{description}
+\item[\texttt{private void findValidMoves()}]
+\item[\texttt{private HashSet<Integer[]> checkDirection(int x, int y, int incX, int incY)}]
+\item[\texttt{public int sumScore()}]
+\end{description} 
 \section{OthelloAI}
 
 \subsection{Algorithms}

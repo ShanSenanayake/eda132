@@ -34,11 +34,11 @@ This class represents the game board and all the rules for the game. It consists
 \subsection{Constructors}
 OthelloGame has two constructors one public constructur and one private. The public constructor is used to initiate the game. The private constructor is used to create a certain game in a certain state this is used to make a copy of an already existing game.
 \subsection{Methodes}
-This class has a lot of methodes (around 16-17 both private and public methodes), to cut down the unnecessary methodes only the most important parts revolving the AI are included in this report. The other methodes handle prints, making moves and conversions (between print format and such). 
+This class has a lot of methodes (around 16-17 both private and public methodes), to cut down the unnecessary methodes only the most important parts revolving the AI are included in this report. The other methodes handle prints, making moves and conversions (between print format and such) as well as getters and setters that are needed for the AI and starting the program.  
 \begin{description}
-\item[\texttt{private void findValidMoves()}] This method finds all the valid moves the current player can make, as well as finds all the tiles that will be flipped.
-\item[\texttt{private HashSet<Integer[]> checkDirection(int x, int y, int incX, int incY)}]
-\item[\texttt{public int sumScore()}]
+\item[\texttt{private void findValidMoves()}] This method finds all the valid moves the current player can make, as well as finds all the tiles that will be flipped. And sets this as the \textt{validMoves} map.
+\item[\texttt{private HashSet<Integer[]> checkDirection(int x, int y, int incX, int incY)}] The method \texttt{findValidMoves()} uses this method to check in a certain direction which tiles will be flipped, if a tile of the current player is picked. The direction is indicated by the \texttt{incX} and \texttt{incY} parameters.
+\item[\texttt{public int sumScore()}] This methods is the heuristic function currently being used, it sums the whole \texttt{board} variable, and returns the value gained.
 \end{description} 
 \section{OthelloAI}
 

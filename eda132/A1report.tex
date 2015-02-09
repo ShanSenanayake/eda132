@@ -17,7 +17,11 @@
 In this assignment we had the task to construct a program with a playable Othello game and an AI bot as the opponent. The game is played with ASCII art over the console. The program is written in Java and consists of three classes which are OthelloGame, OthelloAI and OthelloMain. Theses classes will be further explained later in this report. \\
 
 \section{OthelloGame}
-This class represents the game board and all the rules for the game. It consists of two constructors, seven public methods and a couple of private methods. In addition to this it also contains field and static variables that are used throughout the class to have a more dynamic use of variables.
+This class represents the Othello game itself. It manages a board with all the game pieces, players and the current turn with all valid moves. This class has methods to make moves and switch turns. In order to make the AI being able to simulate several turns of a game a method which creates a new instance of this class with the same game state as the current game. This enables the AI to copy a game and simulate that game for several rounds in order to deduce the best move to make in the current round.
+
+The class consists of two constructors, one of which is private, seven public methods and a couple of private methods. In addition to this it also contains field and static variables that are used throughout the class to have a more dynamic use of variables.
+
+
 \subsection{Fields}
 \begin{description}
 \item[\texttt{public static final char L}] This character represents the 'Light' player outside of the class and board.
@@ -32,11 +36,11 @@ This class represents the game board and all the rules for the game. It consists
 \item[\texttt{private int HashMap<String, HashSet<Integer[]>> validMoves}] Represents the valid moves which can be made by the current player, and which tiles will be flipped when that move is made.
 \end{description} 
 \subsection{Constructors}
-OthelloGame has two constructors one public constructur and one private. The public constructor is used to initiate the game. The private constructor is used to create a certain game in a certain state this is used to make a copy of an already existing game.
+OthelloGame has two constructors one public constructor and one private. The public constructor is used to initiate the game. The private constructor is used to create a certain game in a certain state this is used to make a copy of an already existing game.
 \subsection{Methods}
-This class has a lot of methodes (around 16-17 both private and public methodes), to cut down the unnecessary methodes only the most important parts revolving the AI are included in this report. The other methodes handle prints, making moves and conversions (between print format and such) as well as getters and setters that are needed for the AI and starting the program.  
+This class has a lot of methods (around 16-17 both private and public methods), to cut down the unnecessary methods only the most important parts revolving the AI are included in this report. The other methods handle print outs, making moves and conversions (between print format and such) as well as getters and setters that are needed for the AI and starting the program.  
 \begin{description}
-\item[\texttt{private void findValidMoves()}] This method finds all the valid moves the current player can make, as well as finds all the tiles that will be flipped. And sets this as the \texttt{validMoves} map.
+\item[\texttt{private void findValidMoves()}] This method finds all the valid moves the current player can make, as well as finds all the tiles that will be flipped and sets this as the \texttt{validMoves} map.
 \item[\texttt{private HashSet<Integer[]> checkDirection(int x, int y, int incX, int incY)}] The method \texttt{findValidMoves()} uses this method to check in a certain direction which tiles will be flipped, if a tile of the current player is picked. The direction is indicated by the \texttt{incX} and \texttt{incY} parameters.
 \item[\texttt{public int sumScore()}] This methods is the heuristic function currently being used, it sums the whole \texttt{board} variable, and returns the value gained.
 \end{description} 

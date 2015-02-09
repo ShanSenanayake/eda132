@@ -21,8 +21,10 @@ This class represents the Othello game itself. It manages a board with all the g
 
 The class consists of two constructors, one of which is private, seven public methods and a couple of private methods. In addition to this it also contains field and static variables that are used throughout the class to have a more dynamic use of variables.
 
+\subsection{Code}
+We will describe some interesting parts of the code in OthelloGame below. 
 
-\subsection{Fields}
+\subsubsection{Fields}
 \begin{description}
 \item[\texttt{public static final char L}] This character represents the 'Light' player outside of the class and board.
 \item[\texttt{public static final char D}] This character represents the 'Dark' player outside of the class and board.
@@ -35,9 +37,9 @@ The class consists of two constructors, one of which is private, seven public me
 \item[\texttt{private int player}] Represents which player has the current turn.
 \item[\texttt{private int HashMap<String, HashSet<Integer[]>> validMoves}] Represents the valid moves which can be made by the current player, and which tiles will be flipped when that move is made.
 \end{description} 
-\subsection{Constructors}
+\subsubsection{Constructors}
 OthelloGame has two constructors one public constructor and one private. The public constructor is used to initiate the game. The private constructor is used to create a certain game in a certain state this is used to make a copy of an already existing game.
-\subsection{Methods}
+\subsubsection{Methods}
 This class has a lot of methods (around 16-17 both private and public methods), to cut down the unnecessary methods only the most important parts revolving the AI are included in this report. The other methods handle print outs, making moves and conversions (between print format and such) as well as getters and setters that are needed for the AI and starting the program.  
 \begin{description}
 \item[\texttt{private void findValidMoves()}] This method finds all the valid moves the current player can make, as well as finds all the tiles that will be flipped and sets this as the \texttt{validMoves} map.

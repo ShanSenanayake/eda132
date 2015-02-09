@@ -7,14 +7,18 @@ public class OthelloAI {
 	private OthelloGame othelloGame;
 	private long timeLimit;
 	private long currentTime;
-
+	private boolean isDone;
+	
+	
 	public OthelloAI(OthelloGame game, int timeLimitInSeconds) {
 		othelloGame = game;
 		timeLimit = timeLimitInSeconds * 1000;
 		currentTime = 0;
+		isDone = false;
 	}
 
 	public String deduceMove() {
+		isDone = false;
 		currentTime = System.currentTimeMillis();
 		System.out.println("Thinking...");
 		HashMap<String, HashSet<Integer[]>> validMoves = othelloGame
@@ -22,7 +26,7 @@ public class OthelloAI {
 		String move = "";
 		int score = Integer.MIN_VALUE;
 		int iterations = 1;
-		while (System.currentTimeMillis() - currentTime < timeLimit) {
+		while (System.currentTimeMillis() - currentTime < timeLimit && !isDone) {
 			if (!validMoves.isEmpty()) {
 				for (String s : validMoves.keySet()) {
 					OthelloGame copy = othelloGame.getCopyBoard();
@@ -62,9 +66,10 @@ public class OthelloAI {
 					max = temp;
 			}
 			return max;
-		} else {
-			return game.sumScore();
+		} else if(iterations>0){
+			isDone = true;
 		}
+		return game.sumScore();
 	}
 
 	private int recursiveMin(OthelloGame game, int iterations, int prevMax) {
@@ -88,8 +93,9 @@ public class OthelloAI {
 				}
 			}
 			return min;
-		} else {
-			return game.sumScore();
+		} else if(iterations>0){
+			isDone = true;
 		}
+		return game.sumScore();
 	}
 }

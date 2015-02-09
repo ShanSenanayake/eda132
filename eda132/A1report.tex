@@ -69,6 +69,25 @@ Chosing the heuristic function like this is very natural for the Minimax algorit
 
 The herustic function we have selected also has one big advantage and that is that it can be calculated exactly even though the game has not yet been finished. Therefore it is not essential for the Minimax algorithm to reach the terminal nodes before having values on the different moves. Of, course only considered moves will contribute to the heuristic function this way.
 
+\subsection{Code}
+Here the code of OthelloAI will be explained a bit more in detail. 
+
+\subsubsection{Fields}
+\begin{description}
+\item[\texttt{private OthelloGame othelloGame}] This field represents the current game being played on, this is used by the AI to deduce the next move it should make. 
+\item[\texttt{private long timeLimit}] This field is the timeLimit that the AI has to run its algorithm on, if the timelimit is exceeded it should terminate the algorithm and return the currrently best move available.
+\item[\texttt{private long currentTime}] This field represents when the algorithm started running.
+\item[\texttt{private boolean isDone}] This field checks when we are done running the algorithm and should return the best move, ergo when a leaf has been met.
+\end{description} 
+
+
+
+
+\subsubsection{Methods}
+\item[\texttt{public String deduceMove()}] This method is the only public method in the AI and is called for deducing the next move the AI should make. It initiates the Minimax algorithm by use of the \texttt{OthelloGame} it copies the board and and runs the DFS one layer deep at a time and 
+\item[\texttt{private long timeLimit}] This field is the timeLimit that the AI has to run its algorithm on, if the timelimit is exceeded it should terminate the algorithm and return the currrently best move available.
+\item[\texttt{private long currentTime}] This field represents when the algorithm started running.
+\item[\texttt{private boolean isDone}] This field checks when we are done running the algorithm and should return the best move, ergo when a leaf has been met.
 
 
 

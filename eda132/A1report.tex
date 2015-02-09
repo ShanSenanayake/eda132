@@ -84,11 +84,11 @@ Here the code of OthelloAI will be explained a bit more in detail.
 
 
 \subsubsection{Methods}
-\item[\texttt{public String deduceMove()}] This method is the only public method in the AI and is called for deducing the next move the AI should make. It initiates the Minimax algorithm by use of the \texttt{OthelloGame} it copies the board and and runs the DFS one layer deep at a time and 
-\item[\texttt{private long timeLimit}] This field is the timeLimit that the AI has to run its algorithm on, if the timelimit is exceeded it should terminate the algorithm and return the currrently best move available.
-\item[\texttt{private long currentTime}] This field represents when the algorithm started running.
-\item[\texttt{private boolean isDone}] This field checks when we are done running the algorithm and should return the best move, ergo when a leaf has been met.
-
+\begin{description}
+\item[\texttt{public String deduceMove()}] This method is the only public method in the AI and is called for deducing the next move the AI should make. It initiates the Minimax algorithm by use of the \texttt{OthelloGame} it copies the board and and runs the DFS one layer deep at a time for which it stores the currently best move, and then if the time limit has not been exceeded runs the DFS one layer deeper until either time limit is exceeded or the algorithm has reached a leaf node.
+\item[\texttt{private int recursiveMax(OthelloGame game, int iterations, int prevMin)}] This method represents the 'Max' part of the Minimax algorithm, it recursivly calls the \texttt{recursiveMin} method until it either has reach the layer indicated by \texttt{iterations} parameter or a leaf node. 
+\item[\texttt{private int recursiveMin(OthelloGame game, int iterations, int prevMax)}] This method represents the 'Mix' part of the Minimax algorithm, it recursivly calls the \texttt{recursiveMax} method until it either has reach the layer indicated by \texttt{iterations} parameter or a leaf node. 
+\end{description} 
 
 
 \section{OthelloMain}

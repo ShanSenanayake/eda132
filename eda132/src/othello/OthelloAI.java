@@ -8,13 +8,14 @@ public class OthelloAI {
 	private long timeLimit;
 	private long currentTime;
 	private boolean isDone;
-	
-	
-	public OthelloAI(OthelloGame game, int timeLimitInSeconds) {
+	private char AIChar;
+
+	public OthelloAI(OthelloGame game, int timeLimitInSeconds, char AIChar) {
 		othelloGame = game;
 		timeLimit = timeLimitInSeconds * 1000;
 		currentTime = 0;
 		isDone = false;
+		this.AIChar = AIChar;
 	}
 
 	public String deduceMove() {
@@ -32,6 +33,7 @@ public class OthelloAI {
 					OthelloGame copy = othelloGame.getCopyBoard();
 					copy.makeMove(s);
 					copy.nextTurn();
+					//behövs väl inte kolla vilken recursive som skall anropas här, vi vet ju att det är ai:ns tur
 					int temp = recursiveMin(copy, iterations, Integer.MIN_VALUE);
 					if (temp > score) {
 						score = temp;
@@ -56,8 +58,13 @@ public class OthelloAI {
 				copy.nextTurn();
 				int temp = max;
 				if (System.currentTimeMillis() - currentTime < timeLimit) {
-					temp = recursiveMin(copy, iterations - 1, max);
-				}else{
+					if (copy.getPlayer() == AIChar) {
+						//osäker på om det är max som skall skickas med här
+						temp = recursiveMax(copy, iterations - 1, max);
+					} else {
+						temp = recursiveMin(copy, iterations - 1, max);
+					}
+				} else {
 					return Integer.MAX_VALUE;
 				}
 				if (temp > prevMin) {
@@ -66,7 +73,7 @@ public class OthelloAI {
 					max = temp;
 			}
 			return max;
-		} else if(iterations>0){
+		} else if (iterations > 0) {
 			isDone = true;
 		}
 		return game.sumScore();
@@ -82,8 +89,13 @@ public class OthelloAI {
 				copy.nextTurn();
 				int temp = min;
 				if (System.currentTimeMillis() - currentTime < timeLimit) {
-					temp = recursiveMax(copy, iterations - 1, min);
-				}else{
+					if (copy.getPlayer() == AIChar) {
+						temp = recursiveMax(copy, iterations - 1, min);
+					} else {
+						//osäker på om det är min som skall skickas med här
+						temp = recursiveMin(copy, iterations - 1, min);
+					}
+				} else {
 					return Integer.MIN_VALUE;
 				}
 				if (temp < prevMax) {
@@ -93,7 +105,7 @@ public class OthelloAI {
 				}
 			}
 			return min;
-		} else if(iterations>0){
+		} else if (iterations > 0) {
 			isDone = true;
 		}
 		return game.sumScore();

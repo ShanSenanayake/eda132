@@ -141,7 +141,7 @@ public class OthelloGame {
 					temp[0] = x;
 					temp[1] = y;
 					score.add(temp);
-				} else if (board[x][y] == 0) {
+				} else if (board[x][y] == EMPTY) {
 					return new HashSet<Integer[]>();
 				} else {
 					return score;
@@ -177,9 +177,15 @@ public class OthelloGame {
 	}
 
 	public boolean nextTurn() {
-		switchPlayer();
-		findValidMoves();
-		return !validMoves.isEmpty();
+		boolean movesExist = false;
+		int counter = 0;
+		while (!movesExist && counter < 2){
+			switchPlayer();
+			findValidMoves();
+			counter++;
+			movesExist = !validMoves.isEmpty();
+		}	
+		return movesExist;
 	}
 
 	private void switchPlayer() {

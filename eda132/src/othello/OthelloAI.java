@@ -63,7 +63,7 @@ public class OthelloAI {
 				int temp = max;
 				if (System.currentTimeMillis() - currentTime < timeLimit) {
 					if (copy.getPlayer() == AIChar) {
-						temp = recursiveMax(copy, iterations - 1, Integer.MAX_VALUE);
+						temp = recursiveMax(copy, iterations - 1, prevMin);
 					} else {
 						temp = recursiveMin(copy, iterations - 1, max);
 					}
@@ -95,7 +95,7 @@ public class OthelloAI {
 					if (copy.getPlayer() == AIChar) {
 						temp = recursiveMax(copy, iterations - 1, min);
 					} else {
-						temp = recursiveMin(copy, iterations - 1, Integer.MIN_VALUE);
+						temp = recursiveMin(copy, iterations - 1, prevMax);
 					}
 				} else {
 					return Integer.MIN_VALUE;

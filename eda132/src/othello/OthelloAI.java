@@ -6,28 +6,28 @@ import java.util.HashSet;
 public class OthelloAI {
 	private OthelloGame othelloGame;
 	private long timeLimit;
-	private long currentTime;
+	private long startTime;
 	private boolean isDone;
 	private char AIChar;
 
-	public OthelloAI(OthelloGame game, int timeLimitInSeconds, char AIChar) {
+	public OthelloAI(OthelloGame game, long timeLimit, char AIChar) {
 		othelloGame = game;
-		timeLimit = timeLimitInSeconds * 1000;
-		currentTime = 0;
+		this.timeLimit = timeLimit;
+		startTime = 0;
 		isDone = false;
 		this.AIChar = AIChar;
 	}
 
 	public String deduceMove() {
 		isDone = false;
-		currentTime = System.currentTimeMillis();
+		startTime = System.currentTimeMillis();
 		System.out.println("Thinking...");
 		HashMap<String, HashSet<Integer[]>> validMoves = othelloGame
 				.getValidMoves();
 		String move = "";
 		int score = Integer.MIN_VALUE;
 		int iterations = 1;
-		while (System.currentTimeMillis() - currentTime < timeLimit && !isDone) {
+		while (System.currentTimeMillis() - startTime < timeLimit && !isDone) {
 			if (!validMoves.isEmpty()) {
 				for (String s : validMoves.keySet()) {
 					OthelloGame copy = othelloGame.getCopyBoard();
@@ -48,7 +48,7 @@ public class OthelloAI {
 			iterations++;
 		}
 		System.out.println("Time it took: "
-				+ (System.currentTimeMillis() - currentTime) / 1000.0);
+				+ (System.currentTimeMillis() - startTime) / 1000.0 + " seconds");
 		return move;
 	}
 
@@ -61,7 +61,7 @@ public class OthelloAI {
 				copy.makeMove(s);
 				copy.nextTurn();
 				int temp = max;
-				if (System.currentTimeMillis() - currentTime < timeLimit) {
+				if (System.currentTimeMillis() - startTime < timeLimit) {
 					if (copy.getPlayer() == AIChar) {
 						temp = recursiveMax(copy, iterations - 1, prevMin);
 					} else {
@@ -91,7 +91,7 @@ public class OthelloAI {
 				copy.makeMove(s);
 				copy.nextTurn();
 				int temp = min;
-				if (System.currentTimeMillis() - currentTime < timeLimit) {
+				if (System.currentTimeMillis() - startTime < timeLimit) {
 					if (copy.getPlayer() == AIChar) {
 						temp = recursiveMax(copy, iterations - 1, min);
 					} else {

@@ -8,9 +8,20 @@ public class OthelloMain {
 
 	public static void main(String[] args) {
 		OthelloGame game = new OthelloGame(8);
-		OthelloAI ai = new OthelloAI(game,10,OthelloGame.L);
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		System.out.println("Welcome to the classical game of Othello");
+		System.out.println("Enter maximum thinking time for AI (seconds) default is 10 seconds: ");
+		long time = 10000;
+
+			try {
+				time = Math.round(Double.parseDouble(br.readLine())*1000);
+			} catch (NumberFormatException e1) {
+				System.out.println("Using default thinking time!");
+			} catch (IOException e1) {
+				System.out.println("Bad input, using default thinking time!");
+			}
+		
+		OthelloAI ai = new OthelloAI(game,time,OthelloGame.L);
 		while (game.nextTurn()) {
 			game.print();
 			char player = game.getPlayer();

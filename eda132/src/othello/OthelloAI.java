@@ -33,8 +33,12 @@ public class OthelloAI {
 					OthelloGame copy = othelloGame.getCopyBoard();
 					copy.makeMove(s);
 					copy.nextTurn();
-					//behövs väl inte kolla vilken recursive som skall anropas här, vi vet ju att det är ai:ns tur
-					int temp = recursiveMin(copy, iterations, Integer.MIN_VALUE);
+					int temp;
+					if (copy.getPlayer() == AIChar) {
+						temp = recursiveMax(copy, iterations - 1, Integer.MAX_VALUE);
+					} else {
+						temp = recursiveMin(copy, iterations - 1, Integer.MIN_VALUE);
+					}	
 					if (temp > score) {
 						score = temp;
 						move = s;
@@ -59,8 +63,7 @@ public class OthelloAI {
 				int temp = max;
 				if (System.currentTimeMillis() - currentTime < timeLimit) {
 					if (copy.getPlayer() == AIChar) {
-						//osäker på om det är max som skall skickas med här
-						temp = recursiveMax(copy, iterations - 1, max);
+						temp = recursiveMax(copy, iterations - 1, Integer.MAX_VALUE);
 					} else {
 						temp = recursiveMin(copy, iterations - 1, max);
 					}
@@ -92,8 +95,7 @@ public class OthelloAI {
 					if (copy.getPlayer() == AIChar) {
 						temp = recursiveMax(copy, iterations - 1, min);
 					} else {
-						//osäker på om det är min som skall skickas med här
-						temp = recursiveMin(copy, iterations - 1, min);
+						temp = recursiveMin(copy, iterations - 1, Integer.MIN_VALUE);
 					}
 				} else {
 					return Integer.MIN_VALUE;

@@ -23,14 +23,15 @@ public class OthelloMain {
 						s = br.readLine();
 					}
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}else{
 				String move = ai.deduceMove();
 				game.makeMove(move);
+				System.out.println("Move made: " + move);
 			}
 		}
+		game.print();
 		System.out.println("Game over! Winner: " + game.score());
 
 	}

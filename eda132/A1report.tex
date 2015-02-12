@@ -35,7 +35,7 @@ We will describe some interesting parts of the code in OthelloGame below.
 \item[\texttt{private static final int DARK}] This int represents the 'Dark' player on the board in the board matrix, this variable has the value -1 to make the heuristic function easier to compute. 
 \item[\texttt{private int[][] board}] Represents the board of the game.
 \item[\texttt{private int player}] Represents which player has the current turn.
-\item[\texttt{private int HashMap<String, HashSet<Integer[]>> validMoves}] Represents the valid moves which can be made by the current player, and which tiles will be flipped when that move is made.
+\item[\texttt{private int HashMap<String, LinkedList<Integer[]>> validMoves}] Represents the valid moves which can be made by the current player, and which tiles will be flipped when that move is made.
 \end{description} 
 \subsubsection{Constructors}
 OthelloGame has two constructors, one public and one private. The public constructor is used to initiate the game. The private constructor is used to create a certain game in a certain state. This is used to make a copy of an already existing game.
@@ -43,7 +43,7 @@ OthelloGame has two constructors, one public and one private. The public constru
 This class has a lot of methods, both private and public, to cut down the complexity in this report only the most important parts revolving the AI are included in this report. The other methods handle print outs, making moves and conversions (between print format and such) as well as getters and setters that are needed for the AI and starting the program.  
 \begin{description}
 \item[\texttt{private void findValidMoves()}] This method finds all the valid moves the current player can make, as well as finds all the tiles that will be flipped and sets this as the \texttt{validMoves} map.
-\item[\texttt{private HashSet<Integer[]> checkDirection(int x, int y, int incX, int incY)}] The method \texttt{findValidMoves()} uses this method to check in a certain direction which tiles will be flipped, if a tile of the current player is picked. The direction is indicated by the \texttt{incX} and \texttt{incY} parameters.
+\item[\texttt{private LinkedList<Integer[]> checkDirection(int x, int y, int incX, int incY)}] The method \texttt{findValidMoves()} uses this method to check in a certain direction which tiles will be flipped, if a tile of the current player is picked. The direction is indicated by the \texttt{incX} and \texttt{incY} parameters.
 \item[\texttt{public int sumScore()}] This method is the heuristic function currently being used, it sums the integers that make up the \texttt{board} variable, and returns the value gained.
 \end{description} 
 

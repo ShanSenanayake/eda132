@@ -1,7 +1,7 @@
 package othello;
 
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
 
@@ -15,7 +15,7 @@ public class OthelloGame {
 	private static final char V = '#';
 	private int[][] board;
 	private int player;
-	private HashMap<String, HashSet<Integer[]>> validMoves;
+	private HashMap<String, LinkedList<Integer[]>> validMoves;
 
 	public OthelloGame(int size) {
 		board = new int[size][size];
@@ -25,7 +25,7 @@ public class OthelloGame {
 		board[size / 2 - 1][size / 2] = LIGHT;
 	}
 	
-	private OthelloGame(int[][] board,int player,HashMap<String, HashSet<Integer[]>> validMoves){
+	private OthelloGame(int[][] board,int player,HashMap<String, LinkedList<Integer[]>> validMoves){
 		this.board= new int[board.length][board.length];
 		for (int i = 0; i < board.length; i++){
 			for (int j = 0; j < board.length; j++){
@@ -33,9 +33,9 @@ public class OthelloGame {
 			}
 		}
 		this.player = player;
-		this.validMoves = new HashMap<String, HashSet<Integer[]>>();
-		for (Map.Entry<String, HashSet<Integer[]>> entry: validMoves.entrySet()){
-			HashSet<Integer[]> set = new HashSet<Integer[]>();
+		this.validMoves = new HashMap<String, LinkedList<Integer[]>>();
+		for (Map.Entry<String, LinkedList<Integer[]>> entry: validMoves.entrySet()){
+			LinkedList<Integer[]> set = new LinkedList<Integer[]>();
 			for (Integer[] ints :entry.getValue()){
 				Integer[] tmp = new Integer[ints.length];
 				for (int i = 0; i < ints.length;i++){
@@ -99,12 +99,12 @@ public class OthelloGame {
 
 
 	private void findValidMoves() {
-		validMoves = new HashMap<String, HashSet<Integer[]>>();
+		validMoves = new HashMap<String, LinkedList<Integer[]>>();
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board.length; j++) {
 				if (board[i][j] == EMPTY) {
 					// Check South Direction
-					HashSet<Integer[]> score = checkDirection(i, j, 1, 0);
+					LinkedList<Integer[]> score = checkDirection(i, j, 1, 0);
 					// Check North Direction
 					score.addAll(checkDirection(i, j, -1, 0));
 					// Check East Direction
@@ -127,8 +127,8 @@ public class OthelloGame {
 		}
 	}
 
-	private HashSet<Integer[]> checkDirection(int x, int y, int incX, int incY) {
-		HashSet<Integer[]> score = new HashSet<Integer[]>();
+	private LinkedList<Integer[]> checkDirection(int x, int y, int incX, int incY) {
+		LinkedList<Integer[]> score = new LinkedList<Integer[]>();
 		boolean undone = true;
 		while (undone) {
 			x = x + incX;
@@ -142,13 +142,13 @@ public class OthelloGame {
 					temp[1] = y;
 					score.add(temp);
 				} else if (board[x][y] == EMPTY) {
-					return new HashSet<Integer[]>();
+					return new LinkedList<Integer[]>();
 				} else {
 					return score;
 				}
 			}
 		}
-		return new HashSet<Integer[]>();
+		return new LinkedList<Integer[]>();
 	}
 
 	private int opponent() {
@@ -170,7 +170,7 @@ public class OthelloGame {
 		}
 	}
 
-	private void flipTiles(HashSet<Integer[]> toBeFlipped) {
+	private void flipTiles(LinkedList<Integer[]> toBeFlipped) {
 		for (Integer[] i : toBeFlipped) {
 			board[i[0]][i[1]] = player;
 		}
@@ -204,7 +204,7 @@ public class OthelloGame {
 		}
 	}
 
-	public HashMap<String, HashSet<Integer[]>> getValidMoves() {
+	public HashMap<String, LinkedList<Integer[]>> getValidMoves() {
 		return validMoves;
 	}
 

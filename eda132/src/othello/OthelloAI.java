@@ -1,7 +1,7 @@
 package othello;
 
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedList;
 
 public class OthelloAI {
 	private OthelloGame othelloGame;
@@ -22,7 +22,7 @@ public class OthelloAI {
 		isDone = false;
 		startTime = System.currentTimeMillis();
 		System.out.println("Thinking...");
-		HashMap<String, HashSet<Integer[]>> validMoves = othelloGame
+		HashMap<String, LinkedList<Integer[]>> validMoves = othelloGame
 				.getValidMoves();
 		String move = "";
 		int score = Integer.MIN_VALUE;
@@ -53,7 +53,7 @@ public class OthelloAI {
 	}
 
 	private int recursiveMax(OthelloGame game, int layer, int prevMin) {
-		HashMap<String, HashSet<Integer[]>> validMoves = game.getValidMoves();
+		HashMap<String, LinkedList<Integer[]>> validMoves = game.getValidMoves();
 		int max = Integer.MIN_VALUE;
 		if (!validMoves.isEmpty() && layer > 0) {
 			for (String s : validMoves.keySet()) {
@@ -83,7 +83,7 @@ public class OthelloAI {
 	}
 
 	private int recursiveMin(OthelloGame game, int layer, int prevMax) {
-		HashMap<String, HashSet<Integer[]>> validMoves = game.getValidMoves();
+		HashMap<String, LinkedList<Integer[]>> validMoves = game.getValidMoves();
 		int min = Integer.MAX_VALUE;
 		if (!validMoves.isEmpty() && layer > 0) {
 			for (String s : validMoves.keySet()) {

@@ -26,7 +26,7 @@ public class OthelloAI {
 				.getValidMoves();
 		String move = "";
 		int score = Integer.MIN_VALUE;
-		int iterations = 1;
+		int layer = 1;
 		while (System.currentTimeMillis() - startTime < timeLimit && !isDone) {
 			if (!validMoves.isEmpty()) {
 				for (String s : validMoves.keySet()) {
@@ -35,9 +35,9 @@ public class OthelloAI {
 					copy.nextTurn();
 					int temp;
 					if (copy.getPlayer() == AIChar) {
-						temp = recursiveMax(copy, iterations - 1, Integer.MAX_VALUE);
+						temp = recursiveMax(copy, layer - 1, Integer.MAX_VALUE);
 					} else {
-						temp = recursiveMin(copy, iterations - 1, Integer.MIN_VALUE);
+						temp = recursiveMin(copy, layer - 1, Integer.MIN_VALUE);
 					}	
 					if (temp > score) {
 						score = temp;
@@ -45,17 +45,17 @@ public class OthelloAI {
 					}
 				}
 			}
-			iterations++;
+			layer++;
 		}
 		System.out.println("Time it took: "
 				+ (System.currentTimeMillis() - startTime) / 1000.0 + " seconds");
 		return move;
 	}
 
-	private int recursiveMax(OthelloGame game, int iterations, int prevMin) {
+	private int recursiveMax(OthelloGame game, int layer, int prevMin) {
 		HashMap<String, HashSet<Integer[]>> validMoves = game.getValidMoves();
 		int max = Integer.MIN_VALUE;
-		if (!validMoves.isEmpty() && iterations > 0) {
+		if (!validMoves.isEmpty() && layer > 0) {
 			for (String s : validMoves.keySet()) {
 				OthelloGame copy = game.getCopyBoard();
 				copy.makeMove(s);
@@ -63,9 +63,9 @@ public class OthelloAI {
 				int temp = max;
 				if (System.currentTimeMillis() - startTime < timeLimit) {
 					if (copy.getPlayer() == AIChar) {
-						temp = recursiveMax(copy, iterations - 1, prevMin);
+						temp = recursiveMax(copy, layer - 1, prevMin);
 					} else {
-						temp = recursiveMin(copy, iterations - 1, max);
+						temp = recursiveMin(copy, layer - 1, max);
 					}
 				} else {
 					return Integer.MAX_VALUE;
@@ -76,16 +76,16 @@ public class OthelloAI {
 					max = temp;
 			}
 			return max;
-		} else if (iterations > 0) {
+		} else if (layer > 0) {
 			isDone = true;
 		}
 		return game.sumScore();
 	}
 
-	private int recursiveMin(OthelloGame game, int iterations, int prevMax) {
+	private int recursiveMin(OthelloGame game, int layer, int prevMax) {
 		HashMap<String, HashSet<Integer[]>> validMoves = game.getValidMoves();
 		int min = Integer.MAX_VALUE;
-		if (!validMoves.isEmpty() && iterations > 0) {
+		if (!validMoves.isEmpty() && layer > 0) {
 			for (String s : validMoves.keySet()) {
 				OthelloGame copy = game.getCopyBoard();
 				copy.makeMove(s);
@@ -93,9 +93,9 @@ public class OthelloAI {
 				int temp = min;
 				if (System.currentTimeMillis() - startTime < timeLimit) {
 					if (copy.getPlayer() == AIChar) {
-						temp = recursiveMax(copy, iterations - 1, min);
+						temp = recursiveMax(copy, layer - 1, min);
 					} else {
-						temp = recursiveMin(copy, iterations - 1, prevMax);
+						temp = recursiveMin(copy, layer - 1, prevMax);
 					}
 				} else {
 					return Integer.MIN_VALUE;
@@ -107,7 +107,7 @@ public class OthelloAI {
 				}
 			}
 			return min;
-		} else if (iterations > 0) {
+		} else if (layer > 0) {
 			isDone = true;
 		}
 		return game.sumScore();

@@ -7,17 +7,23 @@ public class MovingBot {
 	private int sizeOfBoard;
 	private Point position;
 	private Random rnd;
-	private ArrayList<Point> headings;
+	private Point currentHeading;
+	private Point[] headings;
 	
 	public MovingBot(int sizeOfBoard){
 		this.sizeOfBoard = sizeOfBoard;
 		rnd = new Random();
 		position = new Point(rnd.nextInt(sizeOfBoard),rnd.nextInt(sizeOfBoard));
-		headings = new ArrayList<Point>();
-		headings.add(new Point(0,1));
-		headings.add(new Point(0,-1));
-		headings.add(new Point(1,0));
-		headings.add(new Point(-1,0));
+		headings = new Point[] {new Point(0,1), new Point(0,-1),new Point(1,0), new Point(-1,0)};
+		
+		
+	}
+	
+	private Point newRandomHeading(){
+		int index = rnd.nextInt(4);
+		if(currentHeading == headings[index]){
+			
+		}
 		
 	}
 	

@@ -1,6 +1,5 @@
 package probabilistic_reasoning;
 
-import java.awt.Point;
 import java.util.Random;
 
 public class MovingBot {
@@ -13,5 +12,15 @@ public class MovingBot {
 		rnd = new Random();
 		start = new Point(rnd.nextInt(sizeOfBoard),rnd.nextInt(sizeOfBoard));
 		
+	}
+	
+	private class Point {
+		int x;
+		int y;
+		
+		public Point(int x, int y){
+			this.x = x;
+			this.y = y;
+		}
 	}
 }

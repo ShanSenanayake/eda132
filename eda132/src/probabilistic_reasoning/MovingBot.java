@@ -22,7 +22,7 @@ public class MovingBot {
 
 	private Point newRandomHeading() {
 		int index = rnd.nextInt(4);
-		if (currentHeading == headings[index]) {
+		if (currentHeading != null && currentHeading.equals(headings[index])) {
 			return newRandomHeading();
 		} else {
 			return headings[index];
@@ -40,30 +40,28 @@ public class MovingBot {
 
 	}
 
-	public void move() {
-		double prob = rnd.nextDouble();
-		if ((position.x >= sizeOfBoard - 1 && position.y >= sizeOfBoard - 1)
-				|| (position.x <= 0 && position.y <= 0)
-				|| (position.x >= sizeOfBoard - 1 && position.y <= 0)
-				|| (position.x <= 0 && position.y >= sizeOfBoard - 1)) {
-			HashSet<Point> illegalHeadings = new HashSet<Point>();
-			if (position.x > 0 ) {
-				illegalHeadings.add(new Point(1,0));
-			} else{
-				illegalHeadings.add(new Point(-1,0));
-			}
-			if(position.y > 0){
-				illegalHeadings.add(new Point(0,1));
-			}else{
-				illegalHeadings.add(new Point(0,-1));
-			}
-			currentHeading = newRandomHeading(illegalHeadings);
-
-		} else if (prob >= 0.7 || (position.x >= sizeOfBoard - 1)
-				|| (position.x <= 0) || (position.y >= sizeOfBoard - 1)
-				|| (position.y <= 0)) {
-			currentHeading = newRandomHeading();
+	private Point validHeading(HashSet<Point> illegalHeadings) {
+		if (illegalHeadings.contains(currentHeading) || rnd.nextDouble() >= 0.7) {
+			illegalHeadings.add(currentHeading);
+			return newRandomHeading(illegalHeadings);
+		} else {
+			return currentHeading;
 		}
+	}
+
+	public void move() {
+		HashSet<Point> illegalHeadings = new HashSet<Point>();
+		if (position.x >= sizeOfBoard - 1) {
+			illegalHeadings.add(new Point(1, 0));
+		} else if (position.x <= 0) {
+			illegalHeadings.add(new Point(-1, 0));
+		}
+		if (position.y >= sizeOfBoard - 1) {
+			illegalHeadings.add(new Point(0, 1));
+		} else if (position.y <= 0) {
+			illegalHeadings.add(new Point(0, -1));
+		}
+		currentHeading = validHeading(illegalHeadings);
 		position.addPoint(currentHeading);
 
 	}

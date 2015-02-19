@@ -14,6 +14,14 @@ public class Point {
 			return (p.x == x && p.y == y);
 		}
 		
+		@Override
+		public int hashCode() {
+			   int hash = 7;
+			    hash = 71 * hash + this.x;
+			    hash = 71 * hash + this.y;
+			    return hash;
+		}
+
 		public void addPoint(Point p){
 			this.x += p.x;
 			this.y += p.y;

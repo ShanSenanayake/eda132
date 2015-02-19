@@ -22,7 +22,9 @@ public class MovingBot {
 	private Point newRandomHeading(){
 		int index = rnd.nextInt(4);
 		if(currentHeading == headings[index]){
-			
+			return newRandomHeading();
+		}else{
+			return newRandomHeading();
 		}
 		
 	}

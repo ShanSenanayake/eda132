@@ -1,16 +1,27 @@
 package probabilistic_reasoning;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class MovingBot {
 	private int sizeOfBoard;
-	private Point start;
+	private Point position;
 	private Random rnd;
+	private ArrayList<Point> headings;
 	
 	public MovingBot(int sizeOfBoard){
 		this.sizeOfBoard = sizeOfBoard;
 		rnd = new Random();
-		start = new Point(rnd.nextInt(sizeOfBoard),rnd.nextInt(sizeOfBoard));
+		position = new Point(rnd.nextInt(sizeOfBoard),rnd.nextInt(sizeOfBoard));
+		headings = new ArrayList<Point>();
+		headings.add(new Point(0,1));
+		headings.add(new Point(0,-1));
+		headings.add(new Point(1,0));
+		headings.add(new Point(-1,0));
+		
+	}
+	
+	public void move(){
 		
 	}
 

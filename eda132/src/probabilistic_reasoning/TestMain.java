@@ -9,7 +9,7 @@ public class TestMain {
 			System.out.println("Sensor: x=" + p.x + " y=" + p.y);
 			p = mb.pos();
 			System.out.println("Robot: x=" + p.x + " y=" + p.y);
-			mb.move();
+//			mb.move();
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {

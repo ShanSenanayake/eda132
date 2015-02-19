@@ -13,4 +13,9 @@ public class Point {
 			Point p = (Point)obj;
 			return (p.x == x && p.y == y);
 		}
+		
+		public void addPoint(Point p){
+			this.x += p.x;
+			this.y += p.y;
+		}
 	}

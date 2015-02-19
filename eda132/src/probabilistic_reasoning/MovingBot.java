@@ -60,6 +60,7 @@ public class MovingBot {
 				|| (position.y <= 0)) {
 			currentHeading = newRandomHeading();
 		}
+		position.addPoint(currentHeading);
 		
 	}
 

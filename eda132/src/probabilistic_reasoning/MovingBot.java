@@ -13,14 +13,19 @@ public class MovingBot {
 		start = new Point(rnd.nextInt(sizeOfBoard),rnd.nextInt(sizeOfBoard));
 		
 	}
-	
-	private class Point {
-		int x;
-		int y;
-		
-		public Point(int x, int y){
-			this.x = x;
-			this.y = y;
+
+
+	public Point sensorOutput(){
+		double prob = rand.nextDouble();
+		if (prob < 0.1){
+			return new Point()
+		}else if (prob < 0.5){
+
+		}else if (prob < 0.9){
+
+		}else{
+
 		}
 	}
+	
 }

@@ -3,6 +3,7 @@ package probabilistic_reasoning;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.util.HashSet;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -11,6 +12,7 @@ import javax.swing.JPanel;
 
 public class MovingBotGraphics {
 	private JLabel[][] board;
+	private HashSet<JLabel> previousBot;
 	private JLabel message;
 	private Point botPosition;
 	private Point sensorPosition;
@@ -20,6 +22,8 @@ public class MovingBotGraphics {
 		JPanel mainPanel = new JPanel(new BorderLayout());
 		JPanel msgPanel = new JPanel();
 		JPanel matrixPanel = new JPanel(new GridLayout(size, size));
+
+		previousBot = new HashSet<JLabel>();
 
 		message = new JLabel("Info goes here");
 		board = new JLabel[size][size];
@@ -55,21 +59,36 @@ public class MovingBotGraphics {
 		message.setOpaque(false);
 		setBotPosition(botPos);
 		setSensorPosition(sensorPos);
-		message.setText("Robot: x=" + botPosition.x + " y=" + botPosition.y
-				+ "\nSensor: x=" + sensorPosition.x + " y=" + sensorPosition.y);
+		message.setText("<html>Robot: x=" + botPosition.x + " y="
+				+ botPosition.y + "<br>Sensor: x=" + sensorPosition.x + " y="
+				+ sensorPosition.y + "<html>");
 	}
 
 	private void setBotPosition(Point pos) {
+		JLabel toBeRemoved = null;
+		for (JLabel label : previousBot) {
+			int color = label.getBackground().getGreen();
+			if (color <= 50) {
+				toBeRemoved = label;
+			} else {
+				label.setBackground(new Color(0, color - 10, 0));
+			}
+		}
+		if (toBeRemoved != null) {
+			toBeRemoved.setBackground(Color.blue);
+			toBeRemoved.setOpaque(false);
+			previousBot.remove(toBeRemoved);
+		}
 		board[botPosition.x][botPosition.y].setText("");
-		board[botPosition.x][botPosition.y].setOpaque(false);
 		board[pos.x][pos.y].setText("Bot");
 		board[pos.x][pos.y].setOpaque(true);
-		board[pos.x][pos.y].setBackground(Color.green);
+		board[pos.x][pos.y].setBackground(new Color(0, 250, 0));
+		previousBot.add(board[pos.x][pos.y]);
 		botPosition = pos;
 	}
 
 	private void setSensorPosition(Point pos) {
-		if (sensorPosition != botPosition) {
+		if (!sensorPosition.equals(botPosition)) {
 			board[sensorPosition.x][sensorPosition.y].setText("");
 			board[sensorPosition.x][sensorPosition.y].setOpaque(false);
 		}
@@ -79,7 +98,7 @@ public class MovingBotGraphics {
 			board[pos.x][pos.y].setBackground(Color.red);
 			sensorPosition = pos;
 		} else if (pos.x > 0 && pos.y > 0) {
-			board[pos.x][pos.y].setText("Bot and\nSensor");
+			board[pos.x][pos.y].setText("<html>Bot and<br>Sensor<html>");
 			board[pos.x][pos.y].setBackground(Color.orange);
 			sensorPosition = pos;
 		} else {
@@ -87,6 +106,5 @@ public class MovingBotGraphics {
 			message.setBackground(Color.red);
 		}
 	}
-
 
 }

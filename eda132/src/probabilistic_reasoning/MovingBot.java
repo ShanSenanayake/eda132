@@ -38,7 +38,8 @@ public class MovingBot {
 				tmpX = rnd.nextInt(3) - 1;
 				tmpY = rnd.nextInt(3) - 1;
 				p = new Point(position.x+tmpX, position.y+tmpY);
-			} while(tmpX == 0 && tmpY == 0 || p.x >= 0 && p.y >= 0 && p.x < sizeOfBoard && p.y < sizeOfBoard));
+			} while(tmpX == 0 && tmpY == 0 || p.x >= 0 && p.y >= 0 && p.x < sizeOfBoard && p.y < sizeOfBoard);
+			return p;
 		}else if (prob < 0.9){
 			int tmpX;
 			int tmpY;
@@ -47,7 +48,8 @@ public class MovingBot {
 				tmpX = (rnd.nextInt(3) - 1)*2;
 				tmpY = (rnd.nextInt(3) - 1)*2;
 				p = new Point(position.x+tmpX, position.y+tmpY);
-			} while(tmpX == 0 && tmpY == 0 || Math.abs(tmpX) == 1 && Math.abs(tmpY) == 1 || p.x >= 0 && p.y >= 0 && p.x < sizeOfBoard && p.y < sizeOfBoard));
+			} while(tmpX == 0 && tmpY == 0 || Math.abs(tmpX) == 1 && Math.abs(tmpY) == 1 || p.x >= 0 && p.y >= 0 && p.x < sizeOfBoard && p.y < sizeOfBoard);
+			return p;
 		}else{
 			return new Point(-1,-1);
 		}

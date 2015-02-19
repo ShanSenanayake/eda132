@@ -31,11 +31,25 @@ public class MovingBot {
 		if (prob < 0.1){
 			return new Point(position.x,position.y);
 		}else if (prob < 0.5){
-
+			int tmpX;
+			int tmpY;
+			Point p;
+			do {
+				tmpX = rnd.nextInt(3) - 1;
+				tmpY = rnd.nextInt(3) - 1;
+				p = new Point(position.x+tmpX, position.y+tmpY);
+			} while(tmpX == 0 && tmpY == 0 || p.x >= 0 && p.y >= 0 && p.x < sizeOfBoard && p.y < sizeOfBoard));
 		}else if (prob < 0.9){
-
+			int tmpX;
+			int tmpY;
+			Point p;
+			do {
+				tmpX = (rnd.nextInt(3) - 1)*2;
+				tmpY = (rnd.nextInt(3) - 1)*2;
+				p = new Point(position.x+tmpX, position.y+tmpY);
+			} while(tmpX == 0 && tmpY == 0 || Math.abs(tmpX) == 1 && Math.abs(tmpY) == 1 || p.x >= 0 && p.y >= 0 && p.x < sizeOfBoard && p.y < sizeOfBoard));
 		}else{
-
+			return new Point(-1,-1);
 		}
 	}
 	

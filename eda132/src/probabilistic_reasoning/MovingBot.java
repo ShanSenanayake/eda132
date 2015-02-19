@@ -43,15 +43,19 @@ public class MovingBot {
 	public void move() {
 		double prob = rnd.nextDouble();
 		if ((position.x >= sizeOfBoard - 1 && position.y >= sizeOfBoard - 1)
-				|| (position.x <= 0 && position.y <= 0)) {
+				|| (position.x <= 0 && position.y <= 0)
+				|| (position.x >= sizeOfBoard - 1 && position.y <= 0)
+				|| (position.x <= 0 && position.y >= sizeOfBoard - 1)) {
 			HashSet<Point> illegalHeadings = new HashSet<Point>();
-			if (position.x > 0) {
-				illegalHeadings.add(new Point(1, 0));
-				illegalHeadings.add(new Point(0, 1));
-			} else {
-				illegalHeadings.add(new Point(-1, 0));
-				illegalHeadings.add(new Point(0, -1));
-
+			if (position.x > 0 ) {
+				illegalHeadings.add(new Point(1,0));
+			} else{
+				illegalHeadings.add(new Point(-1,0));
+			}
+			if(position.y > 0){
+				illegalHeadings.add(new Point(0,1));
+			}else{
+				illegalHeadings.add(new Point(0,-1));
 			}
 			currentHeading = newRandomHeading(illegalHeadings);
 
@@ -61,57 +65,59 @@ public class MovingBot {
 			currentHeading = newRandomHeading();
 		}
 		position.addPoint(currentHeading);
-		
+
 	}
 
 	public Point sensorOutput() {
 		double prob = rnd.nextDouble();
-		if (prob < 0.1){
-//			System.out.println("IN1");
+		if (prob < 0.1) {
+			// System.out.println("IN1");
 
-//			System.out.println("OUT1");
+			// System.out.println("OUT1");
 
-			return new Point(position.x,position.y);
-		}else if (prob < 0.5){
-//			System.out.println("IN2");
+			return new Point(position.x, position.y);
+		} else if (prob < 0.5) {
+			// System.out.println("IN2");
 
 			int tmpX;
 			int tmpY;
 			Point p;
 			do {
-//				System.out.println("Loop2");
+				// System.out.println("Loop2");
 				tmpX = rnd.nextInt(3) - 1;
 				tmpY = rnd.nextInt(3) - 1;
-				p = new Point(position.x+tmpX, position.y+tmpY);
-			} while(tmpX == 0 && tmpY == 0 || p.x < 0 || p.y < 0 || p.x >= sizeOfBoard || p.y >= sizeOfBoard);
-//			System.out.println("OUT2");
+				p = new Point(position.x + tmpX, position.y + tmpY);
+			} while (tmpX == 0 && tmpY == 0 || p.x < 0 || p.y < 0
+					|| p.x >= sizeOfBoard || p.y >= sizeOfBoard);
+			// System.out.println("OUT2");
 
 			return p;
-		}else if (prob < 0.9){
-//			System.out.println("IN3");
+		} else if (prob < 0.9) {
+			// System.out.println("IN3");
 			int tmpX;
 			int tmpY;
 			Point p;
 			do {
-//				System.out.println("Loop2");
+				// System.out.println("Loop2");
 
-				tmpX = (rnd.nextInt(3) - 1)*2;
-				tmpY = (rnd.nextInt(3) - 1)*2;
-				p = new Point(position.x+tmpX, position.y+tmpY);
-			} while(Math.abs(tmpX) + Math.abs(tmpY) > 2 || p.x < 0 || p.y < 0 || p.x >= sizeOfBoard || p.y >= sizeOfBoard);
-//			System.out.println("OUT3");
+				tmpX = (rnd.nextInt(3) - 1) * 2;
+				tmpY = (rnd.nextInt(3) - 1) * 2;
+				p = new Point(position.x + tmpX, position.y + tmpY);
+			} while (Math.abs(tmpX) + Math.abs(tmpY) > 2 || p.x < 0 || p.y < 0
+					|| p.x >= sizeOfBoard || p.y >= sizeOfBoard);
+			// System.out.println("OUT3");
 
 			return p;
-		}else{
-//			System.out.println("IN4");
+		} else {
+			// System.out.println("IN4");
 
-//			System.out.println("OUT4");
+			// System.out.println("OUT4");
 
-			return new Point(-1,-1);
+			return new Point(-1, -1);
 		}
 	}
-	
-	public Point pos(){
-		return new Point(position.x,position.y);
+
+	public Point pos() {
+		return new Point(position.x, position.y);
 	}
 }

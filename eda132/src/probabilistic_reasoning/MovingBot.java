@@ -27,7 +27,7 @@ public class MovingBot {
 
 
 	public Point sensorOutput(){
-		double prob = rand.nextDouble();
+		double prob = rnd.nextDouble();
 		if (prob < 0.1){
 			return new Point(position.x,position.y);
 		}else if (prob < 0.5){

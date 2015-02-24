@@ -16,6 +16,7 @@ public class MovingBotGraphics {
 	private JLabel message;
 	private Point botPosition;
 	private Point sensorPosition;
+	private Color labelColor = new JLabel().getBackground();
 
 	public MovingBotGraphics(int size) {
 		JFrame frame = new JFrame("Moving Bot simulation");
@@ -61,23 +62,25 @@ public class MovingBotGraphics {
 		setSensorPosition(sensorPos);
 		message.setText("<html>Robot: x=" + botPosition.x + " y="
 				+ botPosition.y + "<br>Sensor: x=" + sensorPosition.x + " y="
-				+ sensorPosition.y + "<html>");
+				+ sensorPosition.y + "</html>");
 	}
 
 	private void setBotPosition(Point pos) {
-		JLabel toBeRemoved = null;
+		HashSet<JLabel> toBeRemoved = new HashSet<JLabel>();
 		for (JLabel label : previousBot) {
 			int color = label.getBackground().getGreen();
 			if (color <= 50) {
-				toBeRemoved = label;
+				toBeRemoved.add(label);
 			} else {
 				label.setBackground(new Color(0, color - 50, 0));
 			}
 		}
-		if (toBeRemoved != null) {
-			toBeRemoved.setBackground(Color.blue);
-			toBeRemoved.setOpaque(false);
-			previousBot.remove(toBeRemoved);
+		if (!toBeRemoved.isEmpty()) {
+			for (JLabel l : toBeRemoved) {
+				l.setBackground(labelColor);
+				l.setOpaque(false);
+				previousBot.remove(l);
+			}
 		}
 		board[botPosition.x][botPosition.y].setText("");
 		board[pos.x][pos.y].setText("Bot");
@@ -90,6 +93,7 @@ public class MovingBotGraphics {
 	private void setSensorPosition(Point pos) {
 		if (!sensorPosition.equals(botPosition)) {
 			board[sensorPosition.x][sensorPosition.y].setText("");
+			board[sensorPosition.x][sensorPosition.y].setBackground(labelColor);
 			board[sensorPosition.x][sensorPosition.y].setOpaque(false);
 		}
 		if (!pos.equals(botPosition) && pos.x > 0 && pos.y > 0) {
@@ -98,7 +102,7 @@ public class MovingBotGraphics {
 			board[pos.x][pos.y].setBackground(Color.red);
 			sensorPosition = pos;
 		} else if (pos.x > 0 && pos.y > 0) {
-			board[pos.x][pos.y].setText("<html>Bot and<br>Sensor<html>");
+			board[pos.x][pos.y].setText("<html>Bot and<br>Sensor</html>");
 			board[pos.x][pos.y].setBackground(Color.orange);
 			sensorPosition = pos;
 		} else {

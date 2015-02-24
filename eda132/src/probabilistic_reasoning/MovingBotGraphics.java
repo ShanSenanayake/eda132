@@ -71,7 +71,7 @@ public class MovingBotGraphics {
 			if (color <= 50) {
 				toBeRemoved = label;
 			} else {
-				label.setBackground(new Color(0, color - 10, 0));
+				label.setBackground(new Color(0, color - 50, 0));
 			}
 		}
 		if (toBeRemoved != null) {

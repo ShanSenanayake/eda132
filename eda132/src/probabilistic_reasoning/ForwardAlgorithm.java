@@ -4,33 +4,34 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public class ForwardAlgorithm {
-	private double[][] stateProbMatrix;
+	private double[] stateProbability;
 	private double[][] transitionMatrix;
 	private HashMap<Point, Integer> mapping;
-	private HashMap<Integer, Point> mapping2;
+	private Point[] mapping2;
 
 	public ForwardAlgorithm(int size) {
 		int matrixSize = size * size;
-		stateProbMatrix = new double[matrixSize][matrixSize];
+		stateProbability = new double[matrixSize];
 		transitionMatrix = new double[matrixSize][matrixSize];
 		
 		mapping = new HashMap<Point, Integer>();
-		mapping2 = new HashMap<Integer, Point>();
+		mapping2 = new Point[size];
 		
 		for (int i = 0; i < matrixSize; i++) {
-			mapping.put(new Point(i % size, i / size), i);
-			mapping2.put(i, new Point(i % size, i / size));
+			Point point = new Point(i % size, i / size); 
+			mapping.put(point, i);
+			mapping2[i] = point;
+			stateProbability[i] = 1.0/matrixSize;
 		}
 		
 		for (int i = 0; i < matrixSize; i++) {
-			Point from = mapping2.get(i);
+			Point from = mapping2[i];
 			HashSet<Point> neighbours = new HashSet<Point>();
 			neighbours = calcNeighbours(from, size);
 			for (int j = 0; j < matrixSize; j++) {
 				if (i == j) {
-					stateProbMatrix[i][j] = 1.0 / size;
 					transitionMatrix[i][j] = 0;
-				} else if (neighbours.contains(mapping2.get(j))) {
+				} else if (neighbours.contains(mapping2[j])) {
 					transitionMatrix[i][j] = 1.0 / neighbours.size();
 				} else {
 					transitionMatrix[i][j] = 0;

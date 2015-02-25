@@ -102,7 +102,7 @@ public class MovingBot {
 				tmpX = (rnd.nextInt(3) - 1) * 2;
 				tmpY = (rnd.nextInt(3) - 1) * 2;
 				p = new Point(position.x + tmpX, position.y + tmpY);
-			} while (Math.abs(tmpX) + Math.abs(tmpY) > 2 || p.x < 0 || p.y < 0
+			} while (Math.abs(tmpX) + Math.abs(tmpY) <= 2 || p.x < 0 || p.y < 0
 					|| p.x >= sizeOfBoard || p.y >= sizeOfBoard);
 			// System.out.println("OUT3");
 			System.out.println("Far Hood: " + prob);

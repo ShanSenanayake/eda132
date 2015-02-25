@@ -1,6 +1,5 @@
 package probabilistic_reasoning;
 
-import java.util.HashSet;
 
 public class TestMain {
 

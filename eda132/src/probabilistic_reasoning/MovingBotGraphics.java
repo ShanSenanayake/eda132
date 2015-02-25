@@ -96,14 +96,14 @@ public class MovingBotGraphics {
 			board[sensorPosition.x][sensorPosition.y].setBackground(labelColor);
 			board[sensorPosition.x][sensorPosition.y].setOpaque(false);
 		}
-		if (!pos.equals(botPosition) && pos.x > 0 && pos.y > 0) {
+		if (pos.equals(botPosition) && pos.x >= 0 && pos.y >= 0) {
+			board[pos.x][pos.y].setText("<html>Bot and<br>Sensor</html>");
+			board[pos.x][pos.y].setBackground(Color.orange);
+			sensorPosition = pos;
+		} else if (pos.x >= 0 && pos.y >= 0) {
 			board[pos.x][pos.y].setText("Sensor");
 			board[pos.x][pos.y].setOpaque(true);
 			board[pos.x][pos.y].setBackground(Color.red);
-			sensorPosition = pos;
-		} else if (pos.x > 0 && pos.y > 0) {
-			board[pos.x][pos.y].setText("<html>Bot and<br>Sensor</html>");
-			board[pos.x][pos.y].setBackground(Color.orange);
 			sensorPosition = pos;
 		} else {
 			message.setOpaque(true);

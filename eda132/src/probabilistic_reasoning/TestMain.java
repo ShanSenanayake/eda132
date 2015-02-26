@@ -10,8 +10,8 @@ public class TestMain {
 		while(true){
 			Point sensorPos = mb.sensorOutput();
 			Point botPos = mb.pos();
-			graphics.updateView(botPos, sensorPos);
 			Point estimatePos = fa.getEstimatedLocation(sensorPos);
+			graphics.updateView(botPos, sensorPos,estimatePos);
 			System.out.println("Bot: " + botPos);
 			System.out.println("Sensor: " + sensorPos);
 			System.out.println("Estimate: " + estimatePos);

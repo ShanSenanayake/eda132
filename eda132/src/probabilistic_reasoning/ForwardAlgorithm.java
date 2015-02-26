@@ -10,16 +10,14 @@ public class ForwardAlgorithm {
 	private HashMap<State, Integer> mapping;
 	private State[] mapping2;
 	private int nbrStates;
-	private int matrixSize;
 
 	public ForwardAlgorithm(int size) {
-		nbrStates = 4 * size;
-		matrixSize = 4 * size * size;
-		stateProbability = new double[matrixSize];
-		transitionMatrix = new double[matrixSize][matrixSize];
+		nbrStates = 4 * size * size;
+		stateProbability = new double[nbrStates];
+		transitionMatrix = new double[nbrStates][nbrStates];
 
 		mapping = new HashMap<State, Integer>();
-		mapping2 = new State[matrixSize];
+		mapping2 = new State[nbrStates];
 
 		for (int i = 0; i < size * size; i++) {
 			for (int j = 0; j < 4; j++) {
@@ -42,13 +40,13 @@ public class ForwardAlgorithm {
 				}
 				mapping.put(state, i);
 				mapping2[i] = state;
-				stateProbability[i] = 1.0 / matrixSize;
+				stateProbability[i] = 1.0 / nbrStates;
 			}
 		}
 
-		for (int i = 0; i < matrixSize; i++) {
+		for (int i = 0; i < nbrStates; i++) {
 			State from = mapping2[i];
-			for (int j = 0; j < matrixSize; j++) {
+			for (int j = 0; j < nbrStates; j++) {
 				State to = mapping2[j];
 				if (from.isNeighbour(to)) {
 					if (from.encounterWall(size)) {
@@ -70,11 +68,11 @@ public class ForwardAlgorithm {
 	private double[] getObservationMatrix(Point p) {
 		double[] o = new double[nbrStates];
 		if (p.x == -1 && p.y == -1) {
-			for (int i = 0; i < matrixSize; i++) {
+			for (int i = 0; i < nbrStates; i++) {
 				o[i] = 0.1;
 			}
 		} else {
-			for (int i = 0; i < matrixSize; i++) {
+			for (int i = 0; i < nbrStates; i++) {
 				State s = mapping2[i];
 				if (p.equals(s.p)) {
 					o[i] = 0.1;
@@ -103,4 +101,29 @@ public class ForwardAlgorithm {
 		return false;
 	}
 
+	private int multiplication(double[] o) {
+		double[] temp = new double[nbrStates];
+		double alpha = 0;
+		double max = 0;
+		int mostLikelyState = -1;
+		for (int row = 0; row < nbrStates; row++) {
+			temp[row] = 0;
+			for (int i = 0; i < nbrStates; i++) {
+				// transponat
+				temp[row] += transitionMatrix[i][row] * stateProbability[i]
+						* o[i];
+			}
+			alpha += temp[row];
+		}
+		alpha = 1/alpha;
+		stateProbability = temp;
+		for(int i = 0; i<nbrStates;i++){
+			stateProbability[i] = stateProbability[i]*alpha;
+			if(stateProbability[i]>max){
+				mostLikelyState = i;
+				max = stateProbability[i];
+			}
+		}
+		return mostLikelyState;
+	}
 }

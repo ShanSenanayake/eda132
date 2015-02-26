@@ -1,5 +1,5 @@
 /bin/
-/A1report.aux
-/A1report.log
-/A1report.pdf
+*.aux
+*.log
+*.pdf
 *.class

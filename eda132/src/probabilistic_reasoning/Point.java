@@ -21,6 +21,10 @@ public class Point {
 			    hash = 71 * hash + this.y;
 			    return hash;
 		}
+		
+		public String toString(){
+			return this.x + ", " + this.y;
+		}
 
 		public void addPoint(Point p){
 			this.x += p.x;

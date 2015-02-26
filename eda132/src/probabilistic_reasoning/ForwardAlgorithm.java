@@ -39,9 +39,11 @@ public class ForwardAlgorithm {
 				default:
 					System.out.println("something wrong");
 				}
-				mapping.put(state, i+(size*size*j));
-				mapping2[i+(size*size*j)] = state;
-				stateProbability[i+(size*size*j)] = 1.0 / nbrStates;
+				int index = (i*4)+j; 
+				mapping.put(state, index);
+				mapping2[index] = state;
+				stateProbability[index] = 1.0 / nbrStates;
+//				System.out.println("index: " + index + " " + state.p + " h: " + state.heading);
 			}
 		}
 
@@ -50,6 +52,7 @@ public class ForwardAlgorithm {
 			for (int j = 0; j < nbrStates; j++) {
 				State to = mapping2[j];
 				if (from.isNeighbour(to)) {
+//					System.out.println("from: "  + from.p + " h: " + from.heading+ " to: " + to.p + " h: " +to.heading);
 					if (from.encounterWall(size)) {
 						transitionMatrix[i][j] = 1.0 / from
 								.amountOfNeighbours(size);
@@ -77,12 +80,15 @@ public class ForwardAlgorithm {
 				State s = mapping2[i];
 				if (p.equals(s.p)) {
 					o[i] = 0.1;
+//					System.out.println("Actual " + mapping2[i].p);
 				} else if (checkStep(p, s, 1)) {
 					// check amount of legal inner hood
+//					System.out.println("close hood " + mapping2[i].p);
 					int n = legitHood(p, 1);
 					o[i] = 0.4/n;
 				} else if (checkStep(p, s, 2)) {
 					// check amount of legal outer hood
+//					System.out.println("far hood " + mapping2[i].p);
 					int n = legitHood(p, 2);
 					o[i] = 0.4/n;
 				} else {
@@ -133,8 +139,12 @@ public class ForwardAlgorithm {
 			temp[row] = 0;
 			for (int i = 0; i < nbrStates; i++) {
 				// transponat
-				temp[row] += transitionMatrix[i][row] * stateProbability[i]
-						* o[i];
+				double troll  = transitionMatrix[i][row] * stateProbability[i]* o[i];
+//				double troll  = transitionMatrix[row][i] * stateProbability[i]* o[i];
+				if(troll>0){
+//					System.out.println("row: "  + mapping2[row].p + " col: " + mapping2[i].p);
+				}
+				temp[row] += troll;
 			}
 			alpha += temp[row];
 		}
@@ -142,6 +152,9 @@ public class ForwardAlgorithm {
 		stateProbability = temp;
 		for (int i = 0; i < nbrStates; i++) {
 			stateProbability[i] = stateProbability[i] * alpha;
+			if(stateProbability[i]>0){
+//			System.out.println("point: " + mapping2[i].p + " h: " + mapping2[i].heading + " value: " + stateProbability[i]);
+			}
 			if (stateProbability[i] > max) {
 				mostLikelyState = i;
 				max = stateProbability[i];

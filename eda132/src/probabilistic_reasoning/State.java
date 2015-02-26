@@ -29,11 +29,11 @@ public class State {
 
 	public boolean isNeighbour(State state) {
 		Point point = state.p;
-		if (point.x == p.x + 1 && point.y == p.y && state.heading == State.N
-				|| point.x == p.x - 1 && point.y == p.y
-				&& state.heading == State.S || point.x == p.x
-				&& point.y == p.y + 1 && state.heading == State.E
-				|| point.x == p.x && point.y == p.y - 1
+		if (point.x == p.x && point.y == p.y-1 && state.heading == State.N
+				|| point.x == p.x && point.y == p.y+1
+				&& state.heading == State.S || point.x == p.x+1
+				&& point.y == p.y && state.heading == State.E
+				|| point.x == p.x-1 && point.y == p.y
 				&& state.heading == State.W) {
 			return true;
 		}

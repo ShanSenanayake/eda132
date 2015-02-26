@@ -3,6 +3,7 @@ package probabilistic_reasoning;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 import java.util.HashSet;
 
 import javax.swing.BorderFactory;
@@ -10,7 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class MovingBotGraphics {
+public class MovingBotGraphics{
 	private JLabel[][] board;
 	private HashSet<JLabel> previousBot;
 	private JLabel message;
@@ -32,13 +33,13 @@ public class MovingBotGraphics {
 
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
-				board[i][j] = new JLabel();
-				board[i][j].setSize(50, 50);
+				board[j][i] = new JLabel();
+				board[j][i].setSize(50, 50);
 				// board[i][j].setOpaque(true);
 				// board[i][j].setBackground(Color.magenta);
-				board[i][j].setBorder(BorderFactory
+				board[j][i].setBorder(BorderFactory
 						.createLineBorder(Color.BLACK));
-				matrixPanel.add(board[i][j]);
+				matrixPanel.add(board[j][i]);
 			}
 		}
 
@@ -69,7 +70,8 @@ public class MovingBotGraphics {
 	}
 
 	private void setEstimatePos(Point pos) {
-		if(!estimatePosition.equals(botPosition) || !estimatePosition.equals(sensorPosition)){
+		if(!estimatePosition.equals(botPosition) && !estimatePosition.equals(sensorPosition)){
+			System.out.println(botPosition + "   " + estimatePosition);
 			board[estimatePosition.x][estimatePosition.y].setText("");
 			board[estimatePosition.x][estimatePosition.y].setBackground(labelColor);
 			board[estimatePosition.x][estimatePosition.y].setOpaque(false);
@@ -140,5 +142,6 @@ public class MovingBotGraphics {
 			message.setBackground(Color.red);
 		}
 	}
+
 
 }

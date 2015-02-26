@@ -1,7 +1,6 @@
 package probabilistic_reasoning;
 
 import java.util.HashMap;
-import java.util.HashSet;
 
 public class ForwardAlgorithm {
 
@@ -10,11 +9,13 @@ public class ForwardAlgorithm {
 	private HashMap<State, Integer> mapping;
 	private State[] mapping2;
 	private int nbrStates;
+	private int size;
 
 	public ForwardAlgorithm(int size) {
 		nbrStates = 4 * size * size;
 		stateProbability = new double[nbrStates];
 		transitionMatrix = new double[nbrStates][nbrStates];
+		this.size = size;
 
 		mapping = new HashMap<State, Integer>();
 		mapping2 = new State[nbrStates];
@@ -77,9 +78,13 @@ public class ForwardAlgorithm {
 				if (p.equals(s.p)) {
 					o[i] = 0.1;
 				} else if (checkStep(p, s, 1)) {
-					o[i] = 0.05;
+					// check amount of legal inner hood
+					int n = legitHood(p, 1);
+					o[i] = 0.4/n;
 				} else if (checkStep(p, s, 2)) {
-					o[i] = 0.025;
+					// check amount of legal outer hood
+					int n = legitHood(p, 2);
+					o[i] = 0.4/n;
 				} else {
 					o[i] = 0;
 				}
@@ -89,12 +94,30 @@ public class ForwardAlgorithm {
 		return o;
 	}
 
+	public int legitHood(Point p, int step) {
+		int legits = 0;
+		for (int x = -step; x <= step; x++) {
+			for (int y = -step; y <= step; y++) {
+				if (Math.abs(x) + Math.abs(y) >= step) {
+					Point tmp = new Point(p.x + x, p.y + y);
+					if (tmp.x >= 0 && tmp.y >= 0 && tmp.x < size
+							&& tmp.y < size) {
+						legits++;
+					}
+				}
+			}
+		}
+		return legits;
+	}
+
 	private boolean checkStep(Point p, State s, int step) {
 		for (int x = -step; x <= step; x++) {
 			for (int y = -step; y <= step; y++) {
-				Point tmp = new Point(p.x + x, p.y + y);
-				if (tmp.equals(s.p)) {
-					return true;
+				if (Math.abs(x) + Math.abs(y) >= step) {
+					Point tmp = new Point(p.x + x, p.y + y);
+					if (tmp.equals(s.p)) {
+						return true;
+					}
 				}
 			}
 		}
@@ -115,11 +138,11 @@ public class ForwardAlgorithm {
 			}
 			alpha += temp[row];
 		}
-		alpha = 1/alpha;
+		alpha = 1 / alpha;
 		stateProbability = temp;
-		for(int i = 0; i<nbrStates;i++){
-			stateProbability[i] = stateProbability[i]*alpha;
-			if(stateProbability[i]>max){
+		for (int i = 0; i < nbrStates; i++) {
+			stateProbability[i] = stateProbability[i] * alpha;
+			if (stateProbability[i] > max) {
 				mostLikelyState = i;
 				max = stateProbability[i];
 			}

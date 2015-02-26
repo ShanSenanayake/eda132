@@ -13,8 +13,8 @@ public class TestMain {
 			graphics.updateView(botPos, sensorPos);
 			Point estimatePos = fa.getEstimatedLocation(sensorPos);
 			System.out.println("Bot: " + botPos);
-			System.out.println("Sensor: " + botPos);
-			System.out.println("Estimate: " + botPos);
+			System.out.println("Sensor: " + sensorPos);
+			System.out.println("Estimate: " + estimatePos);
 			mb.move();
 			try {
 				Thread.sleep(1000);

@@ -39,9 +39,9 @@ public class ForwardAlgorithm {
 				default:
 					System.out.println("something wrong");
 				}
-				mapping.put(state, i);
-				mapping2[i] = state;
-				stateProbability[i] = 1.0 / nbrStates;
+				mapping.put(state, i+(size*size*j));
+				mapping2[i+(size*size*j)] = state;
+				stateProbability[i+(size*size*j)] = 1.0 / nbrStates;
 			}
 		}
 

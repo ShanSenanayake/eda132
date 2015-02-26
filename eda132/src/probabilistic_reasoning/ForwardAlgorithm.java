@@ -126,4 +126,10 @@ public class ForwardAlgorithm {
 		}
 		return mostLikelyState;
 	}
+	
+	public Point getEstimatedLocation(Point p){
+		int index = multiplication(getObservationMatrix(p));
+		return mapping2[index].p;
+	}
+	
 }

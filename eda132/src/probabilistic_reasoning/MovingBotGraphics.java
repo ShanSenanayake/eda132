@@ -71,7 +71,7 @@ public class MovingBotGraphics{
 
 	private void setEstimatePos(Point pos) {
 		if(!estimatePosition.equals(botPosition) && !estimatePosition.equals(sensorPosition)){
-			System.out.println(botPosition + "   " + estimatePosition);
+//			System.out.println(botPosition + "   " + estimatePosition);
 			board[estimatePosition.x][estimatePosition.y].setText("");
 			board[estimatePosition.x][estimatePosition.y].setBackground(labelColor);
 			board[estimatePosition.x][estimatePosition.y].setOpaque(false);

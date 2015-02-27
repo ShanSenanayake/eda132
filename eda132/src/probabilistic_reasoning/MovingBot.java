@@ -73,7 +73,7 @@ public class MovingBot {
 
 			// System.out.println("OUT1");
 
-			System.out.println("Actual: " + prob);
+//			System.out.println("Actual: " + prob);
 			return new Point(position.x, position.y);
 		} else if (prob < 0.5) {
 			// System.out.println("IN2");
@@ -89,7 +89,7 @@ public class MovingBot {
 			} while (tmpX == 0 && tmpY == 0 || p.x < 0 || p.y < 0
 					|| p.x >= sizeOfBoard || p.y >= sizeOfBoard);
 			// System.out.println("OUT2");
-			System.out.println("Close Hood: " + prob);
+//			System.out.println("Close Hood: " + prob);
 			return p;
 		} else if (prob < 0.9) {
 			// System.out.println("IN3");
@@ -105,13 +105,13 @@ public class MovingBot {
 			} while (Math.abs(tmpX) + Math.abs(tmpY) <= 2 || p.x < 0 || p.y < 0
 					|| p.x >= sizeOfBoard || p.y >= sizeOfBoard);
 			// System.out.println("OUT3");
-			System.out.println("Far Hood: " + prob);
+//			System.out.println("Far Hood: " + prob);
 			return p;
 		} else {
 			// System.out.println("IN4");
 
 			// System.out.println("OUT4");
-			System.out.println("Nothing: " + prob);
+//			System.out.println("Nothing: " + prob);
 			return new Point(-1, -1);
 		}
 	}

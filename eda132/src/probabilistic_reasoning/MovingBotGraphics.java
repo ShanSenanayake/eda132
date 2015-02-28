@@ -3,7 +3,6 @@ package probabilistic_reasoning;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.awt.event.ActionListener;
 import java.util.HashSet;
 
 import javax.swing.BorderFactory;
@@ -35,8 +34,6 @@ public class MovingBotGraphics{
 			for (int j = 0; j < size; j++) {
 				board[j][i] = new JLabel();
 				board[j][i].setSize(50, 50);
-				// board[i][j].setOpaque(true);
-				// board[i][j].setBackground(Color.magenta);
 				board[j][i].setBorder(BorderFactory
 						.createLineBorder(Color.BLACK));
 				matrixPanel.add(board[j][i]);
@@ -64,9 +61,7 @@ public class MovingBotGraphics{
 		setBotPosition(botPos);
 		setSensorPosition(sensorPos);
 		setEstimatePos(estimatePos);
-		message.setText("<html>Robot: x=" + botPosition.x + " y="
-				+ botPosition.y + "<br>Sensor: x=" + sensorPosition.x + " y="
-				+ sensorPosition.y + "</html>");
+		message.setText("<html>Robot: " + botPosition + "<br>Sensor: " + sensorPosition + "<br>Estimate: " + estimatePos + "</html>");
 	}
 
 	private void setEstimatePos(Point pos) {

@@ -43,8 +43,6 @@ public class ForwardAlgorithm {
 				mapping.put(state, index);
 				mapping2[index] = state;
 				stateProbability[index] = 1.0 / nbrStates;
-				// System.out.println("index: " + index + " " + state.p + " h: "
-				// + state.heading);
 			}
 		}
 
@@ -53,8 +51,6 @@ public class ForwardAlgorithm {
 			for (int j = 0; j < nbrStates; j++) {
 				State to = mapping2[j];
 				if (from.isNeighbour(to)) {
-					// System.out.println("from: " + from.p + " h: " +
-					// from.heading+ " to: " + to.p + " h: " +to.heading);
 					if (from.encounterWall(size)) {
 						transitionMatrix[i][j] = 1.0 / from
 								.amountOfNeighbours(size);
@@ -75,24 +71,17 @@ public class ForwardAlgorithm {
 		double[] o = new double[nbrStates];
 		if (p.x == -1 && p.y == -1) {
 			for (int i = 0; i < nbrStates; i++) {
-				o[i] = 0.1;
+				o[i] = 0.1 + (0.025*outsideBorder(mapping2[i].p));
 			}
 		} else {
 			for (int i = 0; i < nbrStates; i++) {
 				State s = mapping2[i];
 				if (p.equals(s.p)) {
 					o[i] = 0.1;
-//					 System.out.println("Actual " + mapping2[i].p);
 				} else if (checkStep(p, s, 1)) {
-					// check amount of legal inner hood
-//					 System.out.println("close hood " + mapping2[i].p);
-					int n = legitHood(p, 1);
-					o[i] = 0.4 / n;
+					o[i] = 0.05;
 				} else if (checkStep(p, s, 2)) {
-					// check amount of legal outer hood
-//					 System.out.println("far hood " + mapping2[i].p);
-					int n = legitHood(p, 2);
-					o[i] = 0.4 / n;
+					o[i] = 0.025;
 				} else {
 					o[i] = 0;
 				}
@@ -102,20 +91,17 @@ public class ForwardAlgorithm {
 		return o;
 	}
 
-	public int legitHood(Point p, int step) {
-		int legits = 0;
-		for (int x = -step; x <= step; x++) {
-			for (int y = -step; y <= step; y++) {
-				if (Math.abs(x) == step || Math.abs(y) == step) {
-					Point tmp = new Point(p.x + x, p.y + y);
-					if (tmp.x >= 0 && tmp.y >= 0 && tmp.x < size
-							&& tmp.y < size) {
-						legits++;
-					}
+	public int outsideBorder(Point p) {
+		int outside = 0;
+		for (int x = -2; x <= 2; x++) {
+			for (int y = -2; y <= 2; y++) {
+				Point tmp = new Point(p.x + x, p.y + y);
+				if (tmp.x < 0 || tmp.y < 0 || tmp.x >= size || tmp.y >= size) {
+					outside++;
 				}
 			}
 		}
-		return legits;
+		return outside;
 	}
 
 	private boolean checkStep(Point p, State s, int step) {
@@ -141,33 +127,19 @@ public class ForwardAlgorithm {
 			temp[row] = 0;
 			for (int i = 0; i < nbrStates; i++) {
 				// transponat
-				double troll = transitionMatrix[i][row] * stateProbability[i]*o[row];
-				// double troll = transitionMatrix[row][i] *
-				// stateProbability[i]* o[i];
-				if (troll > 0) {
-//					System.out.println("row: " + mapping2[row].p + " h: "
-//							+ mapping2[row].heading + " col: " + mapping2[i].p
-//							+ " h: " + mapping2[i].heading + " trans: " + transitionMatrix[i][row]);
-				}
-				temp[row] += troll;
+				temp[row] += transitionMatrix[i][row] * stateProbability[i]
+						* o[row];
 			}
 			alpha += temp[row];
 		}
 		alpha = 1 / alpha;
-		int count = 0;
 		for (int i = 0; i < nbrStates; i++) {
 			stateProbability[i] = temp[i] * alpha;
-			if (temp[i] > 0) {
-				count++;
-				// System.out.println("point: " + mapping2[i].p + " h: " +
-				// mapping2[i].heading + " value: " + stateProbability[i]);
-			}
 			if (temp[i] > max) {
 				mostLikelyState = i;
 				max = temp[i];
 			}
 		}
-		// System.out.println("Number of possible states: " + count);
 		return mostLikelyState;
 	}
 

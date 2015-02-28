@@ -21,7 +21,22 @@ sensor as well as the algorithm that estimates the robot's position.
 
 \section{Robot and Sensor}
 
+
+
 \section{Estimation Algorithm}
+This part of the report explains how we estimated the position of the robot. 
+For the estimation we used a forward algorithm which will be explained in Section \ref{for_alg}. This algorithm is implemented in the \texttt{ForwardAlgorithm.java} file as well as the main model of the underlying markov chain. Before explaining the forward algorithm the model will have to be explained.
+
+\subsection{Model}
+To model the estimation, we have chosen to define a state (the state is implemented in the \texttt{State.java} file) which represents a point and a certain direction/heading. A state defines where the robot can potentially be, together all states define all the places the robot can be.   
+
+
+\subsection{Forward Algorithm}
+\label{for_alg}
+
+
+\section{Results}
+
 
 \section{Running Instructions} The .java files containing the classes described
 above are located in a package called othello placed on

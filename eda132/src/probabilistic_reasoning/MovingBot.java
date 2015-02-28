@@ -73,7 +73,7 @@ public class MovingBot {
 		} else if (prob < 0.5) {
 				Point p = new Point(position.x +rnd.nextInt(3) - 1, position.y +rnd.nextInt(3) - 1);
 				if(p.x<0 ||p.x>=sizeOfBoard || p.y<0 || p.y>=sizeOfBoard ){
-					return new Point(-1,-1);
+					return State.NOTHING;
 				}
 			
 			return p;
@@ -81,12 +81,12 @@ public class MovingBot {
 
 				Point p = new Point(position.x + (rnd.nextInt(3) - 1) * 2, position.y + (rnd.nextInt(3) - 1) * 2);
 				if(p.x<0 ||p.x>=sizeOfBoard || p.y<0 || p.y>=sizeOfBoard ){
-					return new Point(-1,-1);
+					return State.NOTHING;
 				}
 			
 			return p;
 		} else {
-			return new Point(-1, -1);
+			return State.NOTHING;
 		}
 	}
 

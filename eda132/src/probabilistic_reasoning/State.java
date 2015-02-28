@@ -5,6 +5,7 @@ public class State {
 	public static final int E = 1;
 	public static final int S = 2;
 	public static final int W = 3;
+	public static final Point NOTHING = new Point(-1,-1);
 
 	Point p;
 	int heading;

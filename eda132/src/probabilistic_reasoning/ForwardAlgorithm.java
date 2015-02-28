@@ -69,7 +69,7 @@ public class ForwardAlgorithm {
 
 	private double[] getObservationMatrix(Point p) {
 		double[] o = new double[nbrStates];
-		if (p.x == -1 && p.y == -1) {
+		if (p.equals(State.NOTHING)) {
 			for (int i = 0; i < nbrStates; i++) {
 				o[i] = 0.1 + (0.025*outsideBorder(mapping2[i].p));
 			}

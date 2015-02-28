@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class MovingBotGraphics{
+public class MovingBotGraphics {
 	private JLabel[][] board;
 	private HashSet<JLabel> previousBot;
 	private JLabel message;
@@ -18,16 +18,23 @@ public class MovingBotGraphics{
 	private Point sensorPosition;
 	private Point estimatePosition;
 	private Color labelColor = new JLabel().getBackground();
+	private JLabel estimateLabel;
+	private int iter;
+	private int estimate;
 
 	public MovingBotGraphics(int size) {
+		iter = 0;
+		estimate = 0;
+		
 		JFrame frame = new JFrame("Moving Bot simulation");
 		JPanel mainPanel = new JPanel(new BorderLayout());
-		JPanel msgPanel = new JPanel();
+		JPanel msgPanel = new JPanel(new GridLayout(1,2));
 		JPanel matrixPanel = new JPanel(new GridLayout(size, size));
 
 		previousBot = new HashSet<JLabel>();
 
 		message = new JLabel("Info goes here");
+		estimateLabel = new JLabel("estimates goes here");
 		board = new JLabel[size][size];
 
 		for (int i = 0; i < size; i++) {
@@ -41,6 +48,7 @@ public class MovingBotGraphics{
 		}
 
 		msgPanel.add(message);
+		msgPanel.add(estimateLabel);
 		msgPanel.setSize(100, 20);
 
 		mainPanel.add(msgPanel, BorderLayout.NORTH);
@@ -53,22 +61,41 @@ public class MovingBotGraphics{
 
 		botPosition = new Point(0, 0);
 		sensorPosition = new Point(0, 0);
-		estimatePosition = new Point(0,0);
+		estimatePosition = new Point(0, 0);
 	}
 
 	public void updateView(Point botPos, Point sensorPos, Point estimatePos) {
+		iter++;
 		message.setOpaque(false);
 		setBotPosition(botPos);
 		setSensorPosition(sensorPos);
 		setEstimatePos(estimatePos);
-		message.setText("<html>Robot: " + botPosition + "<br>Sensor: " + sensorPosition + "<br>Estimate: " + estimatePos + "</html>");
+		
+		if(botPos.equals(estimatePos)){
+			estimate++;
+		}
+		
+		if (sensorPos.equals(State.NOTHING)) {
+			message.setText("<html>Robot: " + botPosition
+					+ "<br>Sensor: Nothing<br>Estimate: " + estimatePos
+					+ "</html>");
+
+		} else {
+			message.setText("<html>Robot: " + botPosition + "<br>Sensor: "
+					+ sensorPosition + "<br>Estimate: " + estimatePos
+					+ "</html>");
+		}
+		
+		double p = 100*((double)estimate)/iter;
+		estimateLabel.setText("Corret estimates: " + p + "%");
 	}
 
 	private void setEstimatePos(Point pos) {
-		if(!estimatePosition.equals(botPosition) && !estimatePosition.equals(sensorPosition)){
-//			System.out.println(botPosition + "   " + estimatePosition);
+		if (!estimatePosition.equals(botPosition)
+				&& !estimatePosition.equals(sensorPosition)) {
 			board[estimatePosition.x][estimatePosition.y].setText("");
-			board[estimatePosition.x][estimatePosition.y].setBackground(labelColor);
+			board[estimatePosition.x][estimatePosition.y]
+					.setBackground(labelColor);
 			board[estimatePosition.x][estimatePosition.y].setOpaque(false);
 		}
 		if (pos.equals(botPosition) && pos.equals(sensorPosition)) {
@@ -78,18 +105,17 @@ public class MovingBotGraphics{
 			board[pos.x][pos.y].setText("<html> Bot and <br> Est </html>");
 			board[pos.x][pos.y].setOpaque(true);
 			board[pos.x][pos.y].setBackground(Color.cyan);
-		} else if(pos.equals(sensorPosition)) {
+		} else if (pos.equals(sensorPosition)) {
 			board[pos.x][pos.y].setText("<html> Est and <br> Sensor </html>");
 			board[pos.x][pos.y].setOpaque(true);
 			board[pos.x][pos.y].setBackground(Color.magenta);
-		}else{
+		} else {
 			board[pos.x][pos.y].setText("Est");
 			board[pos.x][pos.y].setOpaque(true);
 			board[pos.x][pos.y].setBackground(Color.blue);
 		}
 		estimatePosition = pos;
-		
-		
+
 	}
 
 	private void setBotPosition(Point pos) {
@@ -137,6 +163,5 @@ public class MovingBotGraphics{
 			message.setBackground(Color.red);
 		}
 	}
-
 
 }

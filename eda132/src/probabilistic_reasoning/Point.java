@@ -30,4 +30,10 @@ public class Point {
 			this.x += p.x;
 			this.y += p.y;
 		}
+		
+		public double distance(Point p){
+			int deltaX = this.x-p.x;
+			int deltaY = this.y-p.y;
+			return Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY,2));
+		}
 	}

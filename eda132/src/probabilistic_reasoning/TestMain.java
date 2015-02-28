@@ -16,9 +16,9 @@ public class TestMain {
 			Point estimatePos = fa.getEstimatedLocation(sensorPos);
 			if(botPos.equals(estimatePos)){
 				estimates++;
-				double prob = ((double)(estimates))/iterations;
-				System.out.println("Probability: " + prob*100 + "% " + estimates + " " + iterations);
 			}
+			double prob = ((double)(estimates))/iterations;
+			System.out.println("Probability: " + prob*100 + "% " + estimates + " " + iterations + " dist: " + botPos.distance(estimatePos));
 			graphics.updateView(botPos, sensorPos,estimatePos);
 //			System.out.println("Bot: " + botPos);
 //			System.out.println("Sensor: " + sensorPos);

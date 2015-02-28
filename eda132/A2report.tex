@@ -20,23 +20,37 @@ noisy sensor. The two parts thus consist of a simulation of the robot and the
 sensor as well as the algorithm that estimates the robot's position.
 
 \section{Robot and Sensor}
+Our robot and sensor are both implemented in the \texttt{MovingBot} class defined in \texttt{MovingBot.java}.
+
+\subsection{Robot}
+Our robot is implemented in such manner that for each call to the \texttt{move()} method the robot moves one step. The robot moves about in a grid consisting of 8x8 positions. The robot's movements are well defined according to a set of rules. Firstly the robot has a heading and with probability 0.7 the robot moves one step along the same heading. With probability 0.3 the robot moves one step along a new heading. If the robot faces a wall on the current heading a new heading is always chosen. Whenever a new heading is to be found it is chosen at uniform random. The start position of the robot on the grid is also chosen at uniform random.
+
+We have chosen to define for headings for our bot, namely, north, south, east and west. This means that the robot only moves vertically and horizontally among the positions on the grid.
+
+\subsection{Sensor}
+The sensor is to be noisy and can therefore not output the exact position of the robot. Therefore another set of rules define what the sensor should output. For every call to the \texttt{sensorOutput()} function a point is given that has been calculated using the sensor's rules.
+
+The rules that define the sensor output is the following. With probability 0.1 the true location of the robot is given as the output. With probability 0.4 any one of the eight neighboring positions are chosen. With 0.4 probability any one of the sixteen positions surrounding the previous eight neighboring positions are chosen. The remaining probability of 0.1 yields \emph{nothing} as the sensor output.
+
+In those cases where the robot have some neighboring positions outside of the grid and one of those positions is to be chosen as the sensor output we have chosen to give the output \emph{nothing}. This essentially means two things.  Firstly, there is a higher probability of producing the output \emph{nothing} if the robot is close to a wall than if it would be in the center of the grid. Secondly, the output \emph{nothing} may be thought of in two ways, an unclear reading or no reading at all as well as a position outside of the grid.
+
 
 
 
 \section{Estimation Algorithm}
-This part of the report explains how we estimated the position of the robot. 
+This part of the report explains how we estimated the position of the robot.
 For the estimation we used a forward algorithm which will be explained in Section \ref{for_alg}. This algorithm is implemented in the \texttt{ForwardAlgorithm.java} file as well as the main model of the underlying markov chain. Before explaining the forward algorithm the model will have to be explained.
 
 \subsection{Model}
-To model the estimation, we have chosen to define a state (the state is implemented in the \texttt{State.java} file) which represents a point and a certain direction/heading. A state defines where the robot can potentially be, together all states define all the places the robot can be.   
+To model the estimation, we have chosen to define a state (the state is implemented in the \texttt{State.java} file) which represents a point and a certain direction/heading. A state defines where the robot can potentially be, together all states define all the places the robot can be.
 
 
 \subsection{Forward Algorithm}
 \label{for_alg}
 
 
-\section{Results}
-
+\section{Results and Discussion}
+Originally we chose to force the sensor to output one of the neighboring positions even if some of them were outside of the grid. Of course, we then made sure that the output was of course a position on the grid but this in turn meant that each of those positions had a higher probability of occurring. The probability of 0.4 may have been distributed on only three positions if the one of the eight neighboring positions were to be chosen and the robot was in a corner of the grid. This caused some problems for us when we were to estimate the robots position as any one of these three positions had a higher probability of being output than the actual position. This made it difficult to estimate the true position of the robot on the grid. In those cases we could only estimate the true position of the robot in $35 - 40\%$ of the estimations.
 
 \section{Running Instructions} The .java files containing the classes described
 above are located in a package called othello placed on

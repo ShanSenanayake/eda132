@@ -77,8 +77,8 @@ This file contains the class \texttt{MovingBot} which composes our robot and sen
 
 \subsection{MovingBotGraphics.java}
 This file contains the class \texttt{MovingBotGraphics} which sets up a Graphical User Interface (GUI) that visualizes the different positions on the grid. This class contains no interesting code but just the code that make up a GUI
-\subsection{ForwardAlgorithm.java}
-\subsection{BotMain.java}
+\subsection{ForwardAlgorithm.java} This file contains the class \texttt{ForwardAlgorithm} which implements the algorithm that estimates the robot's position. The class contains mostly methods to create the transition matrix and observation matrix. These are created in coherence with the rules for the robot and sensor defined in the assignment but also on how we specificly implemented the robot and sensor. The only public method that this class offers is \texttt{getEstimatedLocation} which takes a \texttt{Point} and returns another \texttt{Point} that has been filtered using the algorithm.
+\subsection{BotMain.java} This contains the \texttt{BotMain} class which in turn contains the \texttt{main} method of our program. This method simply creates and initalizes the \texttt{MovingBot}, \texttt{ForwardAlgorithm} and \texttt{MovingBotGraphics} classes. It also contains the loop in which the program is run. Some statistics is also provided by this method printed in the terminal.
 
 \section{Running Instructions} The .java files containing the classes described
 above are located in a package called othello placed on

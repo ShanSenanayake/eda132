@@ -1,6 +1,6 @@
 package probabilistic_reasoning;
 
-public class TestMain {
+public class BotMain {
 
 	public static void main(String[] args) {
 		MovingBot mb = new MovingBot(8);

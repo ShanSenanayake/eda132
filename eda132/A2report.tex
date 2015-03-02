@@ -30,9 +30,9 @@ We have chosen to define for headings for our bot, namely, north, south, east an
 \subsection{Sensor}
 The sensor is to be noisy and can therefore not output the exact position of the robot. Therefore another set of rules define what the sensor should output. For every call to the \texttt{sensorOutput()} function a point is given that has been calculated using the sensor's rules.
 
-The rules that define the sensor output is the following. With probability 0.1 the true location of the robot is given as the output. With probability 0.4 any one of the eight neighboring positions are chosen. With 0.4 probability any one of the sixteen positions surrounding the previous eight neighboring positions are chosen. The remaining probability of 0.1 yields \emph{nothing} as the sensor output.
+The rules that define the sensor output is the following. With probability 0.1 the true location of the robot is given as the output. With probability 0.4 any one of the eight neighbouring positions are chosen. With 0.4 probability any one of the sixteen positions surrounding the previous eight neighbouring positions are chosen. The remaining probability of 0.1 yields \emph{nothing} as the sensor output.
 
-In those cases where the robot have some neighboring positions outside of the grid and one of those positions is to be chosen as the sensor output we have chosen to give the output \emph{nothing}. This essentially means two things.  Firstly, there is a higher probability of producing the output \emph{nothing} if the robot is close to a wall than if it would be in the center of the grid. Secondly, the output \emph{nothing} may be thought of in two ways, an unclear reading or no reading at all as well as a position outside of the grid.
+In those cases where the robot have some neighbouring positions outside of the grid and one of those positions is to be chosen as the sensor output we have chosen to give the output \emph{nothing}. This essentially means two things.  Firstly, there is a higher probability of producing the output \emph{nothing} if the robot is close to a wall than if it would be in the center of the grid. Secondly, the output \emph{nothing} may be thought of in two ways, an unclear reading or no reading at all as well as a position outside of the grid.
 
 
 
@@ -44,8 +44,8 @@ For the estimation we used a forward algorithm which will be explained in Sectio
 \subsection{Model}
 To model the estimation, we have chosen to define a state (the state is implemented in the \texttt{State.java} file) which represents a point and a certain direction/heading. A state defines where the robot can potentially be, together all states define all the places the robot can be. Since we have 4 different directions, running on a 8x8 board gives us $4x8x8 = 132$ different possible states.
 
-We chose to have our model as a matrix implementation. The states are represented in a vector called \texttt{stateProbability} with the size 132, the value for each entry is the likelyhood for the robot to be in that particular state. The transition model had to be represented in a matrix of the size of 132x132, where each entry transition[i][j] is the probability of transitioning from state i to state j. 
-The observation matrix is supposed to be represented as the observation in the diagonal, however we chose to represent is as a vector the same size as the \texttt{stateProbability} vector, since those are the observable states.  
+We chose to have our model as a matrix implementation. The states are represented in a vector called \texttt{stateProbability} with the size 132, the value for each entry is the likelyhood for the robot to be in that particular state. The transition model had to be represented in a matrix of the size of 132x132, where each entry transition[i][j] is the probability of transitioning from state i to state j.
+The observation matrix is supposed to be represented as the observation in the diagonal, however we chose to represent is as a vector the same size as the \texttt{stateProbability} vector, since those are the observable states.
 
 
 \subsection{Forward Algorithm}
@@ -53,7 +53,32 @@ The observation matrix is supposed to be represented as the observation in the d
 
 
 \section{Results and Discussion}
-Originally we chose to force the sensor to output one of the neighboring positions even if some of them were outside of the grid. Of course, we then made sure that the output was of course a position on the grid but this in turn meant that each of those positions had a higher probability of occurring. The probability of 0.4 may have been distributed on only three positions if the one of the eight neighboring positions were to be chosen and the robot was in a corner of the grid. This caused some problems for us when we were to estimate the robots position as any one of these three positions had a higher probability of being output than the actual position. This made it difficult to estimate the true position of the robot on the grid. In those cases we could only estimate the true position of the robot in $35 - 40\%$ of the estimations.
+Originally we chose to force the sensor to output one of the neighbouring positions even if some of them were outside of the grid. Of course, we then made sure that the output was of course a position on the grid but this in turn meant that each of those positions had a higher probability of occurring. The probability of 0.4 may have been distributed on only three positions if the one of the eight neighbouring positions were to be chosen and the robot was in a corner of the grid. This caused some problems for us when we were to estimate the robots position as any one of these three positions had a higher probability of being output than the actual position. This made it difficult to estimate the true position of the robot on the grid. In those cases we could only estimate the true position of the robot in $35 - 40\%$ of the estimations.
+
+\section{Source Code}
+Our program is made up of six files which contain the source code. In this section we will briefly go through what each of these files contain.
+
+\subsection{Point.java}
+This file contains the class \texttt{Point} which we use to describe a position on the grid on which the robot moves. The class contains some trivial but very useful functions.
+\subsection{State.java}
+This file contains the class \texttt{State} which in our program means where the robot are and what heading it has. Thus, the \texttt{State} class maintains a \texttt{Point} denoting the position and an \texttt{int} to denote the heading. The class contains some trivial functions but also three nontrivial important functions. These are:
+\begin{description}
+\item{\texttt{isNeighbour}} This method checks if two states are neighbours. We have defined neighbour in such a way that two states are neighbours if the current and next positions are located (vertically or horizontally) one step from each other and if the current heading allows movement from the current position to the next position.
+\item{\texttt{amountOfNeighbours}} This method simply returns how many positions the robot can move to that are located on the grid when it has the current state. Normally this method would return four as the robot can choose between four headings. However if the robot travels along the edge of the grid this will only be three and if the robot is located in a corner of the grid this will only be two.
+\item{\texttt{encounterWall}} This method checks if the robot (in the current state) is positioned next to a wall and has a heading which face the wall. Essentially just checking if the robot were to move along it's current heading, would it go outside the grid.
+\end{description}
+\subsection{MovingBot.java}
+This file contains the class \texttt{MovingBot} which composes our robot and sensor. There are three private functions in this class which are used to derive a new heading in those according to the rules specified in the assignment. There are also three public functions which are:
+\begin{description}
+\item{\texttt{move}} This method moves the robot one step according the rules specified in the assignment.
+\item{\texttt{sensorOutput}} This method returns the sensor's reading of the robot's position. The output is created by following the specified rules defined in the assignment.
+\item{\texttt{pos}} This method simply returns the true position of the robot. This used for us to visualize how much off the sensor and estimate positions are off by the real position.
+\end{description}
+
+\subsection{MovingBotGraphics.java}
+This file contains the class \texttt{MovingBotGraphics} which sets up a Graphical User Interface (GUI) that visualizes the different positions on the grid. This class contains no interesting code but just the code that make up a GUI
+\subsection{ForwardAlgorithm.java}
+\subsection{BotMain.java}
 
 \section{Running Instructions} The .java files containing the classes described
 above are located in a package called othello placed on

@@ -15,6 +15,7 @@ public class State {
 		this.heading = heading;
 	}
 
+	@Override
 	public boolean equals(Object obj) {
 		State s = (State) obj;
 		return (s.p.equals(p) && s.heading == heading);
@@ -40,7 +41,7 @@ public class State {
 		}
 		return false;
 	}
-	
+
 	public int amountOfNeighbours(int size){
 		int amount = 4;
 		if(p.x<= 0 || p.x>= size-1){

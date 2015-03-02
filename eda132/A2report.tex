@@ -3,6 +3,8 @@
 \usepackage[english]{babel}
 \usepackage{moreverb}
 \usepackage{graphicx}
+\usepackage{algorithm}% http://ctan.org/pkg/algorithm
+\usepackage{algpseudocode}% http://ctan.org/pkg/algorithmicx
 \title{Assignment 2 \\ EDA132 Applied Artificial Intelligence}
 \date{\today}
 \author{Fredrik Paulsson \\ dat11fp1@student.lu.se
@@ -50,7 +52,23 @@ The observation matrix is supposed to be represented as the observation in the d
 
 \subsection{Forward Algorithm}
 \label{for_alg}
+The forward algorithm uses a hidden markov model to calculate filtering or prediction depending on implementation. In out assignment we have used it as a filtering algorithm to calculate the most probable state the robot is in, given the evidence. The neat thing about the forward algorithm is that it takes $\mathcal{O}(1)$ time and space to calculate, it is however dependent on the amount of states available (which is defined by the model). 
 
+\begin{algorithm}
+  \caption{Forward algorithm}\label{forward}
+  \begin{algorithmic}[1]
+      \State \texttt{State Probability Vector S}
+      \State \texttt{Transition model T}
+      \State \texttt{Observation Vector O}
+      \For{\texttt{row = 0 .. S.size}}
+      	\For{\texttt{col = 0 .. S.size}}
+      		\State $S(row)_{next} += \alpha O(row) \cdot T(col)(row) \cdot S(col)_{prev}$
+      	\EndFor
+      \EndFor
+  \end{algorithmic}
+\end{algorithm}
+
+The above pseudocode (\ref{forward}) explains how we have implemented the forward algorithm. There are a few pointers that might require further explaination. $T(col)(row)$ is the transpose of the regular $T(col)(row)$ and it means the transition probability that we arrive to the current row from the given columns. $O(row)$ is the observation we made, ergo the probability that we got that certain sensor reading if we are in the state $row$. $S(col)$ is the current probability we have that we came from this state.
 
 \section{Results and Discussion}
 Originally we chose to force the sensor to output one of the neighbouring positions even if some of them were outside of the grid. Of course, we then made sure that the output was of course a position on the grid but this in turn meant that each of those positions had a higher probability of occurring. The probability of 0.4 may have been distributed on only three positions if the one of the eight neighbouring positions were to be chosen and the robot was in a corner of the grid. This caused some problems for us when we were to estimate the robots position as any one of these three positions had a higher probability of being output than the actual position. This made it difficult to estimate the true position of the robot on the grid. In those cases we could only estimate the true position of the robot in $35 - 40\%$ of the estimations.

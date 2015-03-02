@@ -91,7 +91,7 @@ public class ForwardAlgorithm {
 		return o;
 	}
 
-	public int outsideBorder(Point p) {
+	private int outsideBorder(Point p) {
 		int outside = 0;
 		for (int x = -2; x <= 2; x++) {
 			for (int y = -2; y <= 2; y++) {

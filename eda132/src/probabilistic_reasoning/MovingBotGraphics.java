@@ -206,7 +206,7 @@ public class MovingBotGraphics implements KeyListener, MouseWheelListener {
 	public void mouseWheelMoved(MouseWheelEvent arg0) {
 		int time = arg0.getWheelRotation()*5;
 		long tmp = waitTime + time;	
-		if (tmp >= 0){
+		if (tmp >= 10){
 			waitTime = tmp;
 		}
 	}

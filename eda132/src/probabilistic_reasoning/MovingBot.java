@@ -71,19 +71,26 @@ public class MovingBot {
 		if (prob < 0.1) {
 			return new Point(position.x, position.y);
 		} else if (prob < 0.5) {
-				Point p = new Point(position.x +rnd.nextInt(3) - 1, position.y +rnd.nextInt(3) - 1);
-				if(p.x<0 ||p.x>=sizeOfBoard || p.y<0 || p.y>=sizeOfBoard ){
-					return State.NOTHING;
-				}
-			
+			Point p = new Point(position.x + rnd.nextInt(3) - 1, position.y
+					+ rnd.nextInt(3) - 1);
+			if (p.x < 0 || p.x >= sizeOfBoard || p.y < 0 || p.y >= sizeOfBoard) {
+				return State.NOTHING;
+			}
+
 			return p;
 		} else if (prob < 0.9) {
+			int tempX = 0;
+			int tempY = 0;
+			do {
+				tempX = rnd.nextInt(5) - 2;
+				tempY = rnd.nextInt(5) - 2;
+			} while (tempX < 2 && tempY < 2);
+			Point p = new Point(position.x + tempX,
+					position.y + tempY);
+			if (p.x < 0 || p.x >= sizeOfBoard || p.y < 0 || p.y >= sizeOfBoard) {
+				return State.NOTHING;
+			}
 
-				Point p = new Point(position.x + (rnd.nextInt(3) - 1) * 2, position.y + (rnd.nextInt(3) - 1) * 2);
-				if(p.x<0 ||p.x>=sizeOfBoard || p.y<0 || p.y>=sizeOfBoard ){
-					return State.NOTHING;
-				}
-			
 			return p;
 		} else {
 			return State.NOTHING;

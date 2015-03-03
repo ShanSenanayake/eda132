@@ -3,6 +3,10 @@ package probabilistic_reasoning;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.util.HashSet;
 
 import javax.swing.BorderFactory;
@@ -10,7 +14,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class MovingBotGraphics {
+public class MovingBotGraphics implements KeyListener, MouseWheelListener {
+	private JFrame frame;
 	private JLabel[][] board;
 	private HashSet<JLabel> previousBot;
 	private JLabel message;
@@ -21,12 +26,16 @@ public class MovingBotGraphics {
 	private JLabel estimateLabel;
 	private int iter;
 	private int estimate;
+	private boolean run;
+	private long waitTime;
 
 	public MovingBotGraphics(int size) {
 		iter = 0;
 		estimate = 0;
+		run = true;
+		waitTime = 100;
 		
-		JFrame frame = new JFrame("Moving Bot simulation");
+		frame = new JFrame("Moving Bot simulation");
 		JPanel mainPanel = new JPanel(new BorderLayout());
 		JPanel msgPanel = new JPanel(new GridLayout(1,2));
 		JPanel matrixPanel = new JPanel(new GridLayout(size, size));
@@ -58,6 +67,9 @@ public class MovingBotGraphics {
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(500, 500);
+		frame.addKeyListener(this);
+		frame.addMouseWheelListener(this);
+
 
 		botPosition = new Point(0, 0);
 		sensorPosition = new Point(0, 0);
@@ -87,7 +99,7 @@ public class MovingBotGraphics {
 		}
 		
 		double p = 100*((double)estimate)/iter;
-		estimateLabel.setText("Corret estimates: " + p + "%");
+		estimateLabel.setText("<html>Correct estimates: " + p + "%<br>Wait Time: " + waitTime);
 	}
 
 	private void setEstimatePos(Point pos) {
@@ -162,6 +174,45 @@ public class MovingBotGraphics {
 			message.setOpaque(true);
 			message.setBackground(Color.red);
 		}
+	}
+	
+	public void close(){
+		frame.dispose();
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		run = false;
+		
+	}
+	
+	public boolean run(){
+		return run;
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		return;
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		return;
+		
+	}
+
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent arg0) {
+		int time = arg0.getWheelRotation()*5;
+		long tmp = waitTime + time;	
+		if (tmp >= 0){
+			waitTime = tmp;
+		}
+	}
+	
+	public long time(){
+		return waitTime;
 	}
 
 }

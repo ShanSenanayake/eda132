@@ -1,9 +1,19 @@
 package decision_trees;
 
 public class TerminalNode implements DecisionNode {
-	private String value;
+	private Goal goal;
 
-	public TerminalNode(String value){
-		this.value = value;
+	public TerminalNode(Goal goal){
+		this.goal = goal;
+	}
+
+	@Override
+	public String print() {
+		return ": " + goal.toString();
+	}
+
+	@Override
+	public boolean isTerminal() {
+		return true;
 	}
 }

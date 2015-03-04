@@ -18,6 +18,10 @@ public class Goal {
 		return other.attribute.equals(attribute) && other.value.equals(value);
 	}
 	
+	public String toString(){
+		return value;
+	}
+	
 	
 	
 }

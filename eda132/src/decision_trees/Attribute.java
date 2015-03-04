@@ -1,8 +1,9 @@
 package decision_trees;
 
 import java.util.HashSet;
+import java.util.Iterator;
 
-public class Attribute {
+public class Attribute implements Iterable<String> {
 	private String name;
 	private HashSet<String> values;
 	
@@ -43,6 +44,15 @@ public class Attribute {
 	@Override
 	public String toString() {
 		return name;
+	}
+
+	@Override
+	public Iterator<String> iterator() {
+		return values.iterator();
+	}
+
+	public HashSet<String> getValues() {
+		return values;
 	}
 	
 

@@ -10,5 +10,13 @@ public class Example {
 		this.values = values;
 		this.goal = goal;
 	}
+	
+	public Goal getGoal(){
+		return goal;
+	}
+	
+	public String getValue(Attribute attr){
+		return values.get(attr);
+	}
 
 }

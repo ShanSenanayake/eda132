@@ -6,11 +6,16 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public class DecisionTreeAlgorithm {
+	private Relation rel;
 
-	public DecisionTreeAlgorithm() {
+	public DecisionTreeAlgorithm(Relation rel) {
+		this.rel = rel;
 	}
-
-	public DecisionNode decisionTreeLearning(ArrayList<Example> examples,
+	public DecisionNode dtl(){
+		return decisionTreeLearning(rel.getExamples(),rel.getAttributes(),rel.getExamples());
+	}
+	
+	private DecisionNode decisionTreeLearning(ArrayList<Example> examples,
 			ArrayList<Attribute> attributes, ArrayList<Example> parentExamples) {
 		if (examples.isEmpty()) {
 //			System.out.println("in empty examples");
@@ -52,8 +57,16 @@ public class DecisionTreeAlgorithm {
 
 	private Attribute mostImporatant(ArrayList<Attribute> attributes,
 			ArrayList<Example> examples) {
-		// TODO Auto-generated method stub
-		return attributes.get((int) (Math.random() * attributes.size()));
+		double max = 0;
+		Attribute attribute = null;
+		for(Attribute attr: attributes){
+			double temp = rel.getGain(attr);
+			if(temp>max){
+				attribute = attr;
+				max = temp;
+			}
+		}
+		return attribute;
 	}
 
 	private boolean hasSameGoals(ArrayList<Example> examples) {

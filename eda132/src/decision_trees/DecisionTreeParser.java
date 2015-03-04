@@ -33,7 +33,7 @@ public class DecisionTreeParser {
 		ArrayList<Attribute> attributes = null;
 		ArrayList<Example> examples = null;
 		Relation rel = null;
-		String relation;
+		String relation = null;
 		while (!lines.isEmpty()) {
 			String line = lines.removeFirst();
 			String[] elements = line.split(" ");
@@ -43,7 +43,6 @@ public class DecisionTreeParser {
 //				System.out.println("------------------------------------------------");
 				attributes = new ArrayList<Attribute>();
 				examples = new ArrayList<Example>();
-				rel = new Relation(relation, attributes, examples);
 			} else if (elements[0].equals("@attribute")) {
 				HashSet<String> values = new HashSet<String>();
 				String[] stringValues = elements[2].substring(1,
@@ -84,6 +83,7 @@ public class DecisionTreeParser {
 			}
 		}
 		attributes.remove(attributes.size()-1);
+		rel = new Relation(relation, attributes, examples);
 		this.rel = rel;
 		
 

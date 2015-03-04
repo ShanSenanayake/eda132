@@ -9,6 +9,15 @@ public class Goal {
 		this.attribute = attribute;
 		this.value = value;
 	}
+
+
+
+	@Override
+	public boolean equals(Object obj) {
+		Goal other = (Goal)obj;
+		return other.attribute.equals(attribute) && other.value.equals(value);
+	}
+	
 	
 	
 }

@@ -12,6 +12,7 @@ import java.util.Scanner;
 
 public class DecisonTreeParser {
 	private Scanner scan;
+	private Relation rel;
 
 	public DecisonTreeParser(File file) {
 		BufferedReader br = null;
@@ -82,6 +83,7 @@ public class DecisonTreeParser {
 				//If several relations are to be dealt with, this is the place to do it
 			}
 		}
+		this.rel = rel;
 		
 
 		// String relation =
@@ -123,5 +125,9 @@ public class DecisonTreeParser {
 		// }
 		//
 
+	}
+	
+	public Relation getRelation(){
+		return rel;
 	}
 }

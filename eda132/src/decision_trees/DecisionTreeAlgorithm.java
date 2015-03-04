@@ -1,6 +1,8 @@
 package decision_trees;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DecisionTreeAlgorithm {
 
@@ -39,16 +41,37 @@ public class DecisionTreeAlgorithm {
 	private Attribute mostImporatant(ArrayList<Attribute> attributes,
 			ArrayList<Example> examples) {
 		// TODO Auto-generated method stub
-		return null;
+		return attributes.get((int)(Math.random()*attributes.size()));
 	}
 
 	private boolean hasSameGoals(ArrayList<Example> examples) {
-		// TODO Auto-generated method stub
-		return false;
+		Goal g = examples.get(0).getGoal();
+		for (Example ex: examples){
+			if (!g.equals(ex.getGoal())){
+				return false;
+			}
+		}
+		return true;
 	}
 
 	private DecisionNode pluralityValue(ArrayList<Example> parentExamples) {
-		// TODO Auto-generated method stub
-		return null;
+		HashMap<Example,Integer> map = new HashMap<Example,Integer>();
+		for (Example ex: parentExamples){
+			int i = 1;
+			if (map.containsKey(ex)){
+				i = map.get(ex);
+				i++;
+			}
+			map.put(ex, i);
+		}
+		int occs = 0;
+		Example ex = null;
+		for (Map.Entry<Example, Integer> entry:map.entrySet()){
+			if (entry.getValue() > occs){
+				occs = entry.getValue();
+				ex = entry.getKey();
+			}
+		}
+		return ex;
 	}
 }

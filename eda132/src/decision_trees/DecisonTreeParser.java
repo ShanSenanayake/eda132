@@ -55,13 +55,14 @@ public class DecisonTreeParser {
 				while (!lines.isEmpty()
 						&& !lines.peekFirst().startsWith("@relation")
 						&& !lines.peekFirst().startsWith("@data")) {
-					System.out.println("------------------------------------------------");
+//					System.out.println("------------------------------------------------");
 					String[] example = lines.removeFirst().split(",");
 					HashMap<Attribute,String> ex = new HashMap<Attribute,String>();
 					for ( int i = 0; i< example.length; i++){
 						ex.put(attributes.get(i),example[i]);
-						System.out.println(attributes.get(i) + " " + example[i]);
+//						System.out.println(attributes.get(i) + " " + example[i]);
 					}
+					System.out.println(ex);
 					examples.add(new Example(ex));
 				}
 			

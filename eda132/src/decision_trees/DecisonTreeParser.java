@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -29,14 +29,19 @@ public class DecisonTreeParser {
 			}
 		}
 		ArrayList<Attribute> attributes = null;
+		ArrayList<Example> examples = null;
 		Relation rel = null;
+		String relation;
 		while (!lines.isEmpty()) {
 			String line = lines.removeFirst();
 			String[] elements = line.split(" ");
 			if (elements[0].equals("@relation")) {
-				System.out.println(elements[1]);
+				relation = elements[1];
+				System.out.println(relation);
+				System.out.println("------------------------------------------------");
 				attributes = new ArrayList<Attribute>();
-				rel = new Relation(elements[1], attributes);
+				examples = new ArrayList<Example>();
+				rel = new Relation(relation, attributes, examples);
 			} else if (elements[0].equals("@attribute")) {
 				ArrayList<String> values = new ArrayList<String>();
 				String[] stringValues = elements[2].substring(1,
@@ -50,9 +55,16 @@ public class DecisonTreeParser {
 				while (!lines.isEmpty()
 						&& !lines.peekFirst().startsWith("@relation")
 						&& !lines.peekFirst().startsWith("@data")) {
+					System.out.println("------------------------------------------------");
 					String[] example = lines.removeFirst().split(",");
-					System.out.println(example);
+					HashMap<Attribute,String> ex = new HashMap<Attribute,String>();
+					for ( int i = 0; i< example.length; i++){
+						ex.put(attributes.get(i),example[i]);
+						System.out.println(attributes.get(i) + " " + example[i]);
+					}
+					examples.add(new Example(ex));
 				}
+			
 			}
 		}
 

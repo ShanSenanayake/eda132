@@ -8,6 +8,7 @@ public class Test {
 		DecisonTreeParser dtp = new DecisonTreeParser(new File("arff18-3.txt"));
 		Relation rel = dtp.getRelation();
 		DecisionTreeAlgorithm dta = new DecisionTreeAlgorithm();
+		System.out.println(dta.decisionTreeLearning(rel.getExamples(), rel.getAttributes(), rel.getExamples()).print());
 	}
 
 }

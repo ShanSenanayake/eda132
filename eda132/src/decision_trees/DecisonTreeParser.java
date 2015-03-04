@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -43,7 +44,7 @@ public class DecisonTreeParser {
 				examples = new ArrayList<Example>();
 				rel = new Relation(relation, attributes, examples);
 			} else if (elements[0].equals("@attribute")) {
-				ArrayList<String> values = new ArrayList<String>();
+				HashSet<String> values = new HashSet<String>();
 				String[] stringValues = elements[2].substring(1,
 						elements[2].length() - 1).split(",");
 				for (String value : stringValues) {
@@ -58,12 +59,25 @@ public class DecisonTreeParser {
 //					System.out.println("------------------------------------------------");
 					String[] example = lines.removeFirst().split(",");
 					HashMap<Attribute,String> ex = new HashMap<Attribute,String>();
-					for ( int i = 0; i< example.length; i++){
-						ex.put(attributes.get(i),example[i]);
+					for ( int i = 0; i< example.length-1; i++){
+						Attribute a = attributes.get(i);
+						String value = example[i];
+						if (!a.validValue(value)){
+							System.err.println("Value not defined!");
+							System.exit(1);
+						}
+						ex.put(a,value);
 //						System.out.println(attributes.get(i) + " " + example[i]);
 					}
+					Attribute a = attributes.get(example.length-1);
+					String value = example[example.length-1];
+					if (!a.validValue(value)){
+						System.err.println("Value not defined!");
+						System.exit(1);
+					}
+					Goal goal = new Goal(a,value);
 					System.out.println(ex);
-					examples.add(new Example(ex));
+					examples.add(new Example(ex,goal));
 				}
 				//If several relations are to be dealt with, this is the place to do it
 			}

@@ -12,5 +12,13 @@ public class Relation {
 		this.attributes = attributes;
 		this.examples = examples;
 	}
+
+	public ArrayList<Example> getExamples() {
+		return examples;
+	}
+
+	public ArrayList<Attribute> getAttributes() {
+		return attributes;
+	}
 	
 }

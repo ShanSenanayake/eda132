@@ -65,9 +65,10 @@ public class DecisonTreeParser {
 					System.out.println(ex);
 					examples.add(new Example(ex));
 				}
-			
+				//If several relations are to be dealt with, this is the place to do it
 			}
 		}
+		
 
 		// String relation =
 		// scan.nextLine().substring(10);//scan.next(Pattern.compile("@RELATION (.)*")).substring(10);

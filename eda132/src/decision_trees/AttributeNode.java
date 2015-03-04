@@ -17,17 +17,22 @@ public class AttributeNode implements DecisionNode {
 	}
 
 	@Override
-	public String print() {
+	public String print(int level) {
 		StringBuilder printString = new StringBuilder();
 		HashSet<String> values = attribute.getValues();
 		for (String value : values) {
-			printString.append(attribute.toString() + " = " + value);
+			for (int i = 0; i < level; i++) {
+				printString.append(" ");
+			}
 
+			printString.append(attribute.toString() + " = " + value);
 			DecisionNode node = branches.get(value);
+			String temp = null;
 			if (node.isTerminal()) {
-				printString.append(node.print());
+				printString.append(node.print(level)+"\n");
+
 			} else {
-				printString.append("\n\t" + node.print());
+				printString.append("\n" + (node.print(level + 1)));
 			}
 		}
 		return printString.toString();
@@ -37,4 +42,5 @@ public class AttributeNode implements DecisionNode {
 	public boolean isTerminal() {
 		return false;
 	}
+
 }

@@ -8,12 +8,14 @@ public class TerminalNode implements DecisionNode {
 	}
 
 	@Override
-	public String print() {
-		return ": " + goal.toString();
+	public String print(int level) {
+		return ": " + goal.toString() ;
 	}
 
 	@Override
 	public boolean isTerminal() {
 		return true;
 	}
+
+
 }

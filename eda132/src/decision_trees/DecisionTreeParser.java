@@ -10,11 +10,11 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-public class DecisonTreeParser {
+public class DecisionTreeParser {
 	private Scanner scan;
 	private Relation rel;
 
-	public DecisonTreeParser(File file) {
+	public DecisionTreeParser(File file) {
 		BufferedReader br = null;
 		try {
 			br = new BufferedReader(new FileReader(file));
@@ -39,8 +39,8 @@ public class DecisonTreeParser {
 			String[] elements = line.split(" ");
 			if (elements[0].equals("@relation")) {
 				relation = elements[1];
-				System.out.println(relation);
-				System.out.println("------------------------------------------------");
+//				System.out.println(relation);
+//				System.out.println("------------------------------------------------");
 				attributes = new ArrayList<Attribute>();
 				examples = new ArrayList<Example>();
 				rel = new Relation(relation, attributes, examples);
@@ -52,7 +52,7 @@ public class DecisonTreeParser {
 					values.add(value);
 				}
 				attributes.add(new Attribute(elements[1], values));
-				System.out.println(elements[1] + " " + values);
+//				System.out.println(elements[1] + " " + values);
 			} else if (elements[0].equals("@data")) {
 				while (!lines.isEmpty()
 						&& !lines.peekFirst().startsWith("@relation")
@@ -77,12 +77,13 @@ public class DecisonTreeParser {
 						System.exit(1);
 					}
 					Goal goal = new Goal(a,value);
-					System.out.println(ex);
+//					System.out.println(ex);
 					examples.add(new Example(ex,goal));
 				}
 				//If several relations are to be dealt with, this is the place to do it
 			}
 		}
+		attributes.remove(attributes.size()-1);
 		this.rel = rel;
 		
 

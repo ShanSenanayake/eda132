@@ -13,18 +13,25 @@ public class DecisionTreeAlgorithm {
 	public DecisionNode decisionTreeLearning(ArrayList<Example> examples,
 			ArrayList<Attribute> attributes, ArrayList<Example> parentExamples) {
 		if (examples.isEmpty()) {
+//			System.out.println("in empty examples");
 			return pluralityValue(parentExamples);
 		} else if (hasSameGoals(examples)) {
+//			System.out.println("has same goals");
 			return new TerminalNode(examples.get(0).getGoal());
 		} else if (attributes.isEmpty()) {
+//			System.out.println("no attributes");
 			return pluralityValue(examples);
 		} else {
+//			System.out.println("making subtree");
 			Attribute attr = mostImporatant(attributes, examples);
+//			System.out.println(attr);
 			AttributeNode root = new AttributeNode(attr);
 			for (String value : attr) {
+//				System.out.println(value);
 				ArrayList<Example> rootExamples = new ArrayList<Example>();
 				for (Example ex : examples) {
-					if (value == ex.getValue(attr)) {
+//					System.out.println("examples:" + ex.getValue(attr));
+					if (value.equals(ex.getValue(attr))) {
 						rootExamples.add(ex);
 					}
 				}

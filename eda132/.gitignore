@@ -4,3 +4,4 @@
 *.pdf
 *.class
 *.synctex.*
+/.DS_Store

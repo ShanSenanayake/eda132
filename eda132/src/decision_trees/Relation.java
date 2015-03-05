@@ -31,27 +31,27 @@ public class Relation {
 //	public double getGain(Attribute attr){
 //		return gain.get(attr);
 //	}
-	
-	public double getDeviation(Attribute attr){
-		return deviation.get(attr);
-	}
-	
-	private void calcDeviation(Attribute attr, HashMap<String, Integer> positives, HashMap<String, Integer> negatives, int totPos){
-		Set<String> keys = attr.getValues();
-		double deviationSum = 0;
-		for (String s : keys) {
-			int positive = positives.get(s) == null ? 0:positives.get(s);
-			int negative = negatives.get(s) == null ? 0:negatives.get(s);
-			double estimateP = estimatedValue(positive,negative,totPos);
-			double estimateN = estimatedValue(positive,negative,examples.size()-totPos);
-			deviationSum += Math.pow(positive-estimateP, 2)/estimateP + Math.pow(negative-estimateN, 2)/estimateN;
-		}
-		deviation.put(attr, deviationSum);
-	}
-	
-	private double estimatedValue(int p, int n, int totPart){
-		return totPart * ((double)(p+n))/examples.size();
-	}
+//	
+//	public double getDeviation(Attribute attr){
+//		return deviation.get(attr);
+//	}
+//	
+//	private void calcDeviation(Attribute attr, HashMap<String, Integer> positives, HashMap<String, Integer> negatives, int totPos){
+//		Set<String> keys = attr.getValues();
+//		double deviationSum = 0;
+//		for (String s : keys) {
+//			int positive = positives.get(s) == null ? 0:positives.get(s);
+//			int negative = negatives.get(s) == null ? 0:negatives.get(s);
+//			double estimateP = estimatedValue(positive,negative,totPos);
+//			double estimateN = estimatedValue(positive,negative,examples.size()-totPos);
+//			deviationSum += Math.pow(positive-estimateP, 2)/estimateP + Math.pow(negative-estimateN, 2)/estimateN;
+//		}
+//		deviation.put(attr, deviationSum);
+//	}
+//	
+//	private double estimatedValue(int p, int n, int totPart){
+//		return totPart * ((double)(p+n))/examples.size();
+//	}
 //	public void calculateGain() {
 //		for (Attribute attr : attributes) {
 //			HashMap<String, Integer> positives = new HashMap<String, Integer>();

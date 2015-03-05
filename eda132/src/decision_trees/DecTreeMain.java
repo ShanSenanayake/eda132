@@ -3,6 +3,8 @@ package decision_trees;
 import java.io.File;
 import java.util.ArrayList;
 
+import umontreal.iro.lecuyer.probdist.ChiSquareDist;
+
 public class DecTreeMain {
 
 	public static void main(String[] args) {
@@ -32,9 +34,11 @@ public class DecTreeMain {
 		}
 //		rel.calculateGain();
 		dta = new DecisionTreeAlgorithm(rel);
-		ArrayList<Attribute> attributes = rel.getAttributes();
-		
-		System.out.println(dta.dtl().print(0));
+		DecisionNode node = dta.dtl();
+		System.out.println(node.print(0));
+		System.out.println("----------------------");
+		node = dta.pruning(node);
+		System.out.println(node.print(0));
 	}
 
 }

@@ -1,10 +1,12 @@
 package decision_trees;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
+
+import umontreal.iro.lecuyer.probdist.ChiSquareDist;
 
 public class DecisionTreeAlgorithm {
 	private Relation rel;
@@ -18,11 +20,54 @@ public class DecisionTreeAlgorithm {
 				rel.getExamples());
 	}
 
-	public DecisionNode pruning(DecisionNode tree) {
-		return null;
+	private boolean hasOnlyTerminalLeaves(Collection<DecisionNode> branches) {
+		for (DecisionNode node : branches) {
+			if (!node.isTerminal()) {
+				return false;
+			}
+		}
+		return true;
+
 	}
 
-	private double deviantion(Attribute attr, ArrayList<Example> examples) {
+	public DecisionNode pruning(DecisionNode tree) {
+		if (tree.isTerminal()) {
+			return tree;
+		} else {
+			AttributeNode hypothesis = (AttributeNode) tree;
+			if (hasOnlyTerminalLeaves(hypothesis.getValueOfBranches())) {
+				double deviation = deviation(hypothesis);
+				double probability = ChiSquareDist.cdf(hypothesis.getBranches()
+						.size(), 4, deviation);
+				if (probability >= 0.95) {
+					System.out.println("WE prunded stuff " + hypothesis.getAttribute() + " " + probability);
+					return pluralityValue(hypothesis.getExamples());
+				} else {
+					return hypothesis;
+				}
+				// TODO: Check against chi^2 value for that branch.
+
+			} else {
+				AttributeNode newTree = new AttributeNode(
+						hypothesis.getAttribute(), hypothesis.getExamples());
+				HashMap<String, DecisionNode> branches = hypothesis
+						.getBranches();
+				Set<String> keys = branches.keySet();
+				for (String key : keys) {
+					newTree.addBranch(key, pruning(branches.get(key)));
+				}
+				if (hasOnlyTerminalLeaves(newTree.getValueOfBranches())) {
+					return pruning(newTree);
+				} else {
+					return newTree;
+				}
+			}
+		}
+	}
+
+	private double deviation(AttributeNode node) {
+		Attribute attr = node.getAttribute();
+		ArrayList<Example> examples = node.getExamples();
 		HashMap<String, Integer> positives = new HashMap<String, Integer>();
 		HashMap<String, Integer> negatives = new HashMap<String, Integer>();
 		int totPos = 0;
@@ -44,12 +89,11 @@ public class DecisionTreeAlgorithm {
 			tempMap.put(key, i);
 		}
 		// calcDeviation(attr,positives,negatives,totPos);
-		double temp = bFunc(totPos, examples.size() - totPos);
-		temp -= remainder(attr, positives, negatives, examples);
+	
 		// temp = Math.round(temp*1000)/1000.0;
 		// System.out.println(temp + " " + attr);
 		// gain.put(attr, temp);
-		return temp;
+		return calcDeviation(attr,positives,negatives,totPos,examples.size());
 	}
 
 	private double calcDeviation(Attribute attr,
@@ -89,7 +133,7 @@ public class DecisionTreeAlgorithm {
 			// System.out.println("making subtree");
 			Attribute attr = mostImporatant(attributes, examples);
 			// System.out.println(attr);
-			AttributeNode root = new AttributeNode(attr);
+			AttributeNode root = new AttributeNode(attr, examples);
 			for (String value : attr) {
 				// System.out.println(value);
 				ArrayList<Example> rootExamples = new ArrayList<Example>();

@@ -1,17 +1,32 @@
 package decision_trees;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 
 public class AttributeNode implements DecisionNode {
 	private Attribute attribute;
 	private HashMap<String, DecisionNode> branches;
+	private ArrayList<Example> examples;
 
-	public AttributeNode(Attribute attribute) {
+	public AttributeNode(Attribute attribute, ArrayList<Example> examples) {
 		this.attribute = attribute;
+		this.examples = examples;
 		branches = new HashMap<String, DecisionNode>();
 	}
+	
+	public Attribute getAttribute(){
+		return attribute;
+	}
+	
+	public Collection<DecisionNode> getValueOfBranches(){
+		return branches.values();
+	}
 
+	public HashMap<String, DecisionNode> getBranches(){
+		return branches;
+	}
 	public void addBranch(String value, DecisionNode node) {
 		branches.put(value, node);
 	}
@@ -42,5 +57,12 @@ public class AttributeNode implements DecisionNode {
 	public boolean isTerminal() {
 		return false;
 	}
+
+	public ArrayList<Example> getExamples() {
+		// TODO Auto-generated method stub
+		return examples;
+	}
+
+
 
 }

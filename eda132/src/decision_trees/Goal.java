@@ -3,11 +3,13 @@ package decision_trees;
 public class Goal {
 	private Attribute attribute;
 	private String value;
+	private boolean classification;
 	
 	
-	public Goal(Attribute attribute, String value) {
+	public Goal(Attribute attribute, String value, boolean classification) {
 		this.attribute = attribute;
 		this.value = value;
+		this.classification = classification;
 	}
 
 	@Override
@@ -30,6 +32,10 @@ public class Goal {
 
 	public String toString(){
 		return value;
+	}
+	
+	public boolean getClassification(){
+		return classification;
 	}
 	
 	

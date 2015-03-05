@@ -14,7 +14,7 @@ public class DecisionTreeParser {
 	private Scanner scan;
 	private Relation rel;
 
-	public DecisionTreeParser(File file) {
+	public DecisionTreeParser(File file, String positiveClass) {
 		BufferedReader br = null;
 		try {
 			br = new BufferedReader(new FileReader(file));
@@ -75,7 +75,7 @@ public class DecisionTreeParser {
 						System.err.println("Value not defined!");
 						System.exit(1);
 					}
-					Goal goal = new Goal(a,value);
+					Goal goal = new Goal(a,value, value.equals(positiveClass));
 //					System.out.println(ex);
 					examples.add(new Example(ex,goal));
 				}

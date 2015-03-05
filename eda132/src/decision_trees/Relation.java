@@ -62,7 +62,7 @@ public class Relation {
 				int i = 1;
 				String value = ex.getValue(attr);
 				HashMap<String, Integer> tempMap;
-				if (ex.getGoal().toString().equals("yes")) {
+				if (ex.getGoal().getClassification()) {
 					tempMap = positives;
 					totPos++;
 				} else {

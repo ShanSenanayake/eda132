@@ -16,16 +16,50 @@
 %\tableofcontents
 
 
+% Report
+% The assignment must be documented in a report, which should contain the following:
+
+% The name of the author, the title of the assignment, and any relevant information on the front page.
+% A presentation of the assignment.
+% A presentation of the improvement(s) you have chosen.
+% A presentation of your implementation and how to run the executable.
+% A print-out of the example set(s) and the resulting decision tree(s).
+% Comments on the results you have achieved.
+
 \section{Introduction}
+In this assignment we had to implement an algorithm that creates a decision tree based on some examples. This tree can then be used in supervised learning agents. One decision tree is created for one relation. A relation consists of a name, attributes that can take certain values and examples which state the classification for different combinations of values for the attributes.
+
+\section{Improvements}
+We have chosen to implement two of the three given improvements. Firstly we have implemented the pruning improvement because it seems as the most useful improvement to make. Secondly we have implemented the algorithm in such a way that it is possible to assign real values on the attributes instead of just enumerating different values allowed.
+
+The Weka ARFF format specifies several different types of values that each attribute can have. In our solution we only allow two types of values. These are numeric values (real and integral) and nominal values. Nominal values are an enumeration of values that the attribute may take.
+
+\section{Results}
+
+\section{Source Code}
+Our implementation is split across several .java files. In this section we will briefly explain what the different files do and highlight the most interesting parts of each file.
+
+\subsection{Attribute.java}
+\subsection{Goal.java}
+\subsection{Example.java}
+\subsection{Relation.java}
+\subsection{DecisionTreeParser.java}
+\subsection{DecisionNode.java}
+\subsection{AttributeNode.java}
+\subsection{TerminalNode.java}
+\subsection{DecisionTreeAlgorithm.java}
+\subsection{DecTreeMain}
+
+\section{Library}
 
 \section{Running Instructions} The .java files containing the classes described
-above are located in a package called othello placed on
-/h/d9/v/dat11fp1/TAI/probabilistic\_reasoning on the student computer system. It
+above are located in a package called decision\_tree placed on
+/h/d9/v/dat11fp1/TAI/decision\_tree on the student computer system. It
 is simply to compile the java files in the package and then run DecTreeMain from
-outside that package. For example if the current directory is
-/h/d9/v/dat11fp1/TAI the following command will compile the files: \texttt{javac
-probabilistic\_reasoning/*.java}. After compiling the program can be run with
-the following command: \texttt{java probabilistic\_reasoning.DecTreeMain}. The program will run until a keyboard key is pressed and then will provide the final probability of the model and how many steps it has run as an output in the console. The wait time between iterations is set to 100 ms, however this can be changed by scolling with the mousewheel.
+outside that package. However, in order to compile the program the \texttt{ssj.jar} file needs to be included. For example if the current directory is
+/h/d9/v/dat11fp1/TAI the following command will compile the files: \texttt{javac -cp "ssj.jar;"
+decision\_tree/*.java}. After compiling the program can be run with
+the following command: \texttt{java decision\_tree.DecTreeMain}. The program requires three arff files in order to run but these have been placed on the student computer system as well. The program will run according to the above instructions.
 
 %\begin{thebibliography}{1}
 %\bibitem{wikipedia}

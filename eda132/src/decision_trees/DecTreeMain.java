@@ -32,6 +32,8 @@ public class DecTreeMain {
 		}
 //		rel.calculateGain();
 		dta = new DecisionTreeAlgorithm(rel);
+		ArrayList<Attribute> attributes = rel.getAttributes();
+		
 		System.out.println(dta.dtl().print(0));
 	}
 

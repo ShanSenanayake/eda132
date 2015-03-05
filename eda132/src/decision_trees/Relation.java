@@ -33,7 +33,7 @@ public class Relation {
 	}
 	
 	public double getDeviation(Attribute attr){
-		return 0;
+		return deviation.get(attr);
 	}
 	
 	private void calcDeviation(Attribute attr, HashMap<String, Integer> positives, HashMap<String, Integer> negatives, int totPos){

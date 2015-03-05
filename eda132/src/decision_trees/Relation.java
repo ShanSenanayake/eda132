@@ -9,6 +9,7 @@ public class Relation {
 	private ArrayList<Attribute> attributes;
 	private ArrayList<Example> examples;
 	private HashMap<Attribute, Double> gain;
+	private HashMap<Attribute,Double> deviation;
 
 	public Relation(String name, ArrayList<Attribute> attributes,
 			ArrayList<Example> examples) {
@@ -16,6 +17,7 @@ public class Relation {
 		this.attributes = attributes;
 		this.examples = examples;
 		gain = new HashMap<Attribute, Double>();
+		deviation = new HashMap<Attribute,Double>();
 		calculateGain();
 	}
 
@@ -29,6 +31,27 @@ public class Relation {
 	
 	public double getGain(Attribute attr){
 		return gain.get(attr);
+	}
+	
+	public double getDeviation(Attribute attr){
+		return 0;
+	}
+	
+	private void calcDeviation(Attribute attr, HashMap<String, Integer> positives, HashMap<String, Integer> negatives, int totPos){
+		Set<String> keys = attr.getValues();
+		double deviationSum = 0;
+		for (String s : keys) {
+			int positive = positives.get(s) == null ? 0:positives.get(s);
+			int negative = negatives.get(s) == null ? 0:negatives.get(s);
+			double estimateP = estimatedValue(positive,negative,totPos);
+			double estimateN = estimatedValue(positive,negative,examples.size()-totPos);
+			deviationSum += Math.pow(positive-estimateP, 2)/estimateP + Math.pow(negative-estimateN, 2)/estimateN;
+		}
+		deviation.put(attr, deviationSum);
+	}
+	
+	private double estimatedValue(int p, int n, int totPart){
+		return totPart * ((double)(p+n))/examples.size();
 	}
 	private void calculateGain() {
 		for (Attribute attr : attributes) {
@@ -51,6 +74,7 @@ public class Relation {
 				}
 				tempMap.put(value, i);
 			}
+			calcDeviation(attr,positives,negatives,totPos);
 			double temp = bFunc(totPos, examples.size() - totPos);
 			temp -= remainder(attr,positives, negatives);
 			temp = Math.round(temp*1000)/1000.0;
@@ -63,7 +87,6 @@ public class Relation {
 			HashMap<String, Integer> negatives) {
 		Set<String> keys = attr.getValues();
 		double sum = 0;
-		System.out.println(positives.size() + " " +negatives.size());
 		for (String s : keys) {
 			int positive = positives.get(s) == null ? 0:positives.get(s);
 			int negative = negatives.get(s) == null ? 0:negatives.get(s);

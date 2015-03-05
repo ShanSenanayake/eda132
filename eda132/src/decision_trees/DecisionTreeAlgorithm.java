@@ -3,6 +3,7 @@ package decision_trees;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.Map.Entry;
 
 public class DecisionTreeAlgorithm {
@@ -61,7 +62,8 @@ public class DecisionTreeAlgorithm {
 		double max = -1;
 		Attribute attribute = null;
 		for(Attribute attr: attributes){
-			double temp = rel.getGain(attr);
+//			double temp = rel.getGain(attr);
+			double temp = calculateGain(attr, examples);
 			if(temp>max){
 				attribute = attr;
 				max = temp;
@@ -100,4 +102,64 @@ public class DecisionTreeAlgorithm {
 		}
 		return new TerminalNode(g);
 	}
+	
+	private double calculateGain(Attribute attr, ArrayList<Example> examples) {
+		
+			HashMap<String, Integer> positives = new HashMap<String, Integer>();
+			HashMap<String, Integer> negatives = new HashMap<String, Integer>();
+			int totPos = 0;
+			for (Example ex : examples) {
+				int i = 1;
+				String value = ex.getValue(attr);
+				HashMap<String, Integer> tempMap;
+				if (ex.getGoal().getClassification()) {
+					tempMap = positives;
+					totPos++;
+				} else {
+					tempMap = negatives;
+				}
+				String key = attr.getKeyIfNumerical(value);
+				if (tempMap.containsKey(key)) {
+					i = tempMap.get(key);
+					i++;
+				}
+				tempMap.put(key, i);
+			}
+//			calcDeviation(attr,positives,negatives,totPos);
+			double temp = bFunc(totPos, examples.size() - totPos);
+			temp -= remainder(attr,positives, negatives,examples);
+//			temp = Math.round(temp*1000)/1000.0;
+//			System.out.println(temp + " " + attr);
+//			gain.put(attr, temp);
+			return temp;
+		
+	}
+
+	private double remainder(Attribute attr,HashMap<String, Integer> positives,
+			HashMap<String, Integer> negatives, ArrayList<Example> examples) {
+		Set<String> keys = attr.getValues();
+		double sum = 0;
+//		System.out.println(positives);
+//		System.out.println(negatives);
+//		System.out.println(positives.size() + " " + negatives.size());
+		for (String s : keys) {
+			int positive = positives.get(s) == null ? 0:positives.get(s);
+			int negative = negatives.get(s) == null ? 0:negatives.get(s);
+			sum += (((double) (positive + negative)) / examples.size())
+					* bFunc(positive, negative);
+		}
+		return sum;
+	}
+
+	private double bFunc(int p, int n) {
+		double q = ((double) (p)) / (p + n);
+		if(q>0 && q<1){
+			return -(q * (Math.log(q) / Math.log(2)) + (1 - q) *( Math.log(1 - q)
+					/ Math.log(2)));
+		}else{
+			return Math.log(1)/ Math.log(2);
+		}
+
+	}
 }
+

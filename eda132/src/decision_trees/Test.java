@@ -7,19 +7,17 @@ public class Test {
 
 	public static void main(String[] args) {
 		DecisionTreeParser dtp = new DecisionTreeParser(new File("arff18-3.txt"),"yes");
-		Relation rel = dtp.getRelation();
-		rel.calculateGain();
-		DecisionTreeAlgorithm dta = new DecisionTreeAlgorithm(rel);
+//		rel.calculateGain();
+		DecisionTreeAlgorithm dta = new DecisionTreeAlgorithm(dtp.getRelation());;
 		System.out.println(dta.dtl().print(0));
 		
 		dtp = new DecisionTreeParser(new File("weather.nominal.arff"),"yes");
-		rel = dtp.getRelation();
-		rel.calculateGain();
-		dta = new DecisionTreeAlgorithm(rel);
+//		rel.calculateGain();
+		dta = new DecisionTreeAlgorithm(dtp.getRelation());
 		System.out.println(dta.dtl().print(0));
 		
 		dtp = new DecisionTreeParser(new File("diabetes.arff"),"tested_positive");
-		rel = dtp.getRelation();
+		Relation rel = dtp.getRelation();
 		ArrayList<Double> splitPoints = new ArrayList<Double>();
 		splitPoints.add(3.8);
 		splitPoints.add(120.9);
@@ -32,7 +30,7 @@ public class Test {
 		for (int i = 0; i<rel.getAttributes().size(); i++){
 			rel.getAttributes().get(i).setSplitPoint(splitPoints.get(i));
 		}
-		rel.calculateGain();
+//		rel.calculateGain();
 		dta = new DecisionTreeAlgorithm(rel);
 		System.out.println(dta.dtl().print(0));
 	}

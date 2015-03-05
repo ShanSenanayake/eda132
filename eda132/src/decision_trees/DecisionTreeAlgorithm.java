@@ -36,7 +36,8 @@ public class DecisionTreeAlgorithm {
 				ArrayList<Example> rootExamples = new ArrayList<Example>();
 				for (Example ex : examples) {
 //					System.out.println("examples:" + ex.getValue(attr));
-					if (value.equals(ex.getValue(attr))) {
+					if (attr.test(value,ex)) {
+//					if (value.equals(ex.getValue(attr))) {
 						rootExamples.add(ex);
 					}
 				}

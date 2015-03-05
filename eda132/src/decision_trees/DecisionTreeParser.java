@@ -39,53 +39,69 @@ public class DecisionTreeParser {
 			String[] elements = line.split(" ");
 			if (elements[0].equals("@relation")) {
 				relation = elements[1];
-//				System.out.println(relation);
-//				System.out.println("------------------------------------------------");
+				// System.out.println(relation);
+				// System.out.println("------------------------------------------------");
 				attributes = new ArrayList<Attribute>();
 				examples = new ArrayList<Example>();
 			} else if (elements[0].equals("@attribute")) {
 				HashSet<String> values = new HashSet<String>();
-				String[] stringValues = elements[2].substring(1,
-						elements[2].length() - 1).split(",");
-				for (String value : stringValues) {
-					values.add(value);
+				if (elements[2].equals("real") || elements[2].equals("numeric")
+						|| elements[2].equals("integer")) {
+					values.add("%numeric");
+					attributes.add(new Attribute(elements[1],values));
+				}else if (elements[2].equals("string")){
+					System.err.println("String not supported!");
+					System.exit(1);
+				}else if (elements[2].equals("date")){
+					System.err.println("Date not supported!");
+					System.exit(1);
+				}else if (elements[2].startsWith("{")) {
+					String[] stringValues = line.substring(line.indexOf('{')+1,line.indexOf('}')).split(",");
+					for (String value : stringValues) {
+//							System.out.println(value.trim());
+							values.add(value.trim());
+					}
+					attributes.add(new Attribute(elements[1], values));
+				}else{
+					System.err.println("Type not supported!");
+					System.exit(1);
 				}
-				attributes.add(new Attribute(elements[1], values));
-//				System.out.println(elements[1] + " " + values);
+				// System.out.println(elements[1] + " " + values);
 			} else if (elements[0].equals("@data")) {
 				while (!lines.isEmpty()
 						&& !lines.peekFirst().startsWith("@relation")
 						&& !lines.peekFirst().startsWith("@data")) {
-//					System.out.println("------------------------------------------------");
+					// System.out.println("------------------------------------------------");
 					String[] example = lines.removeFirst().split(",");
-					HashMap<Attribute,String> ex = new HashMap<Attribute,String>();
-					for ( int i = 0; i< example.length-1; i++){
+					HashMap<Attribute, String> ex = new HashMap<Attribute, String>();
+					for (int i = 0; i < example.length - 1; i++) {
 						Attribute a = attributes.get(i);
 						String value = example[i];
-						if (!a.validValue(value)){
+						if (!a.validValue(value)) {
 							System.err.println("Value not defined!");
 							System.exit(1);
 						}
-						ex.put(a,value);
-//						System.out.println(attributes.get(i) + " " + example[i]);
+						ex.put(a, value);
+						// System.out.println(attributes.get(i) + " " +
+						// example[i]);
 					}
-					Attribute a = attributes.get(example.length-1);
-					String value = example[example.length-1];
-					if (!a.validValue(value)){
+					Attribute a = attributes.get(example.length - 1);
+					String value = example[example.length - 1];
+					if (!a.validValue(value)) {
 						System.err.println("Value not defined!");
 						System.exit(1);
 					}
-					Goal goal = new Goal(a,value, value.equals(positiveClass));
-//					System.out.println(ex);
-					examples.add(new Example(ex,goal));
+					Goal goal = new Goal(a, value, value.equals(positiveClass));
+					// System.out.println(ex);
+					examples.add(new Example(ex, goal));
 				}
-				//If several relations are to be dealt with, this is the place to do it
+				// If several relations are to be dealt with, this is the place
+				// to do it
 			}
 		}
-		attributes.remove(attributes.size()-1);
+		attributes.remove(attributes.size() - 1);
 		rel = new Relation(relation, attributes, examples);
 		this.rel = rel;
-		
 
 		// String relation =
 		// scan.nextLine().substring(10);//scan.next(Pattern.compile("@RELATION (.)*")).substring(10);
@@ -127,8 +143,8 @@ public class DecisionTreeParser {
 		//
 
 	}
-	
-	public Relation getRelation(){
+
+	public Relation getRelation() {
 		return rel;
 	}
 }

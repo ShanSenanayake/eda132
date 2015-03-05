@@ -18,7 +18,6 @@ public class Relation {
 		this.examples = examples;
 		gain = new HashMap<Attribute, Double>();
 		deviation = new HashMap<Attribute,Double>();
-		calculateGain();
 	}
 
 	public ArrayList<Example> getExamples() {
@@ -53,7 +52,7 @@ public class Relation {
 	private double estimatedValue(int p, int n, int totPart){
 		return totPart * ((double)(p+n))/examples.size();
 	}
-	private void calculateGain() {
+	public void calculateGain() {
 		for (Attribute attr : attributes) {
 			HashMap<String, Integer> positives = new HashMap<String, Integer>();
 			HashMap<String, Integer> negatives = new HashMap<String, Integer>();
@@ -68,17 +67,18 @@ public class Relation {
 				} else {
 					tempMap = negatives;
 				}
-				if (tempMap.containsKey(value)) {
-					i = tempMap.get(value);
+				String key = attr.getKeyIfNumerical(value);
+				if (tempMap.containsKey(key)) {
+					i = tempMap.get(key);
 					i++;
 				}
-				tempMap.put(value, i);
+				tempMap.put(key, i);
 			}
 			calcDeviation(attr,positives,negatives,totPos);
 			double temp = bFunc(totPos, examples.size() - totPos);
 			temp -= remainder(attr,positives, negatives);
-			temp = Math.round(temp*1000)/1000.0;
-			System.out.println(temp + " " + attr);
+//			temp = Math.round(temp*1000)/1000.0;
+//			System.out.println(temp + " " + attr);
 			gain.put(attr, temp);
 		}
 	}
@@ -87,6 +87,9 @@ public class Relation {
 			HashMap<String, Integer> negatives) {
 		Set<String> keys = attr.getValues();
 		double sum = 0;
+//		System.out.println(positives);
+//		System.out.println(negatives);
+//		System.out.println(positives.size() + " " + negatives.size());
 		for (String s : keys) {
 			int positive = positives.get(s) == null ? 0:positives.get(s);
 			int negative = negatives.get(s) == null ? 0:negatives.get(s);

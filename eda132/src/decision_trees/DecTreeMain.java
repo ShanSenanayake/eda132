@@ -3,7 +3,7 @@ package decision_trees;
 import java.io.File;
 import java.util.ArrayList;
 
-public class Test {
+public class DecTreeMain {
 
 	public static void main(String[] args) {
 		DecisionTreeParser dtp = new DecisionTreeParser(new File("arff18-3.txt"),"yes");

@@ -53,6 +53,8 @@ public class Relation {
 			}
 			double temp = bFunc(totPos, examples.size() - totPos);
 			temp -= remainder(attr,positives, negatives);
+			temp = Math.round(temp*1000)/1000.0;
+			System.out.println(temp + " " + attr);
 			gain.put(attr, temp);
 		}
 	}
@@ -61,6 +63,7 @@ public class Relation {
 			HashMap<String, Integer> negatives) {
 		Set<String> keys = attr.getValues();
 		double sum = 0;
+		System.out.println(positives.size() + " " +negatives.size());
 		for (String s : keys) {
 			int positive = positives.get(s) == null ? 0:positives.get(s);
 			int negative = negatives.get(s) == null ? 0:negatives.get(s);

@@ -57,7 +57,7 @@ public class DecisionTreeAlgorithm {
 
 	private Attribute mostImporatant(ArrayList<Attribute> attributes,
 			ArrayList<Example> examples) {
-		double max = 0;
+		double max = -1;
 		Attribute attribute = null;
 		for(Attribute attr: attributes){
 			double temp = rel.getGain(attr);

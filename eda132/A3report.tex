@@ -40,17 +40,27 @@ The Weka ARFF format specifies several different types of values that each attri
 Our implementation is split across several .java files. In this section we will briefly explain what the different files do and highlight the most interesting parts of each file.
 
 \subsection{Attribute.java}
+This class represents an attribute with a set of values. The values are represented as \texttt{String}-objects, which simply is the names of the values. In the case of numerical values the attribute should only have two given values, defined by a splitpoint. There are a bunch of methodes in this class however the most interesting ones for this assignment are:
+\begin{description}
+\item[\texttt{public boolean test(String attributeValue,Example example)}] This method takes a \texttt{String attributeValue} which represents a value from this attribute, and an \texttt{Example example} which represents a example that should be tested. 
+This method tests if the value is numerical and that it belongs to the right value branch defined by \texttt{attributeValue}. If it is not a numerical attribute then it just checks that the example is the current branch being evaluated.
+\item[\texttt{public void setSplitPoint(double splitPoint)}] This method takes a \texttt{double splitPoint} which defines what value the two branches should be spilt by. This method is only called if it is a numerical attribute and then overrides all the previous values in the value set.
+\item[\texttt{public String getKeyIfNumerical(String value)}] This methos takes a \texttt{String value} which is a value from the set. If the attribute is numerical the correct \texttt{String}-object is returned. Otherwise the same value is returned. 
+\end{description} 
 \subsection{Goal.java}
 \subsection{Example.java}
 \subsection{Relation.java}
 \subsection{DecisionTreeParser.java}
 \subsection{DecisionNode.java}
+This class is a simple interface, used to store nodes in a tree of two different types. Namely \texttt{AttributeNode} and \texttt{TerminalNode}. The only use for this is to be able to represent two types of classes, with some shared objects in the same tree-datastructure.
 \subsection{AttributeNode.java}
 \subsection{TerminalNode.java}
 \subsection{DecisionTreeAlgorithm.java}
 \subsection{DecTreeMain}
 
 \section{Library}
+We have chosen to use an external library to help get the $\chi^{2}$ table needed to do a $\chi^{2}$-pruning. 
+
 
 \section{Running Instructions} The .java files containing the classes described
 above are located in a package called decision\_tree placed on

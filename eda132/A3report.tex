@@ -51,12 +51,13 @@ This method tests if the value is numerical and that it belongs to the right val
 \item[\texttt{public String getKeyIfNumerical(String value)}] This method takes a \texttt{String value} which is a value from the set. If the attribute is numerical the correct \texttt{String}-object is returned. Otherwise the same value is returned. 
 \end{description} 
 \subsection{Goal.java}
-This class can be seen as an extension to the class \texttt{Attribute} and it is used when classifying an example. It contains an attribute which is the attribute used for classification, for example, \texttt{willWait} which is used in the example set in the book. This class also takes a value which is assigned to the attribute and a boolean which indicates whether this was a positive or negative calssification.
+This class can be seen as an extension to the class \texttt{Attribute} and it is used when classifying an example. It contains an attribute which is the attribute used for classification, for example, \texttt{willWait} which is used in the example set in the book. This class also takes a value which is assigned to the attribute and a boolean which indicates whether this was a positive or negative classification.
 \subsection{Example.java}
 This class represents an example that is fed to the decision tree learning algorithm. The class contains a map which has the attributes as keys and the values are each attribute's value. This class also contains a \texttt{Goal} which defines whether this example was classified as being negative or positive.
 \subsection{Relation.java}
 \texttt{Relation} is a class which represents an entire relation. Thus, it contains the name for the relation, a list of attributes and a list of examples.
 \subsection{DecisionTreeParser.java}
+This class is responsible for parsing a Weka ARFF formatted file in order to build a model with the classes we have defined above. Thus, it creates an object of the \texttt{Relation} class, which in turn consists of objects of \texttt{Attribute}, \texttt{Example}. This class does not really contain any interesting code but in order to solve the improvement to handle numerical values in the attributes it simply put \texttt{\%numeric} into the list of values allowed for the attribute. The parser contains some error handling when the file contains types that are not supported. In such cases it prints an error message and terminates execution.
 \subsection{DecisionNode.java}
 This class is a simple interface, used to store nodes in a tree of two different types. Namely \texttt{AttributeNode} and \texttt{TerminalNode}. The only use for this is to be able to represent two types of classes, with some shared objects in the same tree-datastructure.
 \subsection{AttributeNode.java}
@@ -84,9 +85,13 @@ the following command: \texttt{java decision\_tree.DecTreeMain}. The program req
 \appendix
 \section{Example 18-3}
 \label{18-3}
+\verbatiminput{result-18-3.txt}
 \section{weather.nominal}
 \label{weather}
+\verbatiminput{result-weather.txt}
+
 \section{diabetes}
 \label{diabetes}
+\verbatiminput{result-diabetes.txt}
 
 \end{document}

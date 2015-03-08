@@ -11,12 +11,12 @@ public class DecTreeMain {
 		DecisionTreeParser dtp = new DecisionTreeParser(new File("arff18-3.txt"),"yes");
 //		rel.calculateGain();
 		DecisionTreeAlgorithm dta = new DecisionTreeAlgorithm(dtp.getRelation());;
-		System.out.println(dta.dtl().print(0));
+		System.out.println(dta.pruning(dta.dtl()).print(0));
 		
 		dtp = new DecisionTreeParser(new File("weather.nominal.arff"),"yes");
 //		rel.calculateGain();
 		dta = new DecisionTreeAlgorithm(dtp.getRelation());
-		System.out.println(dta.dtl().print(0));
+		System.out.println(dta.pruning(dta.dtl()).print(0));
 		
 		dtp = new DecisionTreeParser(new File("diabetes.arff"),"tested_positive");
 		Relation rel = dtp.getRelation();
@@ -35,10 +35,10 @@ public class DecTreeMain {
 //		rel.calculateGain();
 		dta = new DecisionTreeAlgorithm(rel);
 		DecisionNode node = dta.dtl();
-		System.out.println(node.print(0));
-		System.out.println("----------------------");
-		node = dta.pruning(node);
-		System.out.println(node.print(0));
+		System.out.println(dta.pruning(node).print(0));
+//		System.out.println("----------------------");
+//		node = dta.pruning(node);
+//		System.out.println(node.print(0));
 	}
 
 }

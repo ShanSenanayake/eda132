@@ -9,7 +9,7 @@ public class Relation {
 	private ArrayList<Attribute> attributes;
 	private ArrayList<Example> examples;
 //	private HashMap<Attribute, Double> gain;
-	private HashMap<Attribute,Double> deviation;
+//	private HashMap<Attribute,Double> deviation;
 
 	public Relation(String name, ArrayList<Attribute> attributes,
 			ArrayList<Example> examples) {
@@ -17,7 +17,7 @@ public class Relation {
 		this.attributes = attributes;
 		this.examples = examples;
 //		gain = new HashMap<Attribute, Double>();
-		deviation = new HashMap<Attribute,Double>();
+//		deviation = new HashMap<Attribute,Double>();
 	}
 
 	public ArrayList<Example> getExamples() {

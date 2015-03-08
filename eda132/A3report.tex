@@ -35,9 +35,12 @@ We have chosen to implement two of the three given improvements. Firstly we have
 The Weka ARFF format specifies several different types of values that each attribute can have. In our solution we only allow two types of values. These are numeric values (real and integral) and nominal values. Nominal values are an enumeration of values that the attribute may take.
 
 \section{Results}
+We ran our algorithm for three different example sets, the example in the book, the weather.nominal and diabetes example set found in the Weka data folder. The results are presented in Appendices \ref{18-3}, \ref{weather} and \ref{diabetes}.
+
+\section{Discussion}
 
 \section{Source Code}
-Our implementation is split across several .java files. In this section we will briefly explain what the different files do and highlight the most interesting parts of each file.
+Our implementation is split across several classes each defined in it's own .java file In this section we will briefly explain what the different classes do and highlight the most interesting parts of each class.
 
 \subsection{Attribute.java}
 This class represents an attribute with a set of values. The values are represented as \texttt{String}-objects, which simply is the names of the values. In the case of numerical values the attribute should only have two given values, defined by a splitpoint. There are a bunch of methodes in this class however the most interesting ones for this assignment are:
@@ -45,11 +48,14 @@ This class represents an attribute with a set of values. The values are represen
 \item[\texttt{public boolean test(String attributeValue,Example example)}] This method takes a \texttt{String attributeValue} which represents a value from this attribute, and an \texttt{Example example} which represents a example that should be tested. 
 This method tests if the value is numerical and that it belongs to the right value branch defined by \texttt{attributeValue}. If it is not a numerical attribute then it just checks that the example is the current branch being evaluated.
 \item[\texttt{public void setSplitPoint(double splitPoint)}] This method takes a \texttt{double splitPoint} which defines what value the two branches should be spilt by. This method is only called if it is a numerical attribute and then overrides all the previous values in the value set.
-\item[\texttt{public String getKeyIfNumerical(String value)}] This methos takes a \texttt{String value} which is a value from the set. If the attribute is numerical the correct \texttt{String}-object is returned. Otherwise the same value is returned. 
+\item[\texttt{public String getKeyIfNumerical(String value)}] This method takes a \texttt{String value} which is a value from the set. If the attribute is numerical the correct \texttt{String}-object is returned. Otherwise the same value is returned. 
 \end{description} 
 \subsection{Goal.java}
+This class can be seen as an extension to the class \texttt{Attribute} and it is used when classifying an example. It contains an attribute which is the attribute used for classification, for example, \texttt{willWait} which is used in the example set in the book. This class also takes a value which is assigned to the attribute and a boolean which indicates whether this was a positive or negative calssification.
 \subsection{Example.java}
+This class represents an example that is fed to the decision tree learning algorithm. The class contains a map which has the attributes as keys and the values are each attribute's value. This class also contains a \texttt{Goal} which defines whether this example was classified as being negative or positive.
 \subsection{Relation.java}
+\texttt{Relation} is a class which represents an entire relation. Thus, it contains the name for the relation, a list of attributes and a list of examples.
 \subsection{DecisionTreeParser.java}
 \subsection{DecisionNode.java}
 This class is a simple interface, used to store nodes in a tree of two different types. Namely \texttt{AttributeNode} and \texttt{TerminalNode}. The only use for this is to be able to represent two types of classes, with some shared objects in the same tree-datastructure.
@@ -75,4 +81,12 @@ the following command: \texttt{java decision\_tree.DecTreeMain}. The program req
 %\bibitem{wikipedia}
 %http://en.wikipedia.org
 %\end{thebibliography}
+\appendix
+\section{Example 18-3}
+\label{18-3}
+\section{weather.nominal}
+\label{weather}
+\section{diabetes}
+\label{diabetes}
+
 \end{document}

@@ -95,7 +95,6 @@ public class DecisionTreeAlgorithm {
 				deviationSum += Math.pow(positive - estimateP, 2) / estimateP
 						+ Math.pow(negative - estimateN, 2) / estimateN;
 			}
-//			System.out.println( examplesSize+ " " + estimateP + " " + estimateN +" " + deviationSum + " sum");
 		}
 		return deviationSum;
 	}

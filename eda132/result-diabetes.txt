@@ -183,9 +183,7 @@
        'pres' = <=69.1: tested_negative
        'pres' = >69.1: tested_negative
     'skin' = >20.5
-     'age' = <=33.2
-      'mass' = >32.0: tested_negative
-      'mass' = <=32.0: tested_positive
+     'age' = <=33.2: tested_negative
      'age' = >33.2
       'mass' = >32.0
        'pres' = <=69.1: tested_positive

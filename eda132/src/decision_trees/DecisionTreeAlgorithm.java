@@ -37,8 +37,11 @@ public class DecisionTreeAlgorithm {
 			AttributeNode hypothesis = (AttributeNode) tree;
 			if (hasOnlyTerminalLeaves(hypothesis.getValueOfBranches())) {
 				double deviation = deviation(hypothesis);
-				double probability = ChiSquareDist.cdf(hypothesis.getBranches()
-						.size(), 4, deviation);
+				int size = hypothesis.getBranches().size();
+				if(size>1){
+					size--;
+				}
+				double probability = ChiSquareDist.cdf(size, 4, deviation);
 				if (probability >= 0.95) {
 					return pluralityValue(hypothesis.getExamples());
 				} else {
@@ -69,8 +72,11 @@ public class DecisionTreeAlgorithm {
 		HashMap<String, Integer> positives = new HashMap<String, Integer>();
 		HashMap<String, Integer> negatives = new HashMap<String, Integer>();
 		int totPos = countExamples(attr, examples, positives, negatives);
-		return calcDeviation(attr, positives, negatives, totPos,
+		double calc = calcDeviation(attr, positives, negatives, totPos,
 				examples.size());
+		if(node.getAttribute().toString().equals("'insu'")){
+		}
+		return calc;
 	}
 
 	private double calcDeviation(Attribute attr,
@@ -85,8 +91,11 @@ public class DecisionTreeAlgorithm {
 					examplesSize);
 			double estimateN = estimatedValue(positive, negative, examplesSize
 					- totPos, examplesSize);
-			deviationSum += Math.pow(positive - estimateP, 2) / estimateP
-					+ Math.pow(negative - estimateN, 2) / estimateN;
+			if(estimateP > 0 || estimateN >0){
+				deviationSum += Math.pow(positive - estimateP, 2) / estimateP
+						+ Math.pow(negative - estimateN, 2) / estimateN;
+			}
+//			System.out.println( examplesSize+ " " + estimateP + " " + estimateN +" " + deviationSum + " sum");
 		}
 		return deviationSum;
 	}

@@ -61,7 +61,9 @@ This class is responsible for parsing a Weka ARFF formatted file in order to bui
 \subsection{DecisionNode.java}
 This class is a simple interface, used to store nodes in a tree of two different types. Namely \texttt{AttributeNode} and \texttt{TerminalNode}. The only use for this is to be able to represent two types of classes, with some shared objects in the same tree-datastructure.
 \subsection{AttributeNode.java}
+This class represents a branch in the decision tree. This class consists of an \texttt{Attribute} and a list of \texttt{Example}-objects. The \texttt{Attribute} of the node determines which attribute this branch is, and the list of \texttt{Example}-objects are the examples that are left when we have reached this attribute in the decision tree algorithm. 
 \subsection{TerminalNode.java}
+This class represents a leaf in the decision tree, which only consists of a \texttt{Goal} - value. 
 \subsection{DecisionTreeAlgorithm.java}
 \subsection{DecTreeMain}
 

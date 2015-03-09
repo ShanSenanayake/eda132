@@ -76,7 +76,7 @@ This class represents the main algorithm in building and pruning the decision tr
 \item[\texttt{public DecisionNode dtl()}] This method creates a decision tree from the relation given to the constructor. This method uses several private methods to build the tree. The most important of them are the \texttt{private DecisionNode decisionTreeAlgorithm(DecisionNode node)} which represents the recursive method doing the building of the tree and \texttt{private Attribute mostImporatant(ArrayList<Attribute> attributes, ArrayList<Example> examples)} which reprsents the importance function that are implemented just like the book. 
 \item[\texttt{public DecisionNode pruning(DecisionNode tree) }] This method takes a decision tree and prunes it using the standard deviation algorithm explained in the book for pruning. Just like the building of the tree this method uses different types of private methods to calculate the deviation. This method could have been static since it is only depdent on the input. 
 \end{description}
-\subsection{DecTreeMain}
+\subsection{DecTreeMain.java}
 This class consists of the main method of the program. This starts the program and initiates all the necessary classes and runs the decision tree algorithm for three different files.
 
 \section{Library}
@@ -85,12 +85,12 @@ We have chosen to use an external library to help get the $\chi^{2}$ table neede
 
 \section{Running Instructions} The .java files containing the classes described
 above are located in a package called decision\_tree placed on
-/h/d9/v/dat11fp1/TAI/decision\_tree on the student computer system. It
+/h/d9/v/dat11fp1/TAI/decision\_trees on the student computer system. It
 is simply to compile the java files in the package and then run DecTreeMain from
 outside that package. However, in order to compile the program the \texttt{ssj.jar} file needs to be included. For example if the current directory is
-/h/d9/v/dat11fp1/TAI the following command will compile the files: \texttt{javac -cp "ssj.jar;"
-decision\_tree/*.java}. After compiling the program can be run with
-the following command: \texttt{java decision\_tree.DecTreeMain}. The program requires three arff files in order to run but these have been placed on the student computer system as well. The program will run according to the above instructions.
+/h/d9/v/dat11fp1/TAI the following command will compile the files: \texttt{javac -cp .:ssj.jar
+decision\_trees/*.java}. After compiling the program can be run with
+the following command: \texttt{java -cp .:ssj.jar decision\_trees.DecTreeMain}. The program requires three arff files in order to run but these have been placed on the student computer system as well. The program will run according to the above instructions.
 
 %\begin{thebibliography}{1}
 %\bibitem{wikipedia}

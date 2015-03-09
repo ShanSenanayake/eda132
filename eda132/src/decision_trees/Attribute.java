@@ -8,22 +8,22 @@ public class Attribute implements Iterable<String> {
 	private HashSet<String> values;
 	boolean numeric = false;
 	private double splitPoint;
-	
+
 	public Attribute(String name, HashSet<String> values) {
 		this.name = name;
 		this.values = values;
 	}
-	
-	public boolean validValue(String value){
-		if (values.contains("%numeric")){
-			try{
+
+	public boolean validValue(String value) {
+		if (values.contains("%numeric")) {
+			try {
 				Double.parseDouble(value);
-			} catch (NumberFormatException e){
+			} catch (NumberFormatException e) {
 				return false;
 			}
 			return true;
-		}else{
-			return values.contains(value);	
+		} else {
+			return values.contains(value);
 		}
 	}
 
@@ -66,42 +66,41 @@ public class Attribute implements Iterable<String> {
 		return values;
 	}
 
-	public boolean test(String attributeValue,Example example) {
+	public boolean test(String attributeValue, Example example) {
 		String ex = example.getValue(this);
-		if (numeric){
+		if (numeric) {
 			double d = Double.parseDouble(ex);
-			if (attributeValue.equals(">"+splitPoint) && d > splitPoint || attributeValue.equals("<="+splitPoint) && d <= splitPoint){
+			if (attributeValue.equals(">" + splitPoint) && d > splitPoint
+					|| attributeValue.equals("<=" + splitPoint)
+					&& d <= splitPoint) {
 				return true;
-			}else{
+			} else {
 				return false;
 			}
-		}else{
+		} else {
 			return attributeValue.equals(ex);
 		}
 	}
-	
-	public void setSplitPoint(double splitPoint){
+
+	public void setSplitPoint(double splitPoint) {
 		this.splitPoint = splitPoint;
 		values.clear();
-		values.add(">"+splitPoint);
-		values.add("<="+splitPoint);
+		values.add(">" + splitPoint);
+		values.add("<=" + splitPoint);
 		numeric = true;
 	}
-	
-
 
 	public String getKeyIfNumerical(String value) {
-		if (numeric){
+		if (numeric) {
 			double d = Double.parseDouble(value);
-			if (d > splitPoint){
-				return ">"+splitPoint;
-			}else{
+			if (d > splitPoint) {
+				return ">" + splitPoint;
+			} else {
 				return "<=" + splitPoint;
 			}
-		}else{
+		} else {
 			return value;
 		}
 	}
-	
-	
+
 }

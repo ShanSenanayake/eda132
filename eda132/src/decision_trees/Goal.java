@@ -4,8 +4,7 @@ public class Goal {
 	private Attribute attribute;
 	private String value;
 	private boolean classification;
-	
-	
+
 	public Goal(Attribute attribute, String value, boolean classification) {
 		this.attribute = attribute;
 		this.value = value;
@@ -22,21 +21,18 @@ public class Goal {
 		return result;
 	}
 
-
 	@Override
 	public boolean equals(Object obj) {
-		Goal other = (Goal)obj;
+		Goal other = (Goal) obj;
 		return other.attribute.equals(attribute) && other.value.equals(value);
 	}
 
-
-	public String toString(){
+	public String toString() {
 		return value;
 	}
-	
-	public boolean getClassification(){
+
+	public boolean getClassification() {
 		return classification;
 	}
-	
-	
+
 }

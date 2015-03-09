@@ -1,0 +1,320 @@
+'plas' = >120.9
+ 'mass' = >32.0
+  'age' = <=33.2
+   'pedi' = >0.5
+    'skin' = <=20.5: tested_positive
+    'skin' = >20.5
+     'preg' = >3.8
+      'pres' = <=69.1: tested_negative
+      'pres' = >69.1
+       'insu' = <=79.8: tested_positive
+       'insu' = >79.8: tested_positive
+     'preg' = <=3.8
+      'pres' = <=69.1
+       'insu' = <=79.8: tested_positive
+       'insu' = >79.8: tested_positive
+      'pres' = >69.1
+       'insu' = <=79.8: tested_positive
+       'insu' = >79.8: tested_positive
+   'pedi' = <=0.5
+    'pres' = <=69.1
+     'preg' = >3.8
+      'skin' = <=20.5
+       'insu' = <=79.8: tested_positive
+       'insu' = >79.8: tested_positive
+      'skin' = >20.5: tested_negative
+     'preg' = <=3.8
+      'insu' = <=79.8
+       'skin' = <=20.5: tested_positive
+       'skin' = >20.5: tested_negative
+      'insu' = >79.8
+       'skin' = <=20.5: tested_negative
+       'skin' = >20.5: tested_positive
+    'pres' = >69.1
+     'preg' = >3.8
+      'skin' = <=20.5
+       'insu' = <=79.8: tested_positive
+       'insu' = >79.8: tested_negative
+      'skin' = >20.5
+       'insu' = <=79.8: tested_negative
+       'insu' = >79.8: tested_positive
+     'preg' = <=3.8
+      'insu' = <=79.8
+       'skin' = <=20.5: tested_negative
+       'skin' = >20.5: tested_negative
+      'insu' = >79.8
+       'skin' = <=20.5: tested_negative
+       'skin' = >20.5: tested_negative
+  'age' = >33.2
+   'skin' = <=20.5
+    'insu' = <=79.8
+     'preg' = >3.8
+      'pres' = <=69.1: tested_positive
+      'pres' = >69.1
+       'pedi' = >0.5: tested_positive
+       'pedi' = <=0.5: tested_positive
+     'preg' = <=3.8
+      'pedi' = >0.5: tested_negative
+      'pedi' = <=0.5
+       'pres' = <=69.1: tested_positive
+       'pres' = >69.1: tested_positive
+    'insu' = >79.8: tested_negative
+   'skin' = >20.5
+    'preg' = >3.8
+     'pedi' = >0.5
+      'insu' = <=79.8: tested_positive
+      'insu' = >79.8
+       'pres' = <=69.1: tested_positive
+       'pres' = >69.1: tested_positive
+     'pedi' = <=0.5
+      'pres' = <=69.1: tested_positive
+      'pres' = >69.1
+       'insu' = <=79.8: tested_positive
+       'insu' = >79.8: tested_positive
+    'preg' = <=3.8
+     'pres' = <=69.1: tested_positive
+     'pres' = >69.1
+      'insu' = <=79.8
+       'pedi' = >0.5: tested_positive
+       'pedi' = <=0.5: tested_positive
+      'insu' = >79.8
+       'pedi' = >0.5: tested_positive
+       'pedi' = <=0.5: tested_positive
+ 'mass' = <=32.0
+  'preg' = >3.8
+   'pedi' = >0.5
+    'age' = <=33.2
+     'insu' = <=79.8: tested_positive
+     'insu' = >79.8
+      'skin' = <=20.5: tested_negative
+      'skin' = >20.5: tested_positive
+    'age' = >33.2
+     'insu' = <=79.8
+      'pres' = <=69.1: tested_positive
+      'pres' = >69.1
+       'skin' = <=20.5: tested_positive
+       'skin' = >20.5: tested_positive
+     'insu' = >79.8
+      'pres' = <=69.1
+       'skin' = <=20.5: tested_positive
+       'skin' = >20.5: tested_positive
+      'pres' = >69.1
+       'skin' = <=20.5: tested_positive
+       'skin' = >20.5: tested_positive
+   'pedi' = <=0.5
+    'skin' = <=20.5
+     'age' = <=33.2
+      'insu' = <=79.8
+       'pres' = <=69.1: tested_positive
+       'pres' = >69.1: tested_positive
+      'insu' = >79.8: tested_positive
+     'age' = >33.2
+      'insu' = <=79.8
+       'pres' = <=69.1: tested_positive
+       'pres' = >69.1: tested_positive
+      'insu' = >79.8: tested_negative
+    'skin' = >20.5
+     'insu' = <=79.8: tested_negative
+     'insu' = >79.8
+      'age' = <=33.2
+       'pres' = <=69.1: tested_negative
+       'pres' = >69.1: tested_negative
+      'age' = >33.2
+       'pres' = <=69.1: tested_positive
+       'pres' = >69.1: tested_positive
+  'preg' = <=3.8
+   'age' = <=33.2
+    'pres' = <=69.1
+     'insu' = <=79.8
+      'pedi' = >0.5
+       'skin' = <=20.5: tested_positive
+       'skin' = >20.5: tested_positive
+      'pedi' = <=0.5
+       'skin' = <=20.5: tested_negative
+       'skin' = >20.5: tested_negative
+     'insu' = >79.8
+      'skin' = <=20.5
+       'pedi' = >0.5: tested_negative
+       'pedi' = <=0.5: tested_negative
+      'skin' = >20.5: tested_negative
+    'pres' = >69.1
+     'skin' = <=20.5
+      'insu' = <=79.8
+       'pedi' = >0.5: tested_positive
+       'pedi' = <=0.5: tested_negative
+      'insu' = >79.8
+       'pedi' = >0.5: tested_positive
+       'pedi' = <=0.5: tested_positive
+     'skin' = >20.5
+      'pedi' = >0.5
+       'insu' = <=79.8: tested_positive
+       'insu' = >79.8: tested_negative
+      'pedi' = <=0.5
+       'insu' = <=79.8: tested_negative
+       'insu' = >79.8: tested_negative
+   'age' = >33.2
+    'skin' = <=20.5
+     'insu' = <=79.8
+      'pedi' = >0.5
+       'pres' = <=69.1: tested_negative
+       'pres' = >69.1: tested_positive
+      'pedi' = <=0.5
+       'pres' = <=69.1: tested_positive
+       'pres' = >69.1: tested_negative
+     'insu' = >79.8: tested_negative
+    'skin' = >20.5
+     'insu' = <=79.8
+      'pres' = <=69.1: tested_positive
+      'pres' = >69.1
+       'pedi' = >0.5: tested_positive
+       'pedi' = <=0.5: tested_positive
+     'insu' = >79.8: tested_positive
+'plas' = <=120.9
+ 'preg' = >3.8
+  'pedi' = >0.5
+   'insu' = <=79.8
+    'skin' = <=20.5
+     'mass' = >32.0: tested_negative
+     'mass' = <=32.0
+      'age' = <=33.2
+       'pres' = <=69.1: tested_negative
+       'pres' = >69.1: tested_positive
+      'age' = >33.2
+       'pres' = <=69.1: tested_negative
+       'pres' = >69.1: tested_negative
+    'skin' = >20.5
+     'age' = <=33.2
+      'mass' = >32.0: tested_negative
+      'mass' = <=32.0: tested_positive
+     'age' = >33.2
+      'mass' = >32.0
+       'pres' = <=69.1: tested_positive
+       'pres' = >69.1: tested_positive
+      'mass' = <=32.0
+       'pres' = <=69.1: tested_negative
+       'pres' = >69.1: tested_negative
+   'insu' = >79.8
+    'pres' = <=69.1
+     'mass' = >32.0: tested_positive
+     'mass' = <=32.0
+      'skin' = <=20.5
+       'age' = <=33.2: tested_positive
+       'age' = >33.2: tested_positive
+      'skin' = >20.5
+       'age' = <=33.2: tested_positive
+       'age' = >33.2: tested_positive
+    'pres' = >69.1: tested_positive
+  'pedi' = <=0.5
+   'insu' = <=79.8
+    'age' = <=33.2
+     'skin' = <=20.5
+      'pres' = <=69.1
+       'mass' = >32.0: tested_negative
+       'mass' = <=32.0: tested_negative
+      'pres' = >69.1
+       'mass' = >32.0: tested_negative
+       'mass' = <=32.0: tested_negative
+     'skin' = >20.5
+      'mass' = >32.0
+       'pres' = <=69.1: tested_negative
+       'pres' = >69.1: tested_negative
+      'mass' = <=32.0
+       'pres' = <=69.1: tested_negative
+       'pres' = >69.1: tested_negative
+    'age' = >33.2
+     'pres' = <=69.1
+      'mass' = >32.0
+       'skin' = <=20.5: tested_positive
+       'skin' = >20.5: tested_positive
+      'mass' = <=32.0
+       'skin' = <=20.5: tested_negative
+       'skin' = >20.5: tested_negative
+     'pres' = >69.1
+      'mass' = >32.0
+       'skin' = <=20.5: tested_negative
+       'skin' = >20.5: tested_negative
+      'mass' = <=32.0
+       'skin' = <=20.5: tested_negative
+       'skin' = >20.5: tested_negative
+   'insu' = >79.8
+    'age' = <=33.2: tested_negative
+    'age' = >33.2
+     'mass' = >32.0
+      'pres' = <=69.1: tested_negative
+      'pres' = >69.1
+       'skin' = <=20.5: tested_negative
+       'skin' = >20.5: tested_negative
+     'mass' = <=32.0: tested_negative
+ 'preg' = <=3.8
+  'mass' = >32.0
+   'pedi' = >0.5
+    'skin' = <=20.5
+     'age' = <=33.2
+      'insu' = <=79.8
+       'pres' = <=69.1: tested_negative
+       'pres' = >69.1: tested_negative
+      'insu' = >79.8
+       'pres' = <=69.1: tested_positive
+       'pres' = >69.1: tested_positive
+     'age' = >33.2: tested_negative
+    'skin' = >20.5
+     'age' = <=33.2
+      'insu' = <=79.8
+       'pres' = <=69.1: tested_negative
+       'pres' = >69.1: tested_negative
+      'insu' = >79.8
+       'pres' = <=69.1: tested_positive
+       'pres' = >69.1: tested_negative
+     'age' = >33.2
+      'insu' = <=79.8
+       'pres' = <=69.1: tested_positive
+       'pres' = >69.1: tested_positive
+      'insu' = >79.8: tested_negative
+   'pedi' = <=0.5
+    'age' = <=33.2
+     'skin' = <=20.5
+      'insu' = <=79.8
+       'pres' = <=69.1: tested_negative
+       'pres' = >69.1: tested_negative
+      'insu' = >79.8: tested_negative
+     'skin' = >20.5
+      'pres' = <=69.1
+       'insu' = <=79.8: tested_negative
+       'insu' = >79.8: tested_negative
+      'pres' = >69.1
+       'insu' = <=79.8: tested_negative
+       'insu' = >79.8: tested_negative
+    'age' = >33.2
+     'insu' = <=79.8
+      'skin' = <=20.5
+       'pres' = <=69.1: tested_negative
+       'pres' = >69.1: tested_negative
+      'skin' = >20.5: tested_negative
+     'insu' = >79.8: tested_positive
+  'mass' = <=32.0
+   'age' = <=33.2
+    'skin' = <=20.5
+     'pedi' = >0.5
+      'pres' = <=69.1
+       'insu' = <=79.8: tested_negative
+       'insu' = >79.8: tested_negative
+      'pres' = >69.1: tested_negative
+     'pedi' = <=0.5: tested_negative
+    'skin' = >20.5
+     'pedi' = >0.5: tested_negative
+     'pedi' = <=0.5
+      'pres' = <=69.1
+       'insu' = <=79.8: tested_negative
+       'insu' = >79.8: tested_negative
+      'pres' = >69.1
+       'insu' = <=79.8: tested_negative
+       'insu' = >79.8: tested_negative
+   'age' = >33.2
+    'pres' = <=69.1: tested_negative
+    'pres' = >69.1
+     'skin' = <=20.5
+      'insu' = <=79.8
+       'pedi' = >0.5: tested_positive
+       'pedi' = <=0.5: tested_positive
+      'insu' = >79.8: tested_negative
+     'skin' = >20.5: tested_negative

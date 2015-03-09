@@ -1,0 +1,11 @@
+patrons = full
+ hungry = yes
+  type = burger: yes
+  type = italian: no
+  type = thai
+   friday/saturday = yes: yes
+   friday/saturday = no: no
+  type = french: yes
+ hungry = no: no
+patrons = none: no
+patrons = some: yes

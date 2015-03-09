@@ -15,18 +15,19 @@ public class AttributeNode implements DecisionNode {
 		this.examples = examples;
 		branches = new HashMap<String, DecisionNode>();
 	}
-	
-	public Attribute getAttribute(){
+
+	public Attribute getAttribute() {
 		return attribute;
 	}
-	
-	public Collection<DecisionNode> getValueOfBranches(){
+
+	public Collection<DecisionNode> getValueOfBranches() {
 		return branches.values();
 	}
 
-	public HashMap<String, DecisionNode> getBranches(){
+	public HashMap<String, DecisionNode> getBranches() {
 		return branches;
 	}
+
 	public void addBranch(String value, DecisionNode node) {
 		branches.put(value, node);
 	}
@@ -42,9 +43,8 @@ public class AttributeNode implements DecisionNode {
 
 			printString.append(attribute.toString() + " = " + value);
 			DecisionNode node = branches.get(value);
-			String temp = null;
 			if (node.isTerminal()) {
-				printString.append(node.print(level)+"\n");
+				printString.append(node.print(level) + "\n");
 
 			} else {
 				printString.append("\n" + (node.print(level + 1)));
@@ -59,10 +59,7 @@ public class AttributeNode implements DecisionNode {
 	}
 
 	public ArrayList<Example> getExamples() {
-		// TODO Auto-generated method stub
 		return examples;
 	}
-
-
 
 }

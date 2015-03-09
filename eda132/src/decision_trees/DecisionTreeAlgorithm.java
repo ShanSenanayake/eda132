@@ -40,12 +40,10 @@ public class DecisionTreeAlgorithm {
 				double probability = ChiSquareDist.cdf(hypothesis.getBranches()
 						.size(), 4, deviation);
 				if (probability >= 0.95) {
-					System.out.println("WE prunded stuff " + hypothesis.getAttribute() + " " + probability);
 					return pluralityValue(hypothesis.getExamples());
 				} else {
 					return hypothesis;
 				}
-				// TODO: Check against chi^2 value for that branch.
 
 			} else {
 				AttributeNode newTree = new AttributeNode(
@@ -70,30 +68,9 @@ public class DecisionTreeAlgorithm {
 		ArrayList<Example> examples = node.getExamples();
 		HashMap<String, Integer> positives = new HashMap<String, Integer>();
 		HashMap<String, Integer> negatives = new HashMap<String, Integer>();
-		int totPos = 0;
-		for (Example ex : examples) {
-			int i = 1;
-			String value = ex.getValue(attr);
-			HashMap<String, Integer> tempMap;
-			if (ex.getGoal().getClassification()) {
-				tempMap = positives;
-				totPos++;
-			} else {
-				tempMap = negatives;
-			}
-			String key = attr.getKeyIfNumerical(value);
-			if (tempMap.containsKey(key)) {
-				i = tempMap.get(key);
-				i++;
-			}
-			tempMap.put(key, i);
-		}
-		// calcDeviation(attr,positives,negatives,totPos);
-	
-		// temp = Math.round(temp*1000)/1000.0;
-		// System.out.println(temp + " " + attr);
-		// gain.put(attr, temp);
-		return calcDeviation(attr,positives,negatives,totPos,examples.size());
+		int totPos = countExamples(attr, examples, positives, negatives);
+		return calcDeviation(attr, positives, negatives, totPos,
+				examples.size());
 	}
 
 	private double calcDeviation(Attribute attr,
@@ -121,26 +98,18 @@ public class DecisionTreeAlgorithm {
 	private DecisionNode decisionTreeLearning(ArrayList<Example> examples,
 			ArrayList<Attribute> attributes, ArrayList<Example> parentExamples) {
 		if (examples.isEmpty()) {
-			// System.out.println("in empty examples");
 			return pluralityValue(parentExamples);
 		} else if (hasSameGoals(examples)) {
-			// System.out.println("has same goals");
 			return new TerminalNode(examples.get(0).getGoal());
 		} else if (attributes.isEmpty()) {
-			// System.out.println("no attributes");
 			return pluralityValue(examples);
 		} else {
-			// System.out.println("making subtree");
 			Attribute attr = mostImporatant(attributes, examples);
-			// System.out.println(attr);
 			AttributeNode root = new AttributeNode(attr, examples);
 			for (String value : attr) {
-				// System.out.println(value);
 				ArrayList<Example> rootExamples = new ArrayList<Example>();
 				for (Example ex : examples) {
-					// System.out.println("examples:" + ex.getValue(attr));
 					if (attr.test(value, ex)) {
-						// if (value.equals(ex.getValue(attr))) {
 						rootExamples.add(ex);
 					}
 				}
@@ -164,7 +133,6 @@ public class DecisionTreeAlgorithm {
 		double max = -1;
 		Attribute attribute = null;
 		for (Attribute attr : attributes) {
-			// double temp = rel.getGain(attr);
 			double temp = calculateGain(attr, examples);
 			if (temp > max) {
 				attribute = attr;
@@ -206,33 +174,11 @@ public class DecisionTreeAlgorithm {
 	}
 
 	private double calculateGain(Attribute attr, ArrayList<Example> examples) {
-
 		HashMap<String, Integer> positives = new HashMap<String, Integer>();
 		HashMap<String, Integer> negatives = new HashMap<String, Integer>();
-		int totPos = 0;
-		for (Example ex : examples) {
-			int i = 1;
-			String value = ex.getValue(attr);
-			HashMap<String, Integer> tempMap;
-			if (ex.getGoal().getClassification()) {
-				tempMap = positives;
-				totPos++;
-			} else {
-				tempMap = negatives;
-			}
-			String key = attr.getKeyIfNumerical(value);
-			if (tempMap.containsKey(key)) {
-				i = tempMap.get(key);
-				i++;
-			}
-			tempMap.put(key, i);
-		}
-		// calcDeviation(attr,positives,negatives,totPos);
+		int totPos = countExamples(attr, examples, positives, negatives);
 		double temp = bFunc(totPos, examples.size() - totPos);
 		temp -= remainder(attr, positives, negatives, examples);
-		// temp = Math.round(temp*1000)/1000.0;
-		// System.out.println(temp + " " + attr);
-		// gain.put(attr, temp);
 		return temp;
 
 	}
@@ -242,9 +188,6 @@ public class DecisionTreeAlgorithm {
 			HashMap<String, Integer> negatives, ArrayList<Example> examples) {
 		Set<String> keys = attr.getValues();
 		double sum = 0;
-		// System.out.println(positives);
-		// System.out.println(negatives);
-		// System.out.println(positives.size() + " " + negatives.size());
 		for (String s : keys) {
 			int positive = positives.get(s) == null ? 0 : positives.get(s);
 			int negative = negatives.get(s) == null ? 0 : negatives.get(s);
@@ -263,5 +206,29 @@ public class DecisionTreeAlgorithm {
 			return Math.log(1) / Math.log(2);
 		}
 
+	}
+
+	public int countExamples(Attribute attr, ArrayList<Example> examples,
+			HashMap<String, Integer> positives,
+			HashMap<String, Integer> negatives) {
+		int totPos = 0;
+		for (Example ex : examples) {
+			int i = 1;
+			String value = ex.getValue(attr);
+			HashMap<String, Integer> tempMap;
+			if (ex.getGoal().getClassification()) {
+				tempMap = positives;
+				totPos++;
+			} else {
+				tempMap = negatives;
+			}
+			String key = attr.getKeyIfNumerical(value);
+			if (tempMap.containsKey(key)) {
+				i = tempMap.get(key);
+				i++;
+			}
+			tempMap.put(key, i);
+		}
+		return totPos;
 	}
 }

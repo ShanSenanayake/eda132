@@ -27,7 +27,7 @@
 % Comments on the results you have achieved.
 
 \section{Introduction}
-In this assignment we had to implement an algorithm that creates a decision tree based on some examples. This tree can then be used in supervised learning agents. One decision tree is created for one relation. A relation consists of a name, attributes that can take certain values and examples which state the classification for different combinations of values for the attributes.
+In this assignment we had to implement an algorithm that creates a decision tree based on examples from a dataset contained in Weka ARFF formatted files. This tree can then be used in supervised learning agents. One decision tree is created for one relation. A relation consists of a name, attributes that can take certain values and examples which state the classification for different combinations of values for the attributes.
 
 \section{Improvements}
 We have chosen to implement two of the three given improvements. Firstly we have implemented the pruning improvement because it seems as the most useful improvement to make. Secondly we have implemented the algorithm in such a way that it is possible to assign real values on the attributes instead of just enumerating different values allowed.
@@ -35,9 +35,15 @@ We have chosen to implement two of the three given improvements. Firstly we have
 The Weka ARFF format specifies several different types of values that each attribute can have. In our solution we only allow two types of values. These are numeric values (real and integral) and nominal values. Nominal values are an enumeration of values that the attribute may take.
 
 \section{Results}
-We ran our algorithm for three different example sets, the example in the book, the weather.nominal and diabetes example set found in the Weka data folder. The results are presented in Appendices \ref{18-3}, \ref{weather} and \ref{diabetes}.
+We ran our algorithm for three different example sets, the example in the book, the weather.nominal and diabetes example set found in the Weka data folder. The example sets and their results are presented in Appendices \ref{18-3}, \ref{weather} and \ref{diabetes}.
 
 \section{Discussion}
+We have implemented pruning according to how the book explains it. However we are unsure if it works as it should do. For the small weather example it prunes even though we think that it might be wrong and for the big diabetes set it only prunes a few things where we think it should prune more. Since we don't have any example set to verify our pruning procedure we really don't know if it is correct.
+
+We also ran into a strange problem when we during the pruning sent a \texttt{NaN} number in to the Chi Square distribution. We deduced that it were caused by the pruning algorithm trying to split combinations of values on the attributes that were not in example set which caused us to perform a zero by zero division. After this we believed that the pruning would work better but in practice it had only a very small effect.
+
+The second improvement to represent numerical values in the tree seems to work by giving each attribute only two values for them to take. This means that each node in the tree gets two child nodes which represents values etiher bigger or smaller than the split point. For the example we had to set the split point somehow. At first we hade the same split point for all attributes but we later chose to set a split point for each attribute. For the diatebes example set the split points are set to the mean values for each attribute.
+
 
 \section{Source Code}
 Our implementation is split across several classes each defined in it's own .java file In this section we will briefly explain what the different classes do and highlight the most interesting parts of each class.
@@ -87,13 +93,22 @@ the following command: \texttt{java decision\_tree.DecTreeMain}. The program req
 \appendix
 \section{Example 18-3}
 \label{18-3}
+The example set:
+\verbatiminput{arff18-3.txt}
+The results:
 \verbatiminput{result-18-3.txt}
 \section{weather.nominal}
 \label{weather}
+The example set:
+\verbatiminput{weather.nominal.arff}
+The results:
 \verbatiminput{result-weather.txt}
 
 \section{diabetes}
 \label{diabetes}
+The example set:
+\verbatiminput{diabetes.arff}
+The results:
 \verbatiminput{result-diabetes.txt}
 
 \end{document}
